@@ -1,0 +1,5 @@
+node_modules/
+src/app/
+.eslintrc.cjs
+vite.config.ts
+lint-staged.config.js
