@@ -51,6 +51,11 @@ namespace Coacher.Services
 
             user.Username = request.Username;
             user.PasswordHash = hashedPassword;
+            user.Role = "User";
+            user.FullName = request.FullName;
+            user.Phone = request.Phone;
+            user.Weight = request.Weight;
+            user.Height = request.Height;
 
             context.Users.Add(user);
             await context.SaveChangesAsync();

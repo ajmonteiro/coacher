@@ -4,10 +4,11 @@ namespace Coacher.Entities
 {
     public class Diet
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }  
-        public required string Name { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        [JsonIgnore]
+        public User? User { get; set; }
+        public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public ICollection<Meal> Meals { get; set; } = new List<Meal>();
     }
 }

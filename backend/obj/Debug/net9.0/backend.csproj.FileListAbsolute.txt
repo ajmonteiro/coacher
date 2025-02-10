@@ -182,3 +182,4 @@
 /Users/americomonteiro/Desktop/americo/projects/coacher/backend/bin/Debug/net9.0/Microsoft.CodeAnalysis.Razor.dll
 /Users/americomonteiro/Desktop/americo/projects/coacher/backend/bin/Debug/net9.0/Newtonsoft.Json.dll
 /Users/americomonteiro/Desktop/americo/projects/coacher/backend/bin/Debug/net9.0/Newtonsoft.Json.Bson.dll
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/obj/Debug/net9.0/backend.sourcelink.json

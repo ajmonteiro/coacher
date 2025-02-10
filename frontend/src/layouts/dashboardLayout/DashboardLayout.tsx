@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import Header from 'src/components/header/Header';
 import MainContainer from 'src/components/mainContainer/MainContainer';
@@ -6,7 +6,11 @@ import Sidebar from 'src/components/sidebar/Sidebar';
 
 import GlobalLayout from '../globalLayout/GlobalLayout';
 
-export default function DashboardLayout() {
+type DashboardLayoutProps = {
+	children: ReactNode
+};
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
 
 	return (
@@ -25,7 +29,7 @@ export default function DashboardLayout() {
 						<div className="flex h-full">
 							<Sidebar isSidebarOpen={isSidebarOpen} />
 							<MainContainer>
-								Yes
+								{ children }
 							</MainContainer>
 						</div>
 					</div>

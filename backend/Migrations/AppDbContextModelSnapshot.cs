@@ -19,9 +19,9 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Coacher.Entities.Diet", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -30,8 +30,8 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -42,9 +42,9 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Coacher.Entities.Food", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double?>("Calories")
                         .HasColumnType("REAL");
@@ -58,9 +58,6 @@ namespace backend.Migrations
                     b.Property<double?>("Fat")
                         .HasColumnType("REAL");
 
-                    b.Property<Guid?>("MealId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -69,21 +66,23 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MealId");
-
                     b.ToTable("Foods");
                 });
 
             modelBuilder.Entity("Coacher.Entities.Meal", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("DietId")
+                    b.Property<int>("DietId")
+                        .HasColumnType("INTEGER");
+
+                    b.PrimitiveCollection<string>("FoodIds")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -99,9 +98,9 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Coacher.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -143,44 +142,24 @@ namespace backend.Migrations
 
             modelBuilder.Entity("Coacher.Entities.Diet", b =>
                 {
-                    b.HasOne("Coacher.Entities.User", null)
-                        .WithMany("Diets")
+                    b.HasOne("Coacher.Entities.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Coacher.Entities.Food", b =>
-                {
-                    b.HasOne("Coacher.Entities.Meal", null)
-                        .WithMany("Foods")
-                        .HasForeignKey("MealId");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Coacher.Entities.Meal", b =>
                 {
                     b.HasOne("Coacher.Entities.Diet", "Diet")
-                        .WithMany("Meals")
+                        .WithMany()
                         .HasForeignKey("DietId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Diet");
-                });
-
-            modelBuilder.Entity("Coacher.Entities.Diet", b =>
-                {
-                    b.Navigation("Meals");
-                });
-
-            modelBuilder.Entity("Coacher.Entities.Meal", b =>
-                {
-                    b.Navigation("Foods");
-                });
-
-            modelBuilder.Entity("Coacher.Entities.User", b =>
-                {
-                    b.Navigation("Diets");
                 });
 #pragma warning restore 612, 618
         }

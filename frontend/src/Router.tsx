@@ -7,6 +7,8 @@ import Routes from './shared/routes/Routes';
 const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage'));
 const NotFoundPage = lazy(() => import('./pages/notFound/NotFoundPage'));
 const LoginPage = lazy(() => import('./pages/auth/login/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/auth/register/RegisterPage'));
+const UsersPage = lazy(() => import('./pages/users/UsersPage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -15,10 +17,28 @@ const AuthRouter = () => (
 		>
 			<LoginPage />
 		</Route>
+		<Route
+			path={Routes.AUTH.REGISTER.path}
+		>
+			<RegisterPage />
+		</Route>
 		<Navigate to={Routes.AUTH.LOGIN.get()} />
 	</Switch>
 );
 
+const DashboardRouter = () => (
+	<Switch>
+		<Route
+			path={Routes.DASHBOARD.MAIN.path}
+		>
+			<DashboardPage />
+		</Route>
+		<Route path={Routes.DASHBOARD.USERS.path}>
+			<UsersPage />
+		</Route>
+		<Navigate to={Routes.DASHBOARD.MAIN.get()} />
+	</Switch>
+);
 const Router: React.FC = () => {
 	return (
 		<Switch>
@@ -26,15 +46,7 @@ const Router: React.FC = () => {
 				<AuthRouter />
 			</Route>
 			<Route path={Routes.DASHBOARD.path}>
-				<DashboardPage />
-			</Route>
-			<Route
-				path="/"
-			>
-				<Navigate
-					replace={true}
-					to={Routes.DASHBOARD.get()}
-				/>
+				<DashboardRouter />
 			</Route>
 			<Route 
 				path="*"

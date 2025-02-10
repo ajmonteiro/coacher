@@ -2,13 +2,14 @@ namespace Coacher.Models
 {
     public class UserDto 
     {
-        public required string Username { get; set; }
-        public required string FullName { get; set; }
-        public required string Phone { get; set; }
-        public required string Password { get; set; }
-        public required string Weight { get; set; }
-        public required string Height { get; set; }
+        public int Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string Weight { get; set; } = string.Empty;
+        public string Height { get; set; } = string.Empty;
 
-        public string? Role { get; set; }
+        public string? Role { get; set; } = string.Empty;
     }
 }

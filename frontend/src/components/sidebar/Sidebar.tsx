@@ -5,6 +5,7 @@ import {
 	UsersIcon
 } from '@heroicons/react/24/solid';
 
+import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import SidebarSection from '../sidebarSection/sidebarSection/SidebarSection';
@@ -67,7 +68,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 					<div className="flex flex-col gap-3">
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
-							href="/"
+							href={Routes.DASHBOARD.USERS.get()}
 							icon={<UsersIcon />}
 							text={T.components.sidebar.users}
 						/>

@@ -25,6 +25,86 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 		htmlLanguage()
 	],
 	translations: {
+		pages: {
+			auth: {
+				login: {
+					title: {
+						pt: 'Login',
+						en: 'Login',
+						es: 'Iniciar sesión',
+						fr: 'Connexion'
+					},
+					submit: {
+						pt: 'Entrar',
+						en: 'Login',
+						es: 'Iniciar sesión',
+						fr: 'Connexion'
+					},
+					register: {
+						pt: 'Registar',
+						en: 'Register',
+						es: 'Registro',
+						fr: 'S\'inscrire'
+					}
+				},
+				register: {
+					login: {
+						pt: 'Entrar',
+						en: 'Login',
+						es: 'Iniciar sesión',
+						fr: 'Connexion'
+					},
+					title: {
+						pt: 'Registo',
+						en: 'Register',
+						es: 'Registro',
+						fr: 'S\'inscrire'
+					},
+					username: {
+						pt: 'Nome de utilizador',
+						en: 'Username',
+						es: 'Nombre de usuario',
+						fr: 'Nom d\'utilisateur'
+					},
+					fullName: {
+						pt: 'Nome completo',
+						en: 'Full name',
+						es: 'Nombre completo',
+						fr: 'Nom complet'
+					},
+					password: {
+						pt: 'Palavra-passe',
+						en: 'Password',
+						es: 'Contraseña',
+						fr: 'Mot de passe'
+					},
+					height: {
+						pt: 'Altura',
+						en: 'Height',
+						es: 'Altura',
+						fr: 'Taille'
+					},
+					weight: {
+						pt: 'Peso',
+						en: 'Weight',
+						es: 'Peso',
+						fr: 'Poids'
+					},
+					phone: {
+						pt: 'Telefone',
+						en: 'Phone',
+						es: 'Teléfono',
+						fr: 'Téléphone'
+					},
+					submit: {
+						pt: 'Registar',
+						en: 'Register',
+						es: 'Registro',
+						fr: 'S\'inscrire'
+					}
+				}
+			}
+		},
 		validations: {
 			optional: {
 				pt: 'opcional',
