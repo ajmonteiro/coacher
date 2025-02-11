@@ -1,5 +1,5 @@
 import { useForm } from '@resourge/react-form';
-import { number, object, string } from '@resourge/schema';
+import { object, string } from '@resourge/schema';
 
 import { TranslationInstance } from 'src/shared/translations/Translations';
 
