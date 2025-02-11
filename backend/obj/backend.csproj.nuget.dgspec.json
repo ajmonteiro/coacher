@@ -45,18 +45,6 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[13.0.1, )"
-            },
-            "GraphQL.Server.Transports.AspNetCore": {
-              "target": "Package",
-              "version": "[8.2.0, )"
-            },
-            "GraphQL.SystemTextJson": {
-              "target": "Package",
-              "version": "[8.3.1, )"
-            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.1, )"
@@ -82,14 +70,6 @@
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.1, )"
-            },
-            "Microsoft.IdentityModel.Tokens": {
-              "target": "Package",
-              "version": "[8.4.0, )"
-            },
-            "Scalar.AspNetCore": {
-              "target": "Package",
-              "version": "[2.0.12, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

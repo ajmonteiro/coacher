@@ -4,9 +4,9 @@ import FormControl from 'src/components/formControl/FormControl';
 import Input from 'src/components/input/Input';
 import AuthLayout from 'src/layouts/authLayout/AuthLayout';
 import Routes from 'src/shared/routes/Routes';
-import HttpBaseService from 'src/shared/services/HttpBaseService';
 import { useTranslation } from 'src/shared/translations/Translations';
 
+import RegisterPageApi from './RegisterPageApi';
 import { useRegisterModel } from './interfaces/RegisterModel';
 
 export default function RegisterPage() {
@@ -17,16 +17,16 @@ export default function RegisterPage() {
 	} = useRegisterModel();
 
 	const submit = handleSubmit(async (data) => {
-		const response = await HttpBaseService.post('/Auth/register', data.toModel());
+		const response = await RegisterPageApi.register(data);
 
 		console.log(response);
 	});
 
 	return (
-		<AuthLayout layoutTitle={T.pages.auth.register.title}>
+		<AuthLayout layoutTitle={'coacher. ' + T.pages.auth.register.title}>
 			<div className="bg-base-100 rounded-box shadow-xl p-5">
 				<div className="flex flex-col gap-5">
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col gap-2 max-h-[300px] py-5 overflow-y-scroll">
 						<FormControl
 							errors={getErrors('username')}
 							label={T.pages.auth.register.username}
@@ -35,6 +35,16 @@ export default function RegisterPage() {
 							<Input
 								{...field('username')}
 								error={hasError('username')}
+							/>
+						</FormControl>
+						<FormControl
+							errors={getErrors('password')}
+							label={T.pages.auth.register.password}
+							required
+						>
+							<Input
+								{...field('password')}
+								type="password"
 							/>
 						</FormControl>
 						<FormControl
@@ -75,16 +85,6 @@ export default function RegisterPage() {
 							<Input
 								error={hasError('height')}
 								{...field('height')}
-							/>
-						</FormControl>
-						<FormControl
-							errors={getErrors('password')}
-							label={T.pages.auth.register.password}
-							required
-						>
-							<Input
-								{...field('password')}
-								type="password"
 							/>
 						</FormControl>
 					</div>

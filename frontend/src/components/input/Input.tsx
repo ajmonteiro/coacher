@@ -3,11 +3,12 @@ type InputProps<T extends React.InputHTMLAttributes<HTMLInputElement>> = T & {
 	icon?: React.ReactNode
 	loading?: boolean
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+	type?: string
 	value?: string
 };
 export default function Input<T extends React.InputHTMLAttributes<HTMLInputElement>>(props: InputProps<T>) {
 	const {
-		className, error, onChange, value, icon, loading, ...rest 
+		className, error, onChange, value, icon, loading, type, ...rest 
 	} = props;
 
 	return (
@@ -17,6 +18,7 @@ export default function Input<T extends React.InputHTMLAttributes<HTMLInputEleme
 					${icon ? 'pr-10' : 'pr-0'}
 					${loading ? 'skeleton' : ''}
 					` + className}
+				type={type}
 				value={value ?? ''}
 				onChange={onChange}
 				{...rest}

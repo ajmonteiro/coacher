@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overflow-x: hidden !important;
+}
+
 .btn-primary-soft {
     @apply bg-primary-soft text-base-content border-0 hover:text-white;
   }

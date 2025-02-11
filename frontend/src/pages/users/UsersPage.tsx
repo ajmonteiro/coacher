@@ -1,33 +1,69 @@
-import { useFetch } from '@resourge/react-fetch';
+import { OrderByEnum } from '@resourge/react-fetch';
 
+import DataTable from 'src/components/dataTable/DataTable';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
+import { useAuthentication } from 'src/shared/auth/useAuthentication';
+import { useDataTable } from 'src/shared/hooks/useDataTable';
+import { useTranslation } from 'src/shared/translations/Translations';
 
 import UsersPageApi from './UsersPageApi';
 
 export default function UsersPage() {
-	const { data: users } = useFetch(async () => {
-		const users = await UsersPageApi.all();
-		return users.data;
-	}, {
-		deps: [],
-		initialState: []
+	const { T } = useTranslation();
+	const { user } = useAuthentication();
+	const {
+		rows, changePage, paginationData: pagination, deleteEntities
+	} = useDataTable({
+		entityClass: UsersPageApi,
+		orderColumn: 'username',
+		orderBy: OrderByEnum.ASC
 	});
 
-	console.log(users);
+	const hasUndeletableRows = (rows: any[]) => {
+		return rows.find((row) => row.id === user.id);
+	};
+
 	return (
 		<DashboardLayout>
-			<div className="flex flex-col gap-5 max-w-[150px]">
+			<div className="w-full h-full rounded-box">
 				{
-					users ? users.map((user: any) => (
-						<div
-							key={user.username}
-							className="bg-white shadow-xl rounded-box py-2 px-4"
-						>
-							<span className="text-xs text-base-content">
-								{ user.username }
-							</span>
-						</div>
-					)) : null 
+					rows.data ? (
+						<DataTable
+							changePage={changePage}
+							columns={[
+								{
+									columnName: 'id',
+									columnLabel: 'Id'
+								}, 
+								{
+									columnName: 'username',
+									columnLabel: T.pages.users.table.username
+								},
+								{
+									columnName: 'fullName',
+									columnLabel: T.pages.users.table.fullName
+								},
+								{
+									columnName: 'phone',
+									columnLabel: T.pages.users.table.phone
+								},
+								{
+									columnName: 'role',
+									columnLabel: T.pages.users.table.role
+								}
+							]}
+							data={rows.data}
+							deleteEntities={deleteEntities}
+							form={undefined}
+							formSubmission={function (): void {
+								throw new Error('Function not implemented.');
+							}}
+							paginationData={pagination}
+							primaryKey="id"
+							tableTitle={T.pages.users.table.tableTitle}
+							undeletableRows={hasUndeletableRows(rows.data) ? [user.id] : []}
+						/>
+					) : null 
 				}
 			</div>
 		</DashboardLayout>

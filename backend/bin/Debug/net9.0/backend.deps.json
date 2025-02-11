@@ -8,88 +8,16 @@
     ".NETCoreApp,Version=v9.0": {
       "backend/1.0.0": {
         "dependencies": {
-          "AutoMapper": "13.0.1",
-          "GraphQL.Server.Transports.AspNetCore": "8.2.0",
-          "GraphQL.SystemTextJson": "8.3.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "9.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
           "Microsoft.AspNetCore.Mvc": "2.3.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.0",
           "Microsoft.EntityFrameworkCore.Design": "9.0.1",
           "Microsoft.EntityFrameworkCore.Sqlite": "9.0.1",
-          "Microsoft.IdentityModel.Tokens": "8.4.0",
-          "Scalar.AspNetCore": "2.0.12",
           "Swashbuckle.AspNetCore": "7.2.0"
         },
         "runtime": {
           "backend.dll": {}
-        }
-      },
-      "AutoMapper/13.0.1": {
-        "dependencies": {
-          "Microsoft.Extensions.Options": "9.0.1"
-        },
-        "runtime": {
-          "lib/net6.0/AutoMapper.dll": {
-            "assemblyVersion": "13.0.0.0",
-            "fileVersion": "13.0.1.0"
-          }
-        }
-      },
-      "GraphQL/8.3.1": {
-        "dependencies": {
-          "GraphQL-Parser": "9.5.0",
-          "GraphQL.Analyzers": "8.3.1"
-        },
-        "runtime": {
-          "lib/net6.0/GraphQL.dll": {
-            "assemblyVersion": "8.3.1.0",
-            "fileVersion": "8.3.1.0"
-          }
-        }
-      },
-      "GraphQL-Parser/9.5.0": {
-        "runtime": {
-          "lib/net6.0/GraphQLParser.dll": {
-            "assemblyVersion": "9.5.0.0",
-            "fileVersion": "9.5.0.0"
-          }
-        }
-      },
-      "GraphQL.Analyzers/8.3.1": {},
-      "GraphQL.MicrosoftDI/8.2.1": {
-        "dependencies": {
-          "GraphQL": "8.3.1",
-          "Microsoft.Extensions.Options": "9.0.1"
-        },
-        "runtime": {
-          "lib/net5.0/GraphQL.MicrosoftDI.dll": {
-            "assemblyVersion": "8.2.1.0",
-            "fileVersion": "8.2.1.0"
-          }
-        }
-      },
-      "GraphQL.Server.Transports.AspNetCore/8.2.0": {
-        "dependencies": {
-          "GraphQL.MicrosoftDI": "8.2.1",
-          "GraphQL.SystemTextJson": "8.3.1"
-        },
-        "runtime": {
-          "lib/net8.0/GraphQL.Server.Transports.AspNetCore.dll": {
-            "assemblyVersion": "8.2.0.0",
-            "fileVersion": "8.2.0.0"
-          }
-        }
-      },
-      "GraphQL.SystemTextJson/8.3.1": {
-        "dependencies": {
-          "GraphQL": "8.3.1"
-        },
-        "runtime": {
-          "lib/net6.0/GraphQL.SystemTextJson.dll": {
-            "assemblyVersion": "8.3.1.0",
-            "fileVersion": "8.3.1.0"
-          }
         }
       },
       "Humanizer.Core/2.14.1": {
@@ -1035,17 +963,17 @@
           "Microsoft.Extensions.Options": "9.0.1"
         }
       },
-      "Microsoft.IdentityModel.Abstractions/8.4.0": {
+      "Microsoft.IdentityModel.Abstractions/8.0.1": {
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.Abstractions.dll": {
-            "assemblyVersion": "8.4.0.0",
-            "fileVersion": "8.4.0.60207"
+            "assemblyVersion": "8.0.1.0",
+            "fileVersion": "8.0.1.50722"
           }
         }
       },
       "Microsoft.IdentityModel.JsonWebTokens/8.0.1": {
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "8.4.0"
+          "Microsoft.IdentityModel.Tokens": "8.0.1"
         },
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
@@ -1054,20 +982,20 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Logging/8.4.0": {
+      "Microsoft.IdentityModel.Logging/8.0.1": {
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "8.4.0"
+          "Microsoft.IdentityModel.Abstractions": "8.0.1"
         },
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.Logging.dll": {
-            "assemblyVersion": "8.4.0.0",
-            "fileVersion": "8.4.0.60207"
+            "assemblyVersion": "8.0.1.0",
+            "fileVersion": "8.0.1.50722"
           }
         }
       },
       "Microsoft.IdentityModel.Protocols/8.0.1": {
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "8.4.0"
+          "Microsoft.IdentityModel.Tokens": "8.0.1"
         },
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.Protocols.dll": {
@@ -1088,15 +1016,14 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Tokens/8.4.0": {
+      "Microsoft.IdentityModel.Tokens/8.0.1": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "9.0.1",
-          "Microsoft.IdentityModel.Logging": "8.4.0"
+          "Microsoft.IdentityModel.Logging": "8.0.1"
         },
         "runtime": {
           "lib/net9.0/Microsoft.IdentityModel.Tokens.dll": {
-            "assemblyVersion": "8.4.0.0",
-            "fileVersion": "8.4.0.60207"
+            "assemblyVersion": "8.0.1.0",
+            "fileVersion": "8.0.1.50722"
           }
         }
       },
@@ -1148,14 +1075,6 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.2.22727"
-          }
-        }
-      },
-      "Scalar.AspNetCore/2.0.12": {
-        "runtime": {
-          "lib/net9.0/Scalar.AspNetCore.dll": {
-            "assemblyVersion": "2.0.12.0",
-            "fileVersion": "2.0.12.0"
           }
         }
       },
@@ -1415,7 +1334,7 @@
       "System.IdentityModel.Tokens.Jwt/8.0.1": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "8.0.1",
-          "Microsoft.IdentityModel.Tokens": "8.4.0"
+          "Microsoft.IdentityModel.Tokens": "8.0.1"
         },
         "runtime": {
           "lib/net9.0/System.IdentityModel.Tokens.Jwt.dll": {
@@ -1463,55 +1382,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "AutoMapper/13.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
-      "path": "automapper/13.0.1",
-      "hashPath": "automapper.13.0.1.nupkg.sha512"
-    },
-    "GraphQL/8.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-LZ2iZXAplM8fGlSM7sp1wRG8yfIILm6Yo0rKxr+8fdPsfz7jR4it0pBHUIiuy7YGL/JNNOGfayv2NZrBEYtsdw==",
-      "path": "graphql/8.3.1",
-      "hashPath": "graphql.8.3.1.nupkg.sha512"
-    },
-    "GraphQL-Parser/9.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-5XWJGKHdVi8pyD4P0EglmJmlXEGs0HzvGlEBf3+/Ve1jLYBBKIOkKvY0Ej17b9Kn1bbBxkrmghqbmsMbkLL1nQ==",
-      "path": "graphql-parser/9.5.0",
-      "hashPath": "graphql-parser.9.5.0.nupkg.sha512"
-    },
-    "GraphQL.Analyzers/8.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-HGuyIjw7AZkLpCPTL7mAHJROPrvvkUh9UEBPp037KTRUK7zLAyqkB7cJz/d8Wlk5rfEBiAgconBOGHuLm9D90g==",
-      "path": "graphql.analyzers/8.3.1",
-      "hashPath": "graphql.analyzers.8.3.1.nupkg.sha512"
-    },
-    "GraphQL.MicrosoftDI/8.2.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-4CU1K7+HEYc35vaWDf3FadUCaBuIMkeOqB7m88uOAmz3ZcreWwJsmkEAV8+fmO/BOP5qdyXBvcqRCp78EMnwpg==",
-      "path": "graphql.microsoftdi/8.2.1",
-      "hashPath": "graphql.microsoftdi.8.2.1.nupkg.sha512"
-    },
-    "GraphQL.Server.Transports.AspNetCore/8.2.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-MMz2BNKl7yQfeNFd2Z8QfrJmYJHrTcXP8FVepwgvN7HcN8ZUhV08vGqAol2LcKxlHJK7SY7oEPX5caefKyKOog==",
-      "path": "graphql.server.transports.aspnetcore/8.2.0",
-      "hashPath": "graphql.server.transports.aspnetcore.8.2.0.nupkg.sha512"
-    },
-    "GraphQL.SystemTextJson/8.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-53bwPYYHkdwb7nuaSp9Fvkxw2wTf/oRxFO3J/1rZsklo5HdyJmiOWfxohs1gbfk+fOQJwQvpsyLJTvhYAiYYAg==",
-      "path": "graphql.systemtextjson/8.3.1",
-      "hashPath": "graphql.systemtextjson.8.3.1.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",
@@ -2115,12 +1985,12 @@
       "path": "microsoft.extensions.webencoders/8.0.11",
       "hashPath": "microsoft.extensions.webencoders.8.0.11.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Abstractions/8.4.0": {
+    "Microsoft.IdentityModel.Abstractions/8.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4dDpw7DJ2yx2vFM/w0sceXoByUhrU68eMdlXyzsPTWPtAfgCbkuMl7jfLBLegmgerbOzGNMm7zq5xwr4+7yTSg==",
-      "path": "microsoft.identitymodel.abstractions/8.4.0",
-      "hashPath": "microsoft.identitymodel.abstractions.8.4.0.nupkg.sha512"
+      "sha512": "sha512-OtlIWcyX01olfdevPKZdIPfBEvbcioDyBiE/Z2lHsopsMD7twcKtlN9kMevHmI5IIPhFpfwCIiR6qHQz1WHUIw==",
+      "path": "microsoft.identitymodel.abstractions/8.0.1",
+      "hashPath": "microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512"
     },
     "Microsoft.IdentityModel.JsonWebTokens/8.0.1": {
       "type": "package",
@@ -2129,12 +1999,12 @@
       "path": "microsoft.identitymodel.jsonwebtokens/8.0.1",
       "hashPath": "microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Logging/8.4.0": {
+    "Microsoft.IdentityModel.Logging/8.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vIKIBDMD6l2MeCwkdeh1XHSHNVz9C/qp9PaHMG6SF3OUSAh/2XMVj2zaVc2hs27QRfhh5xR3tvMSs8R96WS2IA==",
-      "path": "microsoft.identitymodel.logging/8.4.0",
-      "hashPath": "microsoft.identitymodel.logging.8.4.0.nupkg.sha512"
+      "sha512": "sha512-UCPF2exZqBXe7v/6sGNiM6zCQOUXXQ9+v5VTb9gPB8ZSUPnX53BxlN78v2jsbIvK9Dq4GovQxo23x8JgWvm/Qg==",
+      "path": "microsoft.identitymodel.logging/8.0.1",
+      "hashPath": "microsoft.identitymodel.logging.8.0.1.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Protocols/8.0.1": {
       "type": "package",
@@ -2150,12 +2020,12 @@
       "path": "microsoft.identitymodel.protocols.openidconnect/8.0.1",
       "hashPath": "microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Tokens/8.4.0": {
+    "Microsoft.IdentityModel.Tokens/8.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-n/wBvhj7oq3rZyImUhkUv6bUjwPWK+jG1R3BsCfahLtwoOzIWSPLmzMQ61HCtd1BiCU43IdkX9M+cD1xMmE3xQ==",
-      "path": "microsoft.identitymodel.tokens/8.4.0",
-      "hashPath": "microsoft.identitymodel.tokens.8.4.0.nupkg.sha512"
+      "sha512": "sha512-kDimB6Dkd3nkW2oZPDkMkVHfQt3IDqO5gL0oa8WVy3OP4uE8Ij+8TXnqg9TOd9ufjsY3IDiGz7pCUbnfL18tjg==",
+      "path": "microsoft.identitymodel.tokens/8.0.1",
+      "hashPath": "microsoft.identitymodel.tokens.8.0.1.nupkg.sha512"
     },
     "Microsoft.Net.Http.Headers/2.3.0": {
       "type": "package",
@@ -2205,13 +2075,6 @@
       "sha512": "sha512-QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
       "path": "newtonsoft.json.bson/1.0.2",
       "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
-    },
-    "Scalar.AspNetCore/2.0.12": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kMunSAka+sqUakPLVxpXN/3FtvbAbm4zAbAAlC/8ODZpB6eZQaIl0G4Ynsx6HLn47lfiVIqP1ne69Dn/LdjQ0g==",
-      "path": "scalar.aspnetcore/2.0.12",
-      "hashPath": "scalar.aspnetcore.2.0.12.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
       "type": "package",

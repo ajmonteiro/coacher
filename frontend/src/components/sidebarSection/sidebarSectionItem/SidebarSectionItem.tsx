@@ -16,6 +16,7 @@ export default function SidebarSectionItem({
 	return (
 		<A
 			className={`w-full flex items-center justify-start px-4 btn btn-circle text-center
+				border-0
                 ${active ? 'font-bold bg-primary-soft text-primary' : 'font-semibold text-black'}
 				${!collapsed ? 'mx-auto pl-[0.75rem]' : ''}
 				`}
@@ -25,14 +26,16 @@ export default function SidebarSectionItem({
 			<div
 				className="flex items-center gap-3"
 			>
-				<span className="w-6 h-6">
+				<span className="w-6 h-6 text-base-content">
 					{ icon }
 				</span>
-				{
-					collapsed 
-						? text
-						: null 
-				}
+				<span className="text-xs font-semibold text-base-content">
+					{
+						collapsed 
+							? text
+							: null 
+					}
+				</span>
 			</div>
 		</A>
 

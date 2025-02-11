@@ -2,108 +2,6 @@
   "version": 3,
   "targets": {
     "net9.0": {
-      "AutoMapper/13.0.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Options": "6.0.0"
-        },
-        "compile": {
-          "lib/net6.0/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/AutoMapper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "GraphQL/8.3.1": {
-        "type": "package",
-        "dependencies": {
-          "GraphQL-Parser": "9.5.0",
-          "GraphQL.Analyzers": "8.3.1"
-        },
-        "compile": {
-          "lib/net6.0/GraphQL.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/GraphQL.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "GraphQL-Parser/9.5.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/GraphQLParser.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/GraphQLParser.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "GraphQL.Analyzers/8.3.1": {
-        "type": "package"
-      },
-      "GraphQL.MicrosoftDI/8.2.1": {
-        "type": "package",
-        "dependencies": {
-          "GraphQL": "[8.2.1, 9.0.0)",
-          "Microsoft.Extensions.Options": "2.0.0"
-        },
-        "compile": {
-          "lib/net5.0/GraphQL.MicrosoftDI.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/GraphQL.MicrosoftDI.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "GraphQL.Server.Transports.AspNetCore/8.2.0": {
-        "type": "package",
-        "dependencies": {
-          "GraphQL.MicrosoftDI": "[8.2.1, 9.0.0)",
-          "GraphQL.SystemTextJson": "[8.2.1, 9.0.0)"
-        },
-        "compile": {
-          "lib/net8.0/GraphQL.Server.Transports.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/GraphQL.Server.Transports.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
-      "GraphQL.SystemTextJson/8.3.1": {
-        "type": "package",
-        "dependencies": {
-          "GraphQL": "[8.3.1, 9.0.0)"
-        },
-        "compile": {
-          "lib/net6.0/GraphQL.SystemTextJson.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/GraphQL.SystemTextJson.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -1802,7 +1700,7 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Abstractions/8.4.0": {
+      "Microsoft.IdentityModel.Abstractions/8.0.1": {
         "type": "package",
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.Abstractions.dll": {
@@ -1831,10 +1729,10 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Logging/8.4.0": {
+      "Microsoft.IdentityModel.Logging/8.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "8.4.0"
+          "Microsoft.IdentityModel.Abstractions": "8.0.1"
         },
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.Logging.dll": {
@@ -1880,11 +1778,10 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Tokens/8.4.0": {
+      "Microsoft.IdentityModel.Tokens/8.0.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
-          "Microsoft.IdentityModel.Logging": "8.4.0"
+          "Microsoft.IdentityModel.Logging": "8.0.1"
         },
         "compile": {
           "lib/net9.0/Microsoft.IdentityModel.Tokens.dll": {
@@ -2004,22 +1901,6 @@
             "related": ".pdb;.xml"
           }
         }
-      },
-      "Scalar.AspNetCore/2.0.12": {
-        "type": "package",
-        "compile": {
-          "lib/net9.0/Scalar.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0/Scalar.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
         "type": "package",
@@ -2630,148 +2511,6 @@
     }
   },
   "libraries": {
-    "AutoMapper/13.0.1": {
-      "sha512": "/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
-      "type": "package",
-      "path": "automapper/13.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "automapper.13.0.1.nupkg.sha512",
-        "automapper.nuspec",
-        "icon.png",
-        "lib/net6.0/AutoMapper.dll",
-        "lib/net6.0/AutoMapper.xml"
-      ]
-    },
-    "GraphQL/8.3.1": {
-      "sha512": "LZ2iZXAplM8fGlSM7sp1wRG8yfIILm6Yo0rKxr+8fdPsfz7jR4it0pBHUIiuy7YGL/JNNOGfayv2NZrBEYtsdw==",
-      "type": "package",
-      "path": "graphql/8.3.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "README.md",
-        "graphql.8.3.1.nupkg.sha512",
-        "graphql.nuspec",
-        "lib/net5.0/GraphQL.dll",
-        "lib/net5.0/GraphQL.xml",
-        "lib/net6.0/GraphQL.dll",
-        "lib/net6.0/GraphQL.xml",
-        "lib/netstandard2.0/GraphQL.dll",
-        "lib/netstandard2.0/GraphQL.xml",
-        "lib/netstandard2.1/GraphQL.dll",
-        "lib/netstandard2.1/GraphQL.xml",
-        "logo.64x64.png"
-      ]
-    },
-    "GraphQL-Parser/9.5.0": {
-      "sha512": "5XWJGKHdVi8pyD4P0EglmJmlXEGs0HzvGlEBf3+/Ve1jLYBBKIOkKvY0Ej17b9Kn1bbBxkrmghqbmsMbkLL1nQ==",
-      "type": "package",
-      "path": "graphql-parser/9.5.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "graphql-parser.9.5.0.nupkg.sha512",
-        "graphql-parser.nuspec",
-        "lib/net6.0/GraphQLParser.dll",
-        "lib/net6.0/GraphQLParser.xml",
-        "lib/netstandard2.0/GraphQLParser.dll",
-        "lib/netstandard2.0/GraphQLParser.xml",
-        "lib/netstandard2.1/GraphQLParser.dll",
-        "lib/netstandard2.1/GraphQLParser.xml",
-        "logo.64x64.png"
-      ]
-    },
-    "GraphQL.Analyzers/8.3.1": {
-      "sha512": "HGuyIjw7AZkLpCPTL7mAHJROPrvvkUh9UEBPp037KTRUK7zLAyqkB7cJz/d8Wlk5rfEBiAgconBOGHuLm9D90g==",
-      "type": "package",
-      "path": "graphql.analyzers/8.3.1",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "README.md",
-        "analyzers/dotnet/cs/GraphQL.Analyzers.CodeFixes.dll",
-        "analyzers/dotnet/cs/GraphQL.Analyzers.dll",
-        "graphql.analyzers.8.3.1.nupkg.sha512",
-        "graphql.analyzers.nuspec",
-        "logo.64x64.png",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
-    "GraphQL.MicrosoftDI/8.2.1": {
-      "sha512": "4CU1K7+HEYc35vaWDf3FadUCaBuIMkeOqB7m88uOAmz3ZcreWwJsmkEAV8+fmO/BOP5qdyXBvcqRCp78EMnwpg==",
-      "type": "package",
-      "path": "graphql.microsoftdi/8.2.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "README.md",
-        "graphql.microsoftdi.8.2.1.nupkg.sha512",
-        "graphql.microsoftdi.nuspec",
-        "lib/net5.0/GraphQL.MicrosoftDI.dll",
-        "lib/net5.0/GraphQL.MicrosoftDI.xml",
-        "lib/netstandard2.0/GraphQL.MicrosoftDI.dll",
-        "lib/netstandard2.0/GraphQL.MicrosoftDI.xml",
-        "logo.64x64.png"
-      ]
-    },
-    "GraphQL.Server.Transports.AspNetCore/8.2.0": {
-      "sha512": "MMz2BNKl7yQfeNFd2Z8QfrJmYJHrTcXP8FVepwgvN7HcN8ZUhV08vGqAol2LcKxlHJK7SY7oEPX5caefKyKOog==",
-      "type": "package",
-      "path": "graphql.server.transports.aspnetcore/8.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "graphql.server.transports.aspnetcore.8.2.0.nupkg.sha512",
-        "graphql.server.transports.aspnetcore.nuspec",
-        "lib/net5.0/GraphQL.Server.Transports.AspNetCore.dll",
-        "lib/net5.0/GraphQL.Server.Transports.AspNetCore.xml",
-        "lib/net6.0/GraphQL.Server.Transports.AspNetCore.dll",
-        "lib/net6.0/GraphQL.Server.Transports.AspNetCore.xml",
-        "lib/net8.0/GraphQL.Server.Transports.AspNetCore.dll",
-        "lib/net8.0/GraphQL.Server.Transports.AspNetCore.xml",
-        "lib/netcoreapp2.1/GraphQL.Server.Transports.AspNetCore.dll",
-        "lib/netcoreapp2.1/GraphQL.Server.Transports.AspNetCore.xml",
-        "lib/netcoreapp3.1/GraphQL.Server.Transports.AspNetCore.dll",
-        "lib/netcoreapp3.1/GraphQL.Server.Transports.AspNetCore.xml",
-        "lib/netstandard2.0/GraphQL.Server.Transports.AspNetCore.dll",
-        "lib/netstandard2.0/GraphQL.Server.Transports.AspNetCore.xml",
-        "logo.64x64.png"
-      ]
-    },
-    "GraphQL.SystemTextJson/8.3.1": {
-      "sha512": "53bwPYYHkdwb7nuaSp9Fvkxw2wTf/oRxFO3J/1rZsklo5HdyJmiOWfxohs1gbfk+fOQJwQvpsyLJTvhYAiYYAg==",
-      "type": "package",
-      "path": "graphql.systemtextjson/8.3.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "README.md",
-        "graphql.systemtextjson.8.3.1.nupkg.sha512",
-        "graphql.systemtextjson.nuspec",
-        "lib/net5.0/GraphQL.SystemTextJson.dll",
-        "lib/net5.0/GraphQL.SystemTextJson.xml",
-        "lib/net6.0/GraphQL.SystemTextJson.dll",
-        "lib/net6.0/GraphQL.SystemTextJson.xml",
-        "lib/netcoreapp3.1/GraphQL.SystemTextJson.dll",
-        "lib/netcoreapp3.1/GraphQL.SystemTextJson.xml",
-        "lib/netstandard2.0/GraphQL.SystemTextJson.dll",
-        "lib/netstandard2.0/GraphQL.SystemTextJson.xml",
-        "lib/netstandard2.1/GraphQL.SystemTextJson.dll",
-        "lib/netstandard2.1/GraphQL.SystemTextJson.xml",
-        "logo.64x64.png"
-      ]
-    },
     "Humanizer.Core/2.14.1": {
       "sha512": "lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "type": "package",
@@ -5422,14 +5161,13 @@
         "microsoft.extensions.webencoders.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Abstractions/8.4.0": {
-      "sha512": "4dDpw7DJ2yx2vFM/w0sceXoByUhrU68eMdlXyzsPTWPtAfgCbkuMl7jfLBLegmgerbOzGNMm7zq5xwr4+7yTSg==",
+    "Microsoft.IdentityModel.Abstractions/8.0.1": {
+      "sha512": "OtlIWcyX01olfdevPKZdIPfBEvbcioDyBiE/Z2lHsopsMD7twcKtlN9kMevHmI5IIPhFpfwCIiR6qHQz1WHUIw==",
       "type": "package",
-      "path": "microsoft.identitymodel.abstractions/8.4.0",
+      "path": "microsoft.identitymodel.abstractions/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
         "lib/net462/Microsoft.IdentityModel.Abstractions.dll",
         "lib/net462/Microsoft.IdentityModel.Abstractions.xml",
         "lib/net472/Microsoft.IdentityModel.Abstractions.dll",
@@ -5442,7 +5180,7 @@
         "lib/net9.0/Microsoft.IdentityModel.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Abstractions.xml",
-        "microsoft.identitymodel.abstractions.8.4.0.nupkg.sha512",
+        "microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
         "microsoft.identitymodel.abstractions.nuspec"
       ]
     },
@@ -5469,14 +5207,13 @@
         "microsoft.identitymodel.jsonwebtokens.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Logging/8.4.0": {
-      "sha512": "vIKIBDMD6l2MeCwkdeh1XHSHNVz9C/qp9PaHMG6SF3OUSAh/2XMVj2zaVc2hs27QRfhh5xR3tvMSs8R96WS2IA==",
+    "Microsoft.IdentityModel.Logging/8.0.1": {
+      "sha512": "UCPF2exZqBXe7v/6sGNiM6zCQOUXXQ9+v5VTb9gPB8ZSUPnX53BxlN78v2jsbIvK9Dq4GovQxo23x8JgWvm/Qg==",
       "type": "package",
-      "path": "microsoft.identitymodel.logging/8.4.0",
+      "path": "microsoft.identitymodel.logging/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
         "lib/net462/Microsoft.IdentityModel.Logging.dll",
         "lib/net462/Microsoft.IdentityModel.Logging.xml",
         "lib/net472/Microsoft.IdentityModel.Logging.dll",
@@ -5489,7 +5226,7 @@
         "lib/net9.0/Microsoft.IdentityModel.Logging.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Logging.xml",
-        "microsoft.identitymodel.logging.8.4.0.nupkg.sha512",
+        "microsoft.identitymodel.logging.8.0.1.nupkg.sha512",
         "microsoft.identitymodel.logging.nuspec"
       ]
     },
@@ -5539,14 +5276,13 @@
         "microsoft.identitymodel.protocols.openidconnect.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Tokens/8.4.0": {
-      "sha512": "n/wBvhj7oq3rZyImUhkUv6bUjwPWK+jG1R3BsCfahLtwoOzIWSPLmzMQ61HCtd1BiCU43IdkX9M+cD1xMmE3xQ==",
+    "Microsoft.IdentityModel.Tokens/8.0.1": {
+      "sha512": "kDimB6Dkd3nkW2oZPDkMkVHfQt3IDqO5gL0oa8WVy3OP4uE8Ij+8TXnqg9TOd9ufjsY3IDiGz7pCUbnfL18tjg==",
       "type": "package",
-      "path": "microsoft.identitymodel.tokens/8.4.0",
+      "path": "microsoft.identitymodel.tokens/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
         "lib/net462/Microsoft.IdentityModel.Tokens.dll",
         "lib/net462/Microsoft.IdentityModel.Tokens.xml",
         "lib/net472/Microsoft.IdentityModel.Tokens.dll",
@@ -5559,7 +5295,7 @@
         "lib/net9.0/Microsoft.IdentityModel.Tokens.xml",
         "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll",
         "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.xml",
-        "microsoft.identitymodel.tokens.8.4.0.nupkg.sha512",
+        "microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
@@ -5711,23 +5447,6 @@
         "lib/netstandard2.0/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.2.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
-      ]
-    },
-    "Scalar.AspNetCore/2.0.12": {
-      "sha512": "kMunSAka+sqUakPLVxpXN/3FtvbAbm4zAbAAlC/8ODZpB6eZQaIl0G4Ynsx6HLn47lfiVIqP1ne69Dn/LdjQ0g==",
-      "type": "package",
-      "path": "scalar.aspnetcore/2.0.12",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "icon.png",
-        "lib/net8.0/Scalar.AspNetCore.dll",
-        "lib/net8.0/Scalar.AspNetCore.xml",
-        "lib/net9.0/Scalar.AspNetCore.dll",
-        "lib/net9.0/Scalar.AspNetCore.xml",
-        "scalar.aspnetcore.2.0.12.nupkg.sha512",
-        "scalar.aspnetcore.nuspec"
       ]
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.10": {
@@ -6700,17 +6419,12 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "AutoMapper >= 13.0.1",
-      "GraphQL.Server.Transports.AspNetCore >= 8.2.0",
-      "GraphQL.SystemTextJson >= 8.3.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 9.0.1",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 9.0.1",
       "Microsoft.AspNetCore.Mvc >= 2.3.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.1",
       "Microsoft.EntityFrameworkCore.Sqlite >= 9.0.1",
-      "Microsoft.IdentityModel.Tokens >= 8.4.0",
-      "Scalar.AspNetCore >= 2.0.12",
       "Swashbuckle.AspNetCore >= 7.2.0"
     ]
   },
@@ -6758,18 +6472,6 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "AutoMapper": {
-            "target": "Package",
-            "version": "[13.0.1, )"
-          },
-          "GraphQL.Server.Transports.AspNetCore": {
-            "target": "Package",
-            "version": "[8.2.0, )"
-          },
-          "GraphQL.SystemTextJson": {
-            "target": "Package",
-            "version": "[8.3.1, )"
-          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[9.0.1, )"
@@ -6795,14 +6497,6 @@
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[9.0.1, )"
-          },
-          "Microsoft.IdentityModel.Tokens": {
-            "target": "Package",
-            "version": "[8.4.0, )"
-          },
-          "Scalar.AspNetCore": {
-            "target": "Package",
-            "version": "[2.0.12, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

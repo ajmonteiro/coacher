@@ -26,17 +26,97 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 	],
 	translations: {
 		pages: {
+			foods: {
+				table: {
+					tableTitle: {
+						pt: 'Alimentos',
+						en: 'Foods',
+						es: 'Comida',
+						fr: 'Nourriture'
+					},
+					name: {
+						pt: 'Nome',
+						en: 'Name',
+						es: 'Nombre',
+						fr: 'Nom'
+					},
+					calories: {
+						pt: 'Calorias (100g)',
+						en: 'Calories (100g)',
+						es: 'Calorías (100g)',
+						fr: 'Calories (100g)'
+					},
+					protein: {
+						pt: 'Proteína',
+						en: 'Protein',
+						es: 'Proteína',
+						fr: 'Protéine'
+					},
+					carbs: {
+						pt: 'Hidratos de carbono',
+						en: 'Carbs',
+						es: 'Carbohidratos',
+						fr: 'Glucides'
+					},
+					fat: {
+						pt: 'Gordura',
+						en: 'Fat',
+						es: 'Grasa',
+						fr: 'Graisse'
+					}
+				}
+			},
+			users: {
+				table: {
+					tableTitle: {
+						pt: 'Utilizadores',
+						en: 'Users',
+						es: 'Usuarios',
+						fr: 'Utilisateurs'
+					},
+					username: {
+						pt: 'Nome de utilizador',
+						en: 'Username',
+						es: 'Nombre de usuario',
+						fr: 'Nom d\'utilisateur'
+					},
+					fullName: {
+						pt: 'Nome completo',
+						en: 'Full name',
+						es: 'Nombre completo',
+						fr: 'Nom complet'
+					},
+					phone: {
+						pt: 'Telefone',
+						en: 'Phone',
+						es: 'Teléfono',
+						fr: 'Téléphone'
+					},
+					role: {
+						pt: 'Função',
+						en: 'Role',
+						es: 'Rol',
+						fr: 'Rôle'
+					},
+					actions: {
+						pt: 'Ações',
+						en: 'Actions',
+						es: 'Acciones',
+						fr: 'Actions'
+					}
+				}
+			},
 			auth: {
 				login: {
 					title: {
-						pt: 'Login',
-						en: 'Login',
-						es: 'Iniciar sesión',
-						fr: 'Connexion'
+						pt: 'login',
+						en: 'login',
+						es: 'iniciar sesión',
+						fr: 'connexion'
 					},
 					submit: {
 						pt: 'Entrar',
-						en: 'Login',
+						en: 'login',
 						es: 'Iniciar sesión',
 						fr: 'Connexion'
 					},
@@ -55,10 +135,10 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 						fr: 'Connexion'
 					},
 					title: {
-						pt: 'Registo',
-						en: 'Register',
-						es: 'Registro',
-						fr: 'S\'inscrire'
+						pt: 'registo',
+						en: 'register',
+						es: 'registro',
+						fr: 's\'inscrire'
 					},
 					username: {
 						pt: 'Nome de utilizador',
@@ -117,9 +197,89 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				en: 'This field is required',
 				es: 'Este campo es obligatorio',
 				fr: 'Ce champ est obligatoire'
+			},
+			password: {
+				required: {
+					pt: 'A palavra-passe é obrigatória',
+					en: 'The password is required',
+					es: 'La contraseña es obligatoria',
+					fr: 'Le mot de passe est obligatoire'
+				},
+				invalid: {
+					pt: 'As palavras-passe não coincidem',
+					en: 'The passwords do not match',
+					es: 'Las contraseñas no coinciden',
+					fr: 'Les mots de passe ne correspondent pas'
+				}
 			}
 		},
 		components: {
+			modal: {
+				cancel: {
+					pt: 'Cancelar',
+					en: 'Cancel',
+					es: 'Cancelar',
+					fr: 'Annuler'
+				},
+				submit: {
+					pt: 'Submeter',
+					en: 'Submit',
+					es: 'Enviar',
+					fr: 'Soumettre'
+				}
+			},
+			data_table: {
+				new: {
+					pt: 'Novo',
+					en: 'New',
+					es: 'Nuevo',
+					fr: 'Nouveau'
+				},
+				no_results: {
+					pt: 'Não foram encontrados resultados',
+					en: 'No results found',
+					es: 'No se encontraron resultados',
+					fr: 'Aucun résultat trouvé'
+				},
+				results: {
+					pt: 'resultados',
+					en: 'results',
+					es: 'resultados',
+					fr: 'résultats'
+				},
+				delete: {
+					pt: 'Apagar',
+					en: 'Delete',
+					es: 'Eliminar',
+					fr: 'Supprimer'
+				}
+			},
+			table: {
+				previous: {
+					pt: 'Anterior',
+					en: 'Previous',
+					es: 'Anterior',
+					fr: 'Précédent'
+				},
+				next: {
+					pt: 'Seguinte',
+					en: 'Next',
+					es: 'Siguiente',
+					fr: 'Suivant'
+				},
+				page: {
+					pt: 'Página',
+					en: 'Page',
+					es: 'Página',
+					fr: 'Page'
+				},
+				noResults: {
+					pt: 'Não foram encontrados resultados',
+					en: 'No results found',
+					es: 'No se encontraron resultados',
+					fr: 'Aucun résultat trouvé'
+				}
+			},
 			sidebar: {
 				users: {
 					pt: 'Utilizadores',

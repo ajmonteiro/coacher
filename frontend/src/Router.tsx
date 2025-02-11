@@ -2,6 +2,7 @@ import { lazy } from 'react';
 
 import { Navigate, Route, Switch } from '@resourge/react-router';
 
+import AuthorizedRoute from './components/routes/authorizedRoute/AuthorizedRoute';
 import Routes from './shared/routes/Routes';
 
 const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage'));
@@ -9,6 +10,8 @@ const NotFoundPage = lazy(() => import('./pages/notFound/NotFoundPage'));
 const LoginPage = lazy(() => import('./pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/auth/register/RegisterPage'));
 const UsersPage = lazy(() => import('./pages/users/UsersPage'));
+const FoodPage = lazy(() => import('./pages/food/FoodPage'));
+const UserProfilePage = lazy(() => import('./pages/userProfile/UserProfilePage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -28,14 +31,20 @@ const AuthRouter = () => (
 
 const DashboardRouter = () => (
 	<Switch>
-		<Route
+		<AuthorizedRoute
 			path={Routes.DASHBOARD.MAIN.path}
 		>
 			<DashboardPage />
-		</Route>
-		<Route path={Routes.DASHBOARD.USERS.path}>
+		</AuthorizedRoute>
+		<AuthorizedRoute path={Routes.DASHBOARD.USERS.path}>
 			<UsersPage />
-		</Route>
+		</AuthorizedRoute>
+		<AuthorizedRoute path={Routes.DASHBOARD.FOOD.path}>
+			<FoodPage />
+		</AuthorizedRoute>
+		<AuthorizedRoute path={Routes.DASHBOARD.USER_PROFILE.path}>
+			<UserProfilePage />
+		</AuthorizedRoute>
 		<Navigate to={Routes.DASHBOARD.MAIN.get()} />
 	</Switch>
 );
@@ -45,9 +54,9 @@ const Router: React.FC = () => {
 			<Route path={Routes.AUTH.path}>
 				<AuthRouter />
 			</Route>
-			<Route path={Routes.DASHBOARD.path}>
+			<AuthorizedRoute path={Routes.DASHBOARD.path}>
 				<DashboardRouter />
-			</Route>
+			</AuthorizedRoute>
 			<Route 
 				path="*"
 			>

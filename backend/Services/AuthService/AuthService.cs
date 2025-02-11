@@ -29,6 +29,18 @@ namespace Coacher.Services
             return await CreateTokenResponse(user);
         }
 
+        public async Task LogoutAsync(LogoutRequestDto request)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.RefreshToken == request.RefreshToken);
+
+            if (user != null)
+            {
+                user.RefreshToken = null;
+                user.RefreshTokenExpiryTime = null;
+                await context.SaveChangesAsync();
+            }
+        }
+
         private async Task<TokenResponseDto> CreateTokenResponse(User? user)
         {
             return new TokenResponseDto

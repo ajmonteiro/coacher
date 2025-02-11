@@ -2,6 +2,7 @@ using Coacher.Entities;
 using Coacher.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Coacher.Controllers
 {
@@ -11,12 +12,14 @@ namespace Coacher.Controllers
     {
         public Diet Diet { get; set; } = new Diet();
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Diet>> GetDiets()
         {
             return context.Diets;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<Diet> GetDiet(int id)
         {
@@ -26,6 +29,7 @@ namespace Coacher.Controllers
             return Diet;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Diet>> CreateDiet(Diet Diet)
         {
@@ -34,6 +38,7 @@ namespace Coacher.Controllers
             return Ok(Diet);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<Diet>> UpdateDiet(int id, Diet Diet)
         {
@@ -44,6 +49,7 @@ namespace Coacher.Controllers
             return Ok(Diet);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Diet>> DeleteDiet(int id)
         {

@@ -1,14 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 
+import { ArrowRightEndOnRectangleIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Bars3Icon } from '@heroicons/react/24/solid';
+import { useNavigate } from '@resourge/react-router';
 
+import { useAuthentication } from 'src/shared/auth/useAuthentication';
+import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import Button from '../button/Button';
-import FormControl from '../formControl/FormControl';
-import Input from '../input/Input';
-
-import { useFreeSearchModel } from './interfaces/FreeSearchModel';
 
 type HeaderProps = {
 	isSidebarOpen: boolean
@@ -16,7 +16,8 @@ type HeaderProps = {
 };
 
 export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
-	const { field } = useFreeSearchModel();
+	const { logout, user } = useAuthentication();
+	const navigate = useNavigate();
 	const {
 		language, languages, changeLanguage 
 	} = useTranslation();
@@ -42,32 +43,31 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 	};
 
 	return (
-		<header
-			className="flex justify-between items-center gap-4 w-full bg-white py-10 fixed container z-[9999] h-[3rem] transition-all duration-300"
+		<div
+			className="flex justify-between items-center gap-4 bg-base-100 py-10 sticky z-[9999] h-[3rem] transition-all duration-300"
 		>
-			<div className={`flex justify-between items-center text-base-content ${isSidebarOpen ? 'lg:basis-[330px] basis-1' : 'basis-[95px] w-[95px] justify-center pl-5'} transition-all duration-300`}> 
-				{ ' ' }
-				{ /* Transition added here */ }
+			<div
+				className={`flex justify-between items-center text-base-content 
+				transition-all duration-300`}
+				style={{
+					width: isSidebarOpen ? '250px' : '90px', 
+					paddingLeft: isSidebarOpen ? '0px' : '1.25rem'
+				}}
+			> 
 				{
 					isSidebarOpen ? (
-						<span className="text-md font-bold text-base-content lg:flex hidden">COACHER APP</span>
+						<span className="text-md font-bold text-base-content lg:flex hidden">coacher.</span>
 					) : null 
 				}
 				<Button
-					className="w-12 h-12 btn-circle font-bold btn-primary-soft" // Removed conditional class
+					className="w-12 h-12 btn-circle font-bold btn-primary-soft"
 					size="sm"
 					onClick={setSidebarOpen}
 				>
 					<Bars3Icon className="w-6 h-6" />
 				</Button>
 			</div>
-			<div className="flex-1 flex items-center justify-between w-full gap-5">
-				<FormControl
-					className="w-full"
-					hasRequiredLabel={false}
-				>
-					<Input {...field('search')} />
-				</FormControl>
+			<div className="flex-1 flex items-center justify-end w-full gap-5">
 				<div className="relative">
 					<Button
 						className="btn-primary-soft btn-circle text-white"
@@ -80,7 +80,7 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 						isDropdownOpen ? (
 							<div
 								ref={dropdownRef}
-								className="shadow-lg menu dropdown-content gap-3 bg-white w-fit absolute top-full right-0"
+								className="shadow-lg menu dropdown-content gap-3 bg-base-100 w-fit absolute top-full right-0"
 							>
 								{
 									languages.map((lang) => (
@@ -101,14 +101,28 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 						) : null 
 					}
 				</div>
-
-				<Button
-					className="font-bold btn-primary-soft btn-circle text-white lg:flex hidden"
-					size="md"
-				>
-					U
-				</Button>
+				<details className="dropdown">
+					<summary className="btn btn-sm m-1">
+						<UserIcon className="w-4 h-4" />
+					</summary>
+					<div className="menu dropdown-content bg-base-100 shadow-lg rounded-box right-0 flex flex-col gap-2">
+						<div className="flex items-center gap-3 p-3">
+							<UserIcon className="w-4 h-4" />
+							<span className="font-semibold text-md">{ user.username }</span>
+						</div>
+						<Button
+							className="flex items-center"
+							onClick={() => {
+								logout();
+								navigate(Routes.AUTH.LOGIN.get());
+							}}
+						>
+							<ArrowRightEndOnRectangleIcon className="w-4 h-4" />
+							<span>Logout</span>
+						</Button>
+					</div>
+				</details>
 			</div>
-		</header>
+		</div>
 	);
 }

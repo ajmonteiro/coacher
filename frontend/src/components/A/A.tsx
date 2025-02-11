@@ -32,7 +32,7 @@ export default function A<T extends React.AnchorHTMLAttributes<HTMLAnchorElement
 			size = ' btn-xs';
 			break;
 		default:
-			size = ' btn-md';
+			size = ' btn-sm';
 			break;
 	}
 

@@ -2,6 +2,7 @@ using Coacher.Entities;
 using Coacher.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Coacher.Controllers
 {
@@ -11,12 +12,29 @@ namespace Coacher.Controllers
     {
         public Food food { get; set; } = new Food();
 
+        [Authorize]
         [HttpGet]
-        public ActionResult<IEnumerable<Food>> GetFoods()
+        public async Task<ActionResult<object>> GetFoods(int page = 1, int perPage = 10)
         {
-            return context.Foods;
+             if (page < 1 || perPage < 1)
+                return BadRequest("Page and perPage must be greater than 0.");
+
+            var totalItems = await context.Foods.CountAsync();
+            var foods = await context.Foods
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .ToListAsync();
+
+            return Ok(new
+            {
+                TotalItems = totalItems,
+                PerPage = perPage,
+                Page = page,
+                Data = foods
+            });
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<Food> GetFood(int id)
         {
@@ -26,6 +44,7 @@ namespace Coacher.Controllers
             return food;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Food>> CreateFood(Food food)
         {
@@ -34,6 +53,7 @@ namespace Coacher.Controllers
             return Ok(food);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<Food>> UpdateFood(int id, Food food)
         {
@@ -44,6 +64,7 @@ namespace Coacher.Controllers
             return Ok(food);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Food>> DeleteFood(int id)
         {

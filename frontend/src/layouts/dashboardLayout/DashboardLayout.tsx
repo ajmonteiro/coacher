@@ -1,5 +1,6 @@
 import { type ReactNode, useState } from 'react';
 
+import Footer from 'src/components/footer/Footer';
 import Header from 'src/components/header/Header';
 import MainContainer from 'src/components/mainContainer/MainContainer';
 import Sidebar from 'src/components/sidebar/Sidebar';
@@ -15,25 +16,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
 	return (
 		<GlobalLayout>
-			<div className="min-h-screen w-screen">
-				<div className="flex flex-col container">
+			<div className="min-h-screen flex flex-col">
+				<div className="flex flex-col flex-grow container mx-auto">
 					<Header
 						isSidebarOpen={isSidebarOpen}
-						setSidebarOpen={() => {
-							setIsSidebarOpen(!isSidebarOpen);
-						}}
+						setSidebarOpen={() => setIsSidebarOpen(!isSidebarOpen)}
 					/>
-					<div
-						className="h-[calc(100vh-4rem)] mt-10"
-					>
-						<div className="flex h-full">
-							<Sidebar isSidebarOpen={isSidebarOpen} />
-							<MainContainer>
-								{ children }
-							</MainContainer>
-						</div>
+					<div className="flex h-full flex-grow container mx-auto">
+						<Sidebar isSidebarOpen={isSidebarOpen} />
+						<MainContainer>
+							{ children }
+						</MainContainer>
 					</div>
 				</div>
+				<Footer />
 			</div>
 		</GlobalLayout>
 	);

@@ -1,26 +1,33 @@
+import { useFetch } from '@resourge/react-fetch';
+import { useNavigate } from '@resourge/react-router';
+
 import A from 'src/components/A/A';
 import Button from 'src/components/button/Button';
 import FormControl from 'src/components/formControl/FormControl';
 import Input from 'src/components/input/Input';
 import AuthLayout from 'src/layouts/authLayout/AuthLayout';
+import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import Routes from 'src/shared/routes/Routes';
-import HttpBaseService from 'src/shared/services/HttpBaseService';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import { useLoginModel } from './interfaces/LoginModel';
 
 export default function LoginPage() {
+	const { login } = useAuthentication();
 	const { T } = useTranslation(); 
 	const { field, handleSubmit } = useLoginModel();
+	const navigate = useNavigate();
+
+	const { fetch: loginFetch } = useFetch((email: string, password: string) => login(email, password));
 
 	const submit = handleSubmit(async (data) => {
-		const response = await HttpBaseService.post('/Auth/login', data.toModel());
+		await loginFetch(data.username, data.password);
 
-		console.log(response);
+		navigate(Routes.DASHBOARD.MAIN.get());
 	});
 
 	return (
-		<AuthLayout layoutTitle={T.pages.auth.login.title}>
+		<AuthLayout layoutTitle={'coacher. ' + T.pages.auth.login.title}>
 			<div className="bg-base-100 rounded-box shadow-xl p-5">
 				<div className="flex flex-col gap-5">
 					<div className="flex flex-col gap-2">
@@ -50,7 +57,6 @@ export default function LoginPage() {
 					{ T.pages.auth.login.submit }	
 				</Button>
 				<A
-					className="w-full"
 					href={Routes.AUTH.REGISTER.get()}
 				>
 					{ T.pages.auth.login.register }	

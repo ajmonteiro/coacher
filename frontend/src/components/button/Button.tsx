@@ -15,8 +15,8 @@ export default function Button<T extends React.ButtonHTMLAttributes<HTMLButtonEl
 		className, children, variant = 'primary', icon, ...otherProps
 	} = props;
 
-	const sizeClass = props.size === 'sm' ? 'btn-sm' : props.size === 'lg' ? 'btn-lg' : 'btn-md';
-	const variantClass = variant === 'primary' ? 'btn-primary' : 'bg-white border border-primary text-primary hover:bg-base-100 hover:border-primary';
+	const sizeClass = props.size === 'sm' ? 'btn-sm' : props.size === 'lg' ? 'btn-lg' : 'btn-sm';
+	const variantClass = variant === 'primary' ? 'btn-primary' : 'bg-base-100 border border-primary text-primary hover:bg-base-100 hover:border-primary';
 
 	return (
 		<button

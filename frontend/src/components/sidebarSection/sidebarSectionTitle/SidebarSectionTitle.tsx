@@ -13,7 +13,7 @@ export default function SidebarSectionTitle({
 				collapsed 
 					? (
 						<>
-							<h2 className="text-base-content text-sm font-bold">{ title }</h2>
+							<h2 className="text-base-content text-xs font-bold">{ title }</h2>
 							{
 								description 
 									? <span className="text-xs font-thin text-base-content">{ description }</span>	

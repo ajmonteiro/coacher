@@ -39,5 +39,17 @@ namespace Coacher.Controllers
 
             return Ok(result);
         }
+
+      [HttpPost("logout")]
+        public async Task<ActionResult> Logout([FromBody] LogoutRequestDto request)
+        {
+            if (request == null || string.IsNullOrEmpty(request.RefreshToken))
+            {
+                return BadRequest("Refresh token is required.");
+            }
+
+            await authService.LogoutAsync(request);
+            return Ok(); // Or NoContent()
+        }
     }
 }
