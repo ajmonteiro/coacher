@@ -40,6 +40,33 @@ namespace backend.Migrations
                     b.ToTable("Diets");
                 });
 
+            modelBuilder.Entity("Coacher.Entities.Exercise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Video")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("WorkoutId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("Exercises");
+                });
+
             modelBuilder.Entity("Coacher.Entities.Food", b =>
                 {
                     b.Property<int>("Id")
@@ -140,6 +167,51 @@ namespace backend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Coacher.Entities.Workout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("Coacher.Entities.WorkoutExercise", b =>
+                {
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Reps")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Sets")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("WorkoutId", "ExerciseId");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("WorkoutExercises");
+                });
+
             modelBuilder.Entity("Coacher.Entities.Diet", b =>
                 {
                     b.HasOne("Coacher.Entities.User", "User")
@@ -151,6 +223,13 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Coacher.Entities.Exercise", b =>
+                {
+                    b.HasOne("Coacher.Entities.Workout", null)
+                        .WithMany("Exercises")
+                        .HasForeignKey("WorkoutId");
+                });
+
             modelBuilder.Entity("Coacher.Entities.Meal", b =>
                 {
                     b.HasOne("Coacher.Entities.Diet", "Diet")
@@ -160,6 +239,46 @@ namespace backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Diet");
+                });
+
+            modelBuilder.Entity("Coacher.Entities.Workout", b =>
+                {
+                    b.HasOne("Coacher.Entities.User", "User")
+                        .WithMany("Workouts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Coacher.Entities.WorkoutExercise", b =>
+                {
+                    b.HasOne("Coacher.Entities.Exercise", "Exercise")
+                        .WithMany()
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Coacher.Entities.Workout", "Workout")
+                        .WithMany()
+                        .HasForeignKey("WorkoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("Workout");
+                });
+
+            modelBuilder.Entity("Coacher.Entities.User", b =>
+                {
+                    b.Navigation("Workouts");
+                });
+
+            modelBuilder.Entity("Coacher.Entities.Workout", b =>
+                {
+                    b.Navigation("Exercises");
                 });
 #pragma warning restore 612, 618
         }

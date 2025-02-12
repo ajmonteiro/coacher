@@ -1,20 +1,24 @@
 import { OrderByEnum } from '@resourge/react-fetch';
+import { useNavigate } from '@resourge/react-router';
 
 import DataTable from 'src/components/dataTable/DataTable';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
+import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
-import UsersPageApi from './UsersPageApi';
+import ClientsPageApi from './ClientsPageApi';
 
-export default function UsersPage() {
+export default function ClientsPage() {
 	const { T } = useTranslation();
 	const { user } = useAuthentication();
+	const navigate = useNavigate();
+	
 	const {
 		rows, changePage, paginationData: pagination, deleteEntities
 	} = useDataTable({
-		entityClass: UsersPageApi,
+		entityClass: ClientsPageApi,
 		orderColumn: 'username',
 		orderBy: OrderByEnum.ASC
 	});
@@ -32,35 +36,32 @@ export default function UsersPage() {
 							changePage={changePage}
 							columns={[
 								{
-									columnName: 'id',
-									columnLabel: 'Id'
-								}, 
-								{
 									columnName: 'username',
-									columnLabel: T.pages.users.table.username
+									columnLabel: T.pages.clients.table.username
 								},
 								{
 									columnName: 'fullName',
-									columnLabel: T.pages.users.table.fullName
+									columnLabel: T.pages.clients.table.fullName
 								},
 								{
 									columnName: 'phone',
-									columnLabel: T.pages.users.table.phone
+									columnLabel: T.pages.clients.table.phone
 								},
 								{
 									columnName: 'role',
-									columnLabel: T.pages.users.table.role
+									columnLabel: T.pages.clients.table.role
 								}
 							]}
 							data={rows.data}
 							deleteEntities={deleteEntities}
-							form={undefined}
-							formSubmission={function (): void {
-								throw new Error('Function not implemented.');
-							}}
+							goToEntity={(id: string) => navigate(Routes.DASHBOARD.USER_PROFILE.get({
+								searchParams: {
+									userId: id
+								}
+							}))}
 							paginationData={pagination}
 							primaryKey="id"
-							tableTitle={T.pages.users.table.tableTitle}
+							tableTitle={T.pages.clients.table.tableTitle}
 							undeletableRows={hasUndeletableRows(rows.data) ? [user.id] : []}
 						/>
 					) : null 

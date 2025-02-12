@@ -7,8 +7,8 @@ type AuthLayoutProps = {
 
 export default function AuthLayout({ children, layoutTitle }: AuthLayoutProps) {
 	return (
-		<div className="flex justify-center items-center m-10 rounded-box overflow-hidden shadow-lg">
-			<div className="flex lg:flex-row flex-col w-full">
+		<div className="flex justify-center items-center m-10 rounded-box overflow-hidden shadow-md">
+			<div className="flex lg:flex-row flex-col w-full bg-secondary-soft">
 				<div
 					className="basis-[50%] w-full h-[] bg-cover bg-center opacity-0.5 lg:flex hidden"
 					style={{
@@ -19,9 +19,7 @@ export default function AuthLayout({ children, layoutTitle }: AuthLayoutProps) {
 				<div
 					className="flex flex-col basis-[50%] lg:max-w-[600px] w-full px-4 justify-center items-center mx-auto gap-3"
 				>
-					<div className="bg-base-100 rounded-box shadow-xl p-5 w-full">	
-						<span className="text-xl font-bold">{ layoutTitle }</span>
-					</div>
+					<span className="text-xl font-bold">{ layoutTitle }</span>
 					<div className="w-full">
 						{ children }
 					</div>

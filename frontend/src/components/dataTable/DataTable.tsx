@@ -11,6 +11,7 @@ import { FolderArrowDownIcon } from '@heroicons/react/24/outline';
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import { useTranslation } from 'src/shared/translations/Translations';
 
+import A from '../A/A';
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
   
@@ -18,6 +19,7 @@ type ColumnsType = {
 	columnName: string
 	columnFormat?: 'date'
 	columnLabel?: string
+	columnType?: 'normal' | 'link'
 };
 
 type DataTableProps = {
@@ -25,8 +27,6 @@ type DataTableProps = {
 	columns: ColumnsType[]
 	data: any[]
 	deleteEntities: (items: string[]) => Promise<void>
-	form: ReactNode
-	formSubmission: () => void
 	paginationData: {
 		page: number
 		perPage: number
@@ -34,8 +34,14 @@ type DataTableProps = {
 		totalPages: number
 	}
 	tableTitle: string
+	deleteAllowed?: boolean
 	entityCreationTitle?: string
+	form?: ReactNode
+	formSubmission?: () => void
+	fullWidthTable?: boolean
+	goToEntity?: (id: string) => void
 	primaryKey?: string
+	triggerModal?: boolean
 	undeletableRows?: string[]
 };
 
@@ -50,7 +56,11 @@ export default function DataTable({
 	entityCreationTitle,
 	primaryKey,
 	form,
-	undeletableRows
+	undeletableRows,
+	deleteAllowed = true,
+	fullWidthTable = false,
+	goToEntity,
+	triggerModal = false
 }: DataTableProps) {
 	const { T } = useTranslation();
 	const [globalSelected, setGlobalSelected] = useState(false);
@@ -84,46 +94,61 @@ export default function DataTable({
 			setSelectedRows([]);
 		}
 	}, [globalSelected, data, primaryKey]);
+
+	useEffect(() => {
+		if (triggerModal && modalRef.current) {
+			modalRef.current.showModal();
+		}
+	}, [triggerModal]);
 	
 	return (
-		<div className="flex flex-col pt-11 pb-4 md:px-9  gap-7">
-			<Modal
-				ref={modalRef}
-				modalTitle={T.components.data_table.new}
-				onClose={() => {
-					handleCloseModal();
-				}}
-				onSubmit={() => {
-					formSubmission();
-					handleCloseModal();
-				}}
-			>
-				{ form }
-			</Modal>
+		<div className={`flex flex-col ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7`}>
+			{
+				form && formSubmission ? (
+					<Modal
+						ref={modalRef}
+						modalTitle={T.components.data_table.new}
+						onClose={() => {
+							handleCloseModal();
+						}}
+						onSubmit={async () => {
+							// eslint-disable-next-line @typescript-eslint/await-thenable
+							await formSubmission();
+							handleCloseModal();
+						}}
+					>
+						{ form }
+					</Modal>
+				) : null 
+			}
 			<div className="flex justify-between">
 				<span className="text-2xl text-base-content font-bold">
 					{ tableTitle }
 				</span>
-				<div>
-					<Button 
-						className="btn-ghost"
-						icon={<FolderArrowDownIcon />}
-						onClick={() => {
-							if (modalRef.current) {
-								modalRef.current.showModal();
-							}
-						}}
-					>
-						{ entityCreationTitle ?? T.components.data_table.new }
-					</Button>
-				</div>
+				{
+					form && formSubmission ? (
+						<div>
+							<Button 
+								className="btn-ghost"
+								icon={<FolderArrowDownIcon />}
+								onClick={() => {
+									if (modalRef.current) {
+										modalRef.current.showModal();
+									}
+								}}
+							>
+								{ entityCreationTitle ?? T.components.data_table.new }
+							</Button>
+						</div>
+					) : null 
+				}
 			</div>
 			<div className="">
 				<table className="table ring-1 ring-t-0 ring-base-300 bg-base-100">
 					<thead>
 						<tr>
 							{
-								primaryKey ? (
+								primaryKey && deleteAllowed ? (
 									<th>
 										<input 
 											className="checkbox"
@@ -176,25 +201,70 @@ export default function DataTable({
 									{
 										primaryKey && !undeletableRows?.includes(row[primaryKey])
 											? (
-												<td>
-													<input
-														checked={selectedRows.includes(row[primaryKey])}
-														className="checkbox"
-														type="checkbox"
-														onChange={() => handleCheckboxChange(row[primaryKey])}
-													/>
-												</td>
+												deleteAllowed && (
+													<td>
+														<input
+															checked={selectedRows.includes(row[primaryKey])}
+															className="checkbox"
+															type="checkbox"
+															onChange={() => handleCheckboxChange(row[primaryKey])}
+														/>
+													</td>
+												)
 											)
 											: <td /> 
 									}
 									{
-										columns.map((fieldName, keyIndex) => (
-											<td
-												key={keyIndex}
-											>
-												{ row[fieldName.columnName] }
-											</td>	
-										)) 
+										columns.map((fieldName, keyIndex) => {
+											const [first, second] = fieldName.columnName.split('.');
+
+											if (second) {
+												return (
+													<td
+														key={keyIndex}
+														className="text-xs"
+														onClick={() => {
+															if (primaryKey && goToEntity) {
+																goToEntity(row[primaryKey]);
+															}	
+														}}
+													>
+														{
+															row[first] ? row[first][second] : ''
+														}
+													</td>
+												);
+											}
+
+											return (
+												<td
+													key={keyIndex} 
+													className="text-xs"
+													onClick={() => {
+														if (primaryKey && goToEntity) {
+															goToEntity(row[primaryKey]);
+														}	
+													}}
+												>
+													{
+														fieldName.columnType === 'link' ? (
+															<A
+																className="text-xs"
+																href={row[fieldName.columnName]}
+																rel="noreferrer"
+																target="_blank"
+																variant="navlink"
+															>
+																{ row[fieldName.columnName] }
+															</A>
+														)
+															: (
+																row[fieldName.columnName]
+															) 
+													}
+												</td>	
+											);
+										})
 									}
 								</tr>
 							)) 

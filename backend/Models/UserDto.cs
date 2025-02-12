@@ -9,7 +9,8 @@ namespace Coacher.Models
         public string Password { get; set; } = string.Empty;
         public string Weight { get; set; } = string.Empty;
         public string Height { get; set; } = string.Empty;
-
         public string? Role { get; set; } = string.Empty;
+        public List<WorkoutDto> Workouts { get; set; } = new();
+
     }
 }

@@ -1,5 +1,6 @@
 using Coacher.Entities;
 using Coacher.Data;
+using Coacher.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,13 +38,57 @@ namespace Coacher.Controllers
         }
 
         [Authorize]
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        [HttpGet("options")]
+        public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetUserOptions()
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user is null)
+            var users = await context.Users
+                .Select(e => new SelectItemDto { label = e.FullName, value = e.Id })
+                .ToListAsync();
+
+            return Ok(users);
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetUser(int id)
+        {
+            var user = await _context.Users
+                .Include(u => u.Workouts)
+                    .ThenInclude(w => w.WorkoutExercises)
+                        .ThenInclude(we => we.Exercise)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
                 return NotFound();
-            return user;
+            }
+
+            var userDto = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                FullName = user.FullName,
+                Phone = user.Phone,
+                Weight = user.Weight,
+                Height = user.Height,
+                Role = user.Role,
+                Workouts = user.Workouts.Select(w => new WorkoutDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    Description = w.Description,
+                    UserId = w.UserId,
+                    Exercises = w.WorkoutExercises.Select(we => new ExerciseInWorkoutDto
+                    {
+                        ExerciseId = we.ExerciseId,
+                        Name = we.Exercise.Name,
+                        Sets = we.Sets,
+                        Reps = we.Reps
+                    }).ToList()
+                }).ToList()
+            };
+
+            return Ok(userDto);
         }
 
         [HttpGet("me")]

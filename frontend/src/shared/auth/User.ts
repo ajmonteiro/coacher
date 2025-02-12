@@ -8,6 +8,7 @@ type UserType = BaseUserType & {
 	role: string
 	username: string
 	weight: string
+	workouts: any[]
 };
 
 export class User implements BaseUserType {
@@ -18,6 +19,7 @@ export class User implements BaseUserType {
 	public role: string = '';
 	public weight: string = '';
 	public height: string = '';
+	public workouts: any[] = [];
 	public isAuthenticated?: boolean | undefined;
 
 	constructor(data?: UserType) {
@@ -30,6 +32,7 @@ export class User implements BaseUserType {
 			this.username = data.username;
 			this.weight = data.weight;
 			this.id = data.id;
+			this.workouts = data.workouts;
 		}
 	}
 }

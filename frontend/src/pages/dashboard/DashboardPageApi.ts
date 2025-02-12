@@ -4,6 +4,7 @@ type DashboardDataResponse = {
 	data: {
 		totalFoods: number
 		totalUsers: number
+		Users: any
 	}
 };
 

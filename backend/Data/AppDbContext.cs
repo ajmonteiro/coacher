@@ -9,6 +9,10 @@ namespace Coacher.Data
         public DbSet<Diet> Diets { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<Food> Foods { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
+
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -16,7 +20,15 @@ namespace Coacher.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        
+            modelBuilder.Entity<Workout>()
+                .HasOne(w => w.User)
+                .WithMany(u => u.Workouts)
+                .HasForeignKey(w => w.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Workouts)
+                .WithOne(w => w.User)
+                .HasForeignKey(w => w.UserId);
         }
     }
 }

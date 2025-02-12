@@ -45,9 +45,9 @@ export default {
         "pure-white": "#ffffff",
 
         // Soft Variants for a Premium Look
-        "primary-soft": "rgba(201, 154, 63, 0.1)",   // Gold soft
-        "secondary-soft": "rgba(236, 236, 236, 0.1)", // Cool Gray soft
-        "accent-soft": "rgba(0, 86, 179, 0.1)",      // Royal Blue soft
+        "primary-soft": "rgba(201, 154, 63, 0.1)",
+        "secondary-soft": "rgba(236, 236, 236, 0.1)",
+        "accent-soft": "rgba(0, 86, 179, 0.1)",
         "base-neutral": "#f2f2f2"
       },
     },

@@ -26,8 +26,192 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 	],
 	translations: {
 		pages: {
+			workouts: {
+				table: {
+					addExercise: {
+						pt: 'Adicionar Exercício',
+						en: 'Add Exercise',
+						es: 'Añadir ejercicio',
+						fr: 'Ajouter un exercice'
+					},
+					removeExercise: {
+						pt: 'Remover Exercício',
+						en: 'Remove Exercise',
+						es: 'Eliminar ejercicio',
+						fr: 'Supprimer l\'exercice'
+					},
+					tableTitle: {
+						pt: 'Treinos',
+						en: 'Workouts',
+						es: 'Entrenamientos',
+						fr: 'Entraînements'
+					},
+					exercise: {
+						pt: 'Exercício',
+						en: 'Exercise',
+						es: 'Ejercicio',
+						fr: 'Exercice'
+					},
+					reps: {
+						pt: 'Repetições',
+						en: 'Reps',
+						es: 'Repeticiones',
+						fr: 'Répétitions'
+					},
+					sets: {
+						pt: 'Séries',
+						en: 'Sets',
+						es: 'Series',
+						fr: 'Ensembles'
+					},
+					name: {
+						pt: 'Nome',
+						en: 'Name',
+						es: 'Nombre',
+						fr: 'Nom'
+					},
+					description: {
+						pt: 'Descrição',
+						en: 'Description',
+						es: 'Descripción',
+						fr: 'Description'
+					},
+					user: {
+						pt: 'Utilizador',
+						en: 'User',
+						es: 'Usuario',
+						fr: 'Utilisateur'
+					}
+				}
+			},
+			userProfile: {
+				createWorkout: {
+					pt: 'Criar Treino',
+					en: 'Create Workout',
+					es: 'Crear entrenamiento',
+					fr: 'Créer un entraînement'
+				},
+				noWorkouts: {
+					pt: 'Este utilizador não tem treinos',
+					en: 'This user has no workouts',
+					es: 'Este usuario no tiene entrenamientos',
+					fr: 'Cet utilisateur n\'a pas d\'entraînements'
+				},
+				title: {
+					pt: 'Perfil de Utilizador',
+					en: 'User Profile',
+					es: 'Perfil de usuario',
+					fr: 'Profil utilisateur'
+				},
+				username: {
+					pt: 'Nome de utilizador',
+					en: 'Username',
+					es: 'Nombre de usuario',
+					fr: 'Nom d\'utilisateur'
+				},
+				fullName: {
+					pt: 'Nome completo',
+					en: 'Full name',
+					es: 'Nombre completo',
+					fr: 'Nom complet'
+				},
+				phone: {
+					pt: 'Telefone',
+					en: 'Phone',
+					es: 'Teléfono',
+					fr: 'Téléphone'
+				},
+				role: {
+					pt: 'Função',
+					en: 'Role',
+					es: 'Rol',
+					fr: 'Rôle'
+				},
+				weight: {
+					pt: 'Peso',
+					en: 'Weight',
+					es: 'Peso',
+					fr: 'Poids'
+				},
+				height: {
+					pt: 'Altura',
+					en: 'Height',
+					es: 'Altura',
+					fr: 'Taille'
+				},
+				workouts: {
+					pt: 'Treinos',
+					en: 'Workouts',
+					es: 'Entrenamientos',
+					fr: 'Entraînements'
+				}
+			},
+			exercises: {
+				table: {
+					addExercise: {
+						pt: 'Adicionar Exercício',
+						en: 'Add Exercise',
+						es: 'Añadir ejercicio',
+						fr: 'Ajouter un exercice'
+					},
+					tableTitle: {
+						pt: 'Exercícios',
+						en: 'Exercises',
+						es: 'Ejercicios',
+						fr: 'Exercices'
+					},
+					exercise: {
+						pt: 'Exercício',
+						en: 'Exercise',
+						es: 'Ejercicio',
+						fr: 'Exercice'
+					},
+					name: {
+						pt: 'Nome',
+						en: 'Name',
+						es: 'Nombre',
+						fr: 'Nom'
+					},
+					description: {
+						pt: 'Descrição',
+						en: 'Description',
+						es: 'Descripción',
+						fr: 'Description'
+					},
+					sets: {
+						pt: 'Séries',
+						en: 'Sets',
+						es: 'Series',
+						fr: 'Ensembles'
+					},
+					reps: {
+						pt: 'Repetições',
+						en: 'Reps',
+						es: 'Repeticiones',
+						fr: 'Répétitions'
+					},
+					video: {
+						pt: 'Vídeo',
+						en: 'Video',
+						es: 'Vídeo',
+						fr: 'Vidéo'
+					}
+				}
+			},
 			foods: {
 				table: {
+					food: {
+						pt: 'Alimento',
+						en: 'Food',
+						es: 'Comida',
+						fr: 'Nourriture'
+					},
+					addFood: {
+						pt: 'Adicionar Alimento',
+						en: 'Add Food',
+						es: 'Añadir comida',
+						fr: 'Ajouter de la nourriture'
+					},
 					tableTitle: {
 						pt: 'Alimentos',
 						en: 'Foods',
@@ -66,19 +250,19 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					}
 				}
 			},
-			users: {
+			clients: {
 				table: {
 					tableTitle: {
-						pt: 'Utilizadores',
-						en: 'Users',
-						es: 'Usuarios',
-						fr: 'Utilisateurs'
+						pt: 'Clientes',
+						en: 'Clients',
+						es: 'Clientes',
+						fr: 'Clients'
 					},
 					username: {
-						pt: 'Nome de utilizador',
-						en: 'Username',
-						es: 'Nombre de usuario',
-						fr: 'Nom d\'utilisateur'
+						pt: 'Nome de cliente',
+						en: 'Client name',
+						es: 'Nombre del cliente',
+						fr: 'Nom du client'
 					},
 					fullName: {
 						pt: 'Nome completo',
@@ -186,6 +370,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		validations: {
+			unique: {
+				pt: 'Este campo tem de ser único',
+				en: 'This field	has to be unique',
+				es: 'Este campo tiene que ser único',
+				fr: 'Ce champ doit être unique'
+			},
 			optional: {
 				pt: 'opcional',
 				en: 'optional',
@@ -214,6 +404,70 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		components: {
+			searchableInput: {
+				noOptions: {
+					pt: 'Sem opções',
+					en: 'No options',
+					es: 'Sin opciones',
+					fr: 'Pas d\'options'
+				},
+				placeholder: {
+					pt: 'Pesquisar...',
+					en: 'Search...',
+					es: 'Buscar...',
+					fr: 'Chercher...'
+				},
+				cancel: {
+					pt: 'Cancelar',
+					en: 'Cancel',
+					es: 'Cancelar',
+					fr: 'Annuler'
+				}
+			},
+			select: {
+				noOptions: {
+					pt: 'Sem opções',
+					en: 'No options',
+					es: 'Sin opciones',
+					fr: 'Pas d\'options'
+				}
+			},
+			languagePicker: {
+				languages: {
+					pt: {
+						en: 'Inglês',
+						pt: 'Português',
+						es: 'Espanhol',
+						fr: 'Francês'
+					},
+					en: {
+						en: 'English',
+						pt: 'Portuguese',
+						es: 'Spanish',
+						fr: 'French'
+					},
+					es: {
+						en: 'Inglés',
+						pt: 'Portugués',
+						es: 'Español',
+						fr: 'Francés'
+					},
+					fr: {
+						en: 'Anglais',
+						pt: 'Portugais',
+						es: 'Espagnol',
+						fr: 'Français'
+					}
+				}
+			},
+			header: {
+				welcome: {
+					pt: 'Bem-vindo',
+					en: 'Welcome',
+					es: 'Bienvenido',
+					fr: 'Bienvenue'
+				}
+			},
 			modal: {
 				cancel: {
 					pt: 'Cancelar',
@@ -281,6 +535,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			sidebar: {
+				clients: {
+					pt: 'Clientes',
+					en: 'Clients',
+					es: 'Clientes',
+					fr: 'Clients'
+				},
 				users: {
 					pt: 'Utilizadores',
 					en: 'Users',
@@ -311,17 +571,29 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					es: 'Páginas',
 					fr: 'Pages'
 				},
+				entities: {
+					pt: 'Entidades',
+					en: 'Entities',
+					es: 'Entidades',
+					fr: 'Entités'
+				},
+				workouts: {
+					pt: 'Treinos',
+					en: 'Workouts',
+					es: 'Entrenamientos',
+					fr: 'Entraînements'
+				},
 				nutritionPlans: {
 					pt: 'Planos de Nutrição',
 					en: 'Nutrition Plans',
 					es: 'Planes de Nutrición',
 					fr: 'Plans de nutrition'
 				},
-				fitnessPlans: {
-					pt: 'Planos de Fitness',
-					en: 'Fitness Plans',
-					es: 'Planes de Fitness',
-					fr: 'Plans de fitness'
+				exercises: {
+					pt: 'Exercícios',
+					en: 'Exercises',
+					es: 'Ejercicios',
+					fr: 'Exercices'
 				},
 				food: {
 					pt: 'Alimentos',

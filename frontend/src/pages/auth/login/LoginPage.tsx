@@ -1,7 +1,6 @@
 import { useFetch } from '@resourge/react-fetch';
 import { useNavigate } from '@resourge/react-router';
 
-import A from 'src/components/A/A';
 import Button from 'src/components/button/Button';
 import FormControl from 'src/components/formControl/FormControl';
 import Input from 'src/components/input/Input';
@@ -27,8 +26,8 @@ export default function LoginPage() {
 	});
 
 	return (
-		<AuthLayout layoutTitle={'coacher. ' + T.pages.auth.login.title}>
-			<div className="bg-base-100 rounded-box shadow-xl p-5">
+		<AuthLayout layoutTitle="coacher.">
+			<div className="bg-base-100 rounded-box shadow-md flex flex-col gap-5 p-5 max-w-[400px] mx-auto">
 				<div className="flex flex-col gap-5">
 					<div className="flex flex-col gap-2">
 						<FormControl
@@ -48,19 +47,12 @@ export default function LoginPage() {
 						</FormControl>
 					</div>
 				</div>
-			</div>
-			<div className="bg-base-100 rounded-box shadow-lg p-5 flex flex-col gap-2">
 				<Button
 					className="w-full"
 					onClick={submit}
 				>
 					{ T.pages.auth.login.submit }	
 				</Button>
-				<A
-					href={Routes.AUTH.REGISTER.get()}
-				>
-					{ T.pages.auth.login.register }	
-				</A>
 			</div>
 		</AuthLayout>
 	);

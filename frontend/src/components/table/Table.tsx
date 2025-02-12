@@ -20,7 +20,7 @@ export default function Table({
 	const { T } = useTranslation();
 	return (
 		<>		
-			<div className="overflow-x-auto bg-base-100 shadow-lg rounded-box">
+			<div className="overflow-x-auto bg-base-100 shadow-md rounded-box">
 				<table className="table table-bordered border-1 w-full">
 					<thead className="bg-base-100">
 						<tr>

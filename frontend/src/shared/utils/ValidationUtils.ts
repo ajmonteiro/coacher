@@ -26,3 +26,22 @@ export const confirmPassword = string()
 	return [];
 })
 .required(TranslationInstance.K.validations.password.required);
+
+export const validateExercises = (exercises: any[]) => {
+	const seenExercises = new Set<string>();
+	const errors: Record<string, string> = {};
+
+	exercises.forEach((exercise, index) => {
+		if (exercise.exercise && exercise.exercise.value) {
+			const exerciseValue = exercise.exercise.value.toString();
+			if (seenExercises.has(exerciseValue)) {
+				errors[`exercises[${index}].exercise`] = TranslationInstance.K.validations.unique;
+			}
+			else {
+				seenExercises.add(exerciseValue);
+			}
+		}
+	});
+
+	return Object.keys(errors).length > 0 ? errors : null;
+};

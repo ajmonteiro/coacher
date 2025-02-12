@@ -16,11 +16,13 @@ namespace Coacher.Controllers
         {
             var totalUsers = await context.Users.CountAsync();
             var totalFoods = await context.Foods.CountAsync();
+            var users = await context.Users.ToListAsync();
 
             return Ok(new
             {
                 TotalUsers = totalUsers,
                 TotalFoods = totalFoods,
+                Users = users
             });
         }
     }

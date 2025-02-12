@@ -26,7 +26,9 @@ const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 			<dialog
 				ref={ref}
 				className={`fixed left-0 modal modal-bottom md:w-fit w-screen 
-					md:min-w-[456px] min-w-screen
+					md:min-w-[756px] min-w-screen
+					max-h-[80vh]
+					overflow-y-scroll
 					h-fit mb:mt-0 mt-auto md:m-auto m-0
 					overflow-visible
 					bg-white rounded-box p-6`}

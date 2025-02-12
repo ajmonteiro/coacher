@@ -2,13 +2,16 @@ import { SetupPaths, path, searchParam } from '@resourge/react-router';
 
 const Routes = SetupPaths({
 	AUTH: path('auth').routes({
-		LOGIN: path('login'),
-		REGISTER: path('register')
+		LOGIN: path('login')
 	}),
 	DASHBOARD: path('dashboard').routes({
 		MAIN: path('index'),
-		USERS: path('users'),
+		CLIENTS: path('clients'),
 		FOOD: path('food'),
+		EXERCISES: path('exercises'),
+		WORKOUTS: path('workouts').searchParams({
+			userId: searchParam<{ userId?: string }>
+		}),
 		USER_PROFILE: path('profile').searchParams({
 			userId: searchParam<{ userId: string }>
 		})

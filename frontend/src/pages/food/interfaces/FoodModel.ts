@@ -1,32 +1,60 @@
 import { useForm } from '@resourge/react-form';
-import { object, string } from '@resourge/schema';
+import { array, object, string } from '@resourge/schema';
 
 import { TranslationInstance } from 'src/shared/translations/Translations';
 
+export type FoodType = {
+	calories: string
+	carbs: string
+	fat: string
+	name: string
+	protein: string
+};
+
 export class FoodModel {
-	public name: string = '';
-	public calories: string = '';
-	public carbs: string = '';
-	public fat: string = '';
-	public protein: string = '';
+	public foods: FoodType[] = [{
+		calories: '',
+		carbs: '',
+		fat: '',
+		name: '',
+		protein: ''
+	}];
+
+	public addNewFood() {
+		this.foods.push({
+			calories: '',
+			carbs: '',
+			fat: '',
+			name: '',
+			protein: ''
+		});
+	}
+
+	public removeFood(index: number) {
+		this.foods.splice(index, 1);
+	}
 
 	public toModel() {
-		return {
-			name: this.name,
-			calories: this.calories,
-			carbs: this.carbs,
-			fat: this.fat,
-			protein: this.protein
-		};
+		return this.foods.map((food: FoodType) => ({
+			calories: food.calories,
+			carbs: food.carbs,
+			fat: food.fat,
+			name: food.name,
+			protein: food.protein
+		}));
 	}
 }
 
 export const foodSchema = object<FoodModel>({
-	name: string().required(TranslationInstance.K.validations.required),
-	calories: string().required(TranslationInstance.K.validations.required),
-	carbs: string().required(TranslationInstance.K.validations.required),
-	fat: string().required(TranslationInstance.K.validations.required),
-	protein: string().required(TranslationInstance.K.validations.required)
+	foods: array(
+		object({
+			calories: string().required(TranslationInstance.K.validations.required),
+			carbs: string().required(TranslationInstance.K.validations.required),
+			fat: string().required(TranslationInstance.K.validations.required),
+			name: string().required(TranslationInstance.K.validations.required),
+			protein: string().required(TranslationInstance.K.validations.required)
+		})
+	).required()
 }).compile();
 
 export const useFoodModel = () => useForm<FoodModel>(new FoodModel(), {

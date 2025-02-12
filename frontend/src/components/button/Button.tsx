@@ -6,21 +6,21 @@ type ButtonProps<T extends React.ButtonHTMLAttributes<HTMLButtonElement>> = T & 
 	children?: ReactNode
 	className?: string
 	icon?: ReactNode
-	size?: 'sm' | 'md' | 'lg'
+	size?: 'sm' | 'md' | 'lg' | 'xs'
 	variant?: 'primary' | 'secondary'
 };
 
 export default function Button<T extends React.ButtonHTMLAttributes<HTMLButtonElement>>(props: ButtonProps<T>) {
 	const {
-		className, children, variant = 'primary', icon, ...otherProps
+		className, children, variant = 'primary', icon, size = 'sm', ...otherProps
 	} = props;
 
-	const sizeClass = props.size === 'sm' ? 'btn-sm' : props.size === 'lg' ? 'btn-lg' : 'btn-sm';
+	const sizeClass = size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : size === 'md' ? 'btn-md' : 'btn-xs';
 	const variantClass = variant === 'primary' ? 'btn-primary' : 'bg-base-100 border border-primary text-primary hover:bg-base-100 hover:border-primary';
 
 	return (
 		<button
-			className={clsx('btn', sizeClass, variantClass, className)}
+			className={clsx('btn text-xs', sizeClass, variantClass, className)}
 			{...otherProps}
 		>
 			{ icon ? <span className="w-4 h-4">{ icon }</span> : null }

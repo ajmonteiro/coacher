@@ -1,0 +1,13 @@
+namespace Coacher.Entities
+{
+    public class Workout
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public int UserId { get; set; }
+        public User User { get; set; } = null!;
+        public virtual ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
+        public virtual List<WorkoutExercise> WorkoutExercises { get; set; } = new();
+    }
+}

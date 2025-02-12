@@ -9,6 +9,7 @@ import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import Button from '../button/Button';
+import LanguagePicker from '../languagePicker/LanguagePicker';
 
 type HeaderProps = {
 	isSidebarOpen: boolean
@@ -18,9 +19,7 @@ type HeaderProps = {
 export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 	const { logout, user } = useAuthentication();
 	const navigate = useNavigate();
-	const {
-		language, languages, changeLanguage 
-	} = useTranslation();
+	const { T } = useTranslation();
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -37,10 +36,6 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
 	}, []);
-
-	const toggleDropdown = () => {
-		setIsDropdownOpen(!isDropdownOpen);
-	};
 
 	return (
 		<div
@@ -67,61 +62,43 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 					<Bars3Icon className="w-6 h-6" />
 				</Button>
 			</div>
-			<div className="flex-1 flex items-center justify-end w-full gap-5">
-				<div className="relative">
-					<Button
-						className="btn-primary-soft btn-circle text-white"
-						size="md"
-						onClick={toggleDropdown}
-					>
-						{ language.toUpperCase() }
-					</Button>
-					{
-						isDropdownOpen ? (
-							<div
-								ref={dropdownRef}
-								className="shadow-lg menu dropdown-content gap-3 bg-base-100 w-fit absolute top-full right-0"
-							>
-								{
-									languages.map((lang) => (
-										<Button
-											key={lang}
-											className="btn-primary-soft btn-circle text-white"
-											size="md"
-											onClick={() => {
-												changeLanguage(lang);
-												setIsDropdownOpen(false);
-											}}
-										>
-											{ lang.toUpperCase() }
-										</Button>
-									)) 
-								}
-							</div>
-						) : null 
-					}
+			<div className="flex-1 flex items-center justify-between w-full gap-5">
+				<div className="text-md flex gap-1">
+					<span>
+						{ T.components.header.welcome }
+						,
+					</span>
+					<span className="font-bold">
+						{ user.username }
+					</span>
 				</div>
-				<details className="dropdown">
-					<summary className="btn btn-sm m-1">
-						<UserIcon className="w-4 h-4" />
-					</summary>
-					<div className="menu dropdown-content bg-base-100 shadow-lg rounded-box right-0 flex flex-col gap-2">
-						<div className="flex items-center gap-3 p-3">
+				<div className="flex gap-2 items-center">
+					<LanguagePicker
+						isDropdownOpen={isDropdownOpen} 
+						setIsDropdownOpen={setIsDropdownOpen} 
+					/>
+					<div className="dropdown">
+						<Button className="btn-primary-soft btn-circle text-white">
 							<UserIcon className="w-4 h-4" />
-							<span className="font-semibold text-md">{ user.username }</span>
-						</div>
-						<Button
-							className="flex items-center"
-							onClick={() => {
-								logout();
-								navigate(Routes.AUTH.LOGIN.get());
-							}}
-						>
-							<ArrowRightEndOnRectangleIcon className="w-4 h-4" />
-							<span>Logout</span>
 						</Button>
+						<div className="menu dropdown-content bg-base-100 shadow-md rounded-box right-0 flex flex-col gap-2">
+							<div className="flex items-center gap-3 p-3">
+								<UserIcon className="w-4 h-4" />
+								<span className="font-semibold text-md">{ user.username }</span>
+							</div>
+							<Button
+								className="flex items-center"
+								onClick={() => {
+									logout();
+									navigate(Routes.AUTH.LOGIN.get());
+								}}
+							>
+								<ArrowRightEndOnRectangleIcon className="w-4 h-4" />
+								<span>Logout</span>
+							</Button>
+						</div>
 					</div>
-				</details>
+				</div>
 			</div>
 		</div>
 	);
