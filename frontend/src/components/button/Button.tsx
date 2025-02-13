@@ -23,7 +23,7 @@ export default function Button<T extends React.ButtonHTMLAttributes<HTMLButtonEl
 			className={clsx('btn text-xs', sizeClass, variantClass, className)}
 			{...otherProps}
 		>
-			{ icon ? <span className="w-4 h-4">{ icon }</span> : null }
+			{ icon ? <span>{ icon }</span> : null }
 			{ children }
 		</button>
 	);

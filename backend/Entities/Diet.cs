@@ -10,5 +10,7 @@ namespace Coacher.Entities
         public User? User { get; set; }
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; } = new List<Meal>();
+        public virtual ICollection<DietMeal> DietMeals { get; set; } = new List<DietMeal>();
     }
 }

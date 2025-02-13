@@ -5,6 +5,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import Button from '../button/Button';
+import InfoCard from '../infoCard/InfoCard';
 
 type ModalProps = {
 	modalTitle: string
@@ -31,7 +32,7 @@ const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 					overflow-y-scroll
 					h-fit mb:mt-0 mt-auto md:m-auto m-0
 					overflow-visible
-					bg-primary-content rounded-box p-6`}
+					bg-primary-content rounded-box p-6 shadow-lg`}
 			>
 				<div className="flex flex-col gap-4 w-full">
 					<div
@@ -47,7 +48,7 @@ const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 						{ hrDivider ? <hr className="h-2" /> : null }
 					</div>
 					{ children }
-					<div className="flex md:flex-row flex-col-reverse md:justify-end justify-center gap-[0.62rem]">
+					<InfoCard className="flex justify-end gap-2">
 						<Button
 							className="btn-ghost"
 							onClick={onClose}
@@ -61,7 +62,7 @@ const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 						>
 							{ T.components.modal.submit }
 						</Button>
-					</div>
+					</InfoCard>
 				</div>
 			</dialog>
 		);

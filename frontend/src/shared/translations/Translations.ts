@@ -72,6 +72,62 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		pages: {
+			meal: {
+				table: {
+					tableTitle: {
+						pt: 'Refeições',
+						en: 'Meals',
+						es: 'Comidas',
+						fr: 'Repas'
+					}
+				},
+				name: {
+					pt: 'Nome',
+					en: 'Name',
+					es: 'Nombre',
+					fr: 'Nom'
+				},
+				description: {
+					pt: 'Descrição',
+					en: 'Description',
+					es: 'Descripción',
+					fr: 'Description'
+				},
+				meal: {
+					pt: 'Refeição',
+					en: 'Meal',
+					es: 'Comida',
+					fr: 'Repas'
+				}
+			},
+			diet: {
+				table: {
+					userFullName: {
+						pt: 'Nome do Utilizador',
+						en: 'User Name',
+						es: 'Nombre del usuario',
+						fr: 'Nom de l\'utilisateur'
+					},
+					tableTitle: {
+						pt: 'Dietas',
+						en: 'Diets',
+						es: 'Dietas',
+						fr: 'Régimes'
+					},
+					name: {
+						pt: 'Nome',
+						en: 'Name',
+						es: 'Nombre',
+						fr: 'Nom'
+					},
+					description: {
+						pt: 'Descrição',
+						en: 'Description',
+						es: 'Descripción',
+						fr: 'Description'
+					}
+				}
+			},
 			dashboard: {
 				title: {
 					pt: 'Dashboard',
@@ -187,11 +243,29 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			userProfile: {
+				diets: {
+					pt: 'Dietas',
+					en: 'Diets',
+					es: 'Dietas',
+					fr: 'Régimes'
+				},
 				createWorkout: {
 					pt: 'Criar Treino',
 					en: 'Create Workout',
 					es: 'Crear entrenamiento',
 					fr: 'Créer un entraînement'
+				},
+				createDiet: {
+					pt: 'Criar Dieta',
+					en: 'Create Diet',
+					es: 'Crear dieta',
+					fr: 'Créer un régime'
+				},
+				noDiets: {
+					pt: 'Este utilizador não tem dietas',
+					en: 'This user has no diets',
+					es: 'Este usuario no tiene dietas',
+					fr: 'Cet utilisateur n\'a pas de régimes'
 				},
 				noWorkouts: {
 					pt: 'Este utilizador não tem treinos',
@@ -661,11 +735,29 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			sidebar: {
+				fitness_related: {
+					pt: 'Fitness',
+					en: 'Fitness',
+					es: 'Fitness',
+					fr: 'Fitness'
+				},
+				diet_related: {
+					pt: 'Dieta',
+					en: 'Diet',
+					es: 'Dieta',
+					fr: 'Régime'
+				},
 				clients: {
 					pt: 'Clientes',
 					en: 'Clients',
 					es: 'Clientes',
 					fr: 'Clients'
+				},
+				meals: {
+					pt: 'Refeições',
+					en: 'Meals',
+					es: 'Comidas',
+					fr: 'Repas'
 				},
 				users: {
 					pt: 'Utilizadores',
@@ -684,6 +776,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					en: 'Dashboard',
 					es: 'Tablero',
 					fr: 'Tableau de bord'
+				},
+				diets: {
+					pt: 'Dietas',
+					en: 'Diets',
+					es: 'Dietas',
+					fr: 'Régimes'
 				},
 				pagesDescription: {
 					pt: 'Páginas',

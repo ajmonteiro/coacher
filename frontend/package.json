@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@phosphor-icons/react": "^2.1.7",
     "@resourge/http-service": "^1.39.0",
     "@resourge/react-authentication": "^1.13.7",
     "@resourge/react-fetch": "^1.39.0",

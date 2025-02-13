@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-key */
 
+import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
+
 import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import Input from 'src/components/input/Input';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
 import { useTranslation } from 'src/shared/translations/Translations';
@@ -146,18 +149,25 @@ export default function FoodPage() {
 														className="btn-square"
 														onClick={() => form.removeFood(index)}
 													>
-														-
+														<PhosphorIcon 
+															color="white"
+															icon={<MinusCircle />}
+														/>
 													</Button>
 												</div>	
 											</div>
 										)) 
 									}
-									<div className="flex justify-end items-center">
+									<div className="flex">
 										<Button
+											icon={(
+												<PhosphorIcon 
+													color="white"
+													icon={<PlusCircle />}
+												/>
+											)}
 											onClick={() => form.addNewFood()}
 										>
-											+ 
-											{ ' ' }
 											{ T.pages.foods.table.addFood }
 										</Button>
 									</div>

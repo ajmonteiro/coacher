@@ -1,4 +1,5 @@
-// @ts-ignore-file
-import Muscle from './muscle.svg?react';
+// @ts-nocheck
+import Login from './login.svg?react';
+import NoData from './noData.svg?react';
 
-export { Muscle };
+export { NoData, Login };

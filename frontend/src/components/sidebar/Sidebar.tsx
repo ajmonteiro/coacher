@@ -1,14 +1,17 @@
 import {
-	CubeTransparentIcon,
-	CakeIcon,
-	HomeIcon,
-	UsersIcon,
-	BeakerIcon
-} from '@heroicons/react/24/outline';
+	Avocado,
+	Barbell,
+	Bicycle,
+	BowlFood,
+	Cookie,
+	HouseLine,
+	Users
+} from '@phosphor-icons/react';
 
 import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
+import PhosphorIcon from '../phosphorIcon/PhosphorIcon';
 import SidebarSection from '../sidebarSection/sidebarSection/SidebarSection';
 import SidebarSectionItem from '../sidebarSection/sidebarSectionItem/SidebarSectionItem';
 import SidebarSectionTitle from '../sidebarSection/sidebarSectionTitle/SidebarSectionTitle';
@@ -47,32 +50,76 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 						active
 						collapsed={isSidebarOpen}
 						href={Routes.DASHBOARD.MAIN.get()}
-						icon={<HomeIcon />}
+						icon={(
+							<PhosphorIcon
+								icon={<HouseLine />}
+							/>
+						)}
 						text={T.components.sidebar.dashboard}
 					/>
 				</SidebarSection>
 				<SidebarSection>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
-						title={T.components.sidebar.entities}
+						title={T.components.sidebar.diet_related}
 					/>
 					<div className="flex flex-col gap-5">
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.FOOD.get()}
-							icon={<CakeIcon />}
+							icon={(
+								<PhosphorIcon
+									icon={<Cookie />}
+								/>
+							)}
 							text={T.components.sidebar.food}
 						/>
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
+							href={Routes.DASHBOARD.DIET.get()}
+							icon={(
+								<PhosphorIcon
+									icon={<Avocado />}
+								/>
+							)}
+							text={T.components.sidebar.diets}
+						/>
+						<SidebarSectionItem
+							collapsed={isSidebarOpen}
+							href={Routes.DASHBOARD.MEAL.get()}
+							icon={(
+								<PhosphorIcon
+									icon={<BowlFood />}
+								/>
+							)}
+							text={T.components.sidebar.meals}
+						/>
+					</div>
+				</SidebarSection>
+				<SidebarSection>
+					<SidebarSectionTitle
+						collapsed={isSidebarOpen}
+						title={T.components.sidebar.fitness_related}
+					/>
+					<div className="flex flex-col gap-5">
+						<SidebarSectionItem
+							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.EXERCISES.get()}
-							icon={<BeakerIcon />}
+							icon={(
+								<PhosphorIcon
+									icon={<Barbell />}
+								/>
+							)}
 							text={T.components.sidebar.exercises}
 						/>
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.WORKOUTS.get()}
-							icon={<CubeTransparentIcon />}
+							icon={(
+								<PhosphorIcon
+									icon={<Bicycle />}
+								/>
+							)}
 							text={T.components.sidebar.workouts}
 						/>
 					</div>
@@ -86,7 +133,11 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.CLIENTS.get()}
-							icon={<UsersIcon />}
+							icon={(
+								<PhosphorIcon
+									icon={<Users />}
+								/>
+							)}
 							text={T.components.sidebar.clients}
 						/>
 					</div>

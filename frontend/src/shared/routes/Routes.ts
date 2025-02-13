@@ -8,6 +8,10 @@ const Routes = SetupPaths({
 		MAIN: path('index'),
 		CLIENTS: path('clients'),
 		FOOD: path('food'),
+		DIET: path('diet').searchParams({
+			userId: searchParam<{ userId?: string }>
+		}),
+		MEAL: path('meal'),
 		EXERCISES: path('exercises'),
 		WORKOUTS: path('workouts').searchParams({
 			userId: searchParam<{ userId?: string }>

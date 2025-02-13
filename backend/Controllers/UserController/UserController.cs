@@ -53,10 +53,13 @@ namespace Coacher.Controllers
         public async Task<ActionResult<UserDto>> GetUser(int id)
         {
             var user = await _context.Users
-                .Include(u => u.Workouts)
-                    .ThenInclude(w => w.WorkoutExercises)
-                        .ThenInclude(we => we.Exercise)
-                .FirstOrDefaultAsync(u => u.Id == id);
+            .Include(u => u.Workouts)
+                .ThenInclude(w => w.WorkoutExercises)
+                    .ThenInclude(we => we.Exercise)
+            .Include(u => u.Diets)
+                .ThenInclude(d => d.DietMeals)
+                    .ThenInclude(dm => dm.Meal)
+            .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {

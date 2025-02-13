@@ -27,7 +27,7 @@ export default function LoginPage() {
 
 	return (
 		<AuthLayout layoutTitle="coacher.">
-			<div className="bg-base-100 rounded-box shadow-md flex flex-col gap-5 p-5 max-w-[400px] mx-auto">
+			<div className="bg-base-100 rounded-box shadow-md flex flex-col gap-5 p-5 mx-auto">
 				<div className="flex flex-col gap-5">
 					<div className="flex flex-col gap-2">
 						<FormControl

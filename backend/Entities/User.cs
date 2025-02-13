@@ -15,6 +15,7 @@ namespace Coacher.Entities
 
         public string? Role { get; set; } = string.Empty;
         public virtual ICollection<Workout> Workouts { get; set; } = new List<Workout>();
+        public virtual ICollection<Diet> Diets { get; set; } = new List<Diet>();
         [JsonIgnore]
         public string? RefreshToken { get; set; }
         [JsonIgnore]

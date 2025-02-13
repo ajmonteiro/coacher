@@ -10,6 +10,36 @@ export default {
   plugins: [require("daisyui")],
   daisyui: {
     themes: [
+      'light',
+      { 
+        myluxuryrosegoldblush: {
+          "primary": "#B76E79",
+          "primary-content": "#ffffff",
+          "secondary": "#F5E7E7",
+          "secondary-content": "#B76E79",
+          "accent": "#A55858",
+          "accent-content": "#ffffff",
+          "neutral": "#FAF0F0",
+          "neutral-content": "#222222",
+          "base-100": "#ffffff",
+          "base-200": "#F8EFEF",
+          "base-300": "#F5E7E7",
+          "base-content": "#222222",
+          "info": "#E9967A",
+          "success": "#8FBC8F",
+          "warning": "#F4D03F",
+          "error": "#E57373",
+          "--gold": "#B76E79",
+          "--cool-gray": "#F5E7E7",
+          "--royal-blue": "#A55858",
+          "--soft-white": "#FAF0F0",
+          "--pure-white": "#ffffff",
+          "--primary-soft": "rgba(183, 110, 121, 0.1)",
+          "--secondary-soft": "rgba(245, 231, 231, 0.1)",
+          "--accent-soft": "rgba(165, 88, 88, 0.1)",
+          "--base-neutral": "#F8EFEF",
+        },
+      },
       {
         myluxuryfitness: {
           "primary": "#c99a3f",

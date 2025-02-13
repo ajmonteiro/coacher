@@ -13,6 +13,8 @@ const ClientsPage = lazy(() => import('./pages/clients/ClientsPage'));
 const FoodPage = lazy(() => import('./pages/food/FoodPage'));
 const UserProfilePage = lazy(() => import('./pages/userProfile/UserProfilePage'));
 const WorkoutsPage = lazy(() => import('./pages/workouts/WorkoutsPage'));
+const DietPage = lazy(() => import('./pages/diet/DietPage'));
+const MealPage = lazy(() => import('./pages/meal/MealPage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -37,6 +39,12 @@ const DashboardRouter = () => (
 		</AuthorizedRoute>
 		<AuthorizedRoute path={Routes.DASHBOARD.FOOD.path}>
 			<FoodPage />
+		</AuthorizedRoute>
+		<AuthorizedRoute path={Routes.DASHBOARD.DIET.path}>
+			<DietPage />
+		</AuthorizedRoute>
+		<AuthorizedRoute path={Routes.DASHBOARD.MEAL.path}>
+			<MealPage />
 		</AuthorizedRoute>
 		<AuthorizedRoute path={Routes.DASHBOARD.EXERCISES.path}>
 			<ExercisesPage />

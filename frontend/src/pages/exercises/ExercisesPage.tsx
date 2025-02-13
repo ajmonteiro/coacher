@@ -2,6 +2,7 @@ import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
+import InfoCard from 'src/components/infoCard/InfoCard';
 import Input from 'src/components/input/Input';
 import Textarea from 'src/components/textarea/Textarea';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
@@ -59,7 +60,7 @@ export default function ExercisesPage() {
 							form={(
 								<div className="flex flex-col gap-3">
 									{
-										form.exercises.map((exercise, index: number) => (
+										form.exercises.map((_, index: number) => (
 											<div
 												key={index}
 												className="flex flex-col gap-2 
@@ -74,7 +75,7 @@ export default function ExercisesPage() {
 													</span>
 													<hr className="h-2" />
 												</div>
-												<FormWrapper className="w-full">
+												<FormWrapper>
 													<FormControl
 														errors={getErrors(`exercises[${index}].name`)}
 														label={T.pages.exercises.table.name}
@@ -85,8 +86,6 @@ export default function ExercisesPage() {
 															error={hasError(`exercises[${index}].name`)}
 														/>
 													</FormControl>
-												</FormWrapper>
-												<FormWrapper className="w-full">
 													<FormControl
 														errors={getErrors(`exercises[${index}].description`)}
 														label={T.pages.exercises.table.description}
@@ -97,8 +96,6 @@ export default function ExercisesPage() {
 															error={hasError(`exercises[${index}].description`)}
 														/>
 													</FormControl>
-												</FormWrapper>
-												<FormWrapper className="w-full">
 													<FormControl
 														errors={getErrors(`exercises[${index}].video`)}
 														label={T.pages.exercises.table.video}
@@ -121,7 +118,7 @@ export default function ExercisesPage() {
 											</div>
 										)) 
 									}
-									<div className="flex justify-end items-center">
+									<InfoCard className="flex justify-end">
 										<Button
 											onClick={() => form.addNewExercise()}
 										>
@@ -129,7 +126,7 @@ export default function ExercisesPage() {
 											{ ' ' }
 											{ T.pages.exercises.table.addExercise }
 										</Button>
-									</div>
+									</InfoCard>
 								</div>
 							)}
 							formSubmission={submit}

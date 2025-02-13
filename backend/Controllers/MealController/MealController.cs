@@ -14,19 +14,26 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult<IEnumerable<Meal>> GetMeals()
+        public async Task<ActionResult<object>> GetMeals(int page = 1, int perPage = 10)
         {
-            return context.Meals;
-        }
+            if (page < 1 || perPage < 1)
+                return BadRequest("Page and perPage must be greater than 0.");
 
-        [Authorize]
-        [HttpGet("{id}")]
-        public ActionResult<Meal> GetMeal(int id)
-        {
-            var meal = context.Meals.Find(id);
-            if (meal is null)
-                return NotFound();
-            return meal;
+            var totalItems = await context.Meals.CountAsync();
+
+            var Meals = await context.Meals
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
+                .ToListAsync();
+
+
+            return Ok(new
+            {
+                TotalItems = totalItems,
+                PerPage = perPage,
+                Page = page,
+                Data = Meals
+            });
         }
 
         [Authorize]

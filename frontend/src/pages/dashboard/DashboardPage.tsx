@@ -1,9 +1,10 @@
-import { CakeIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { Avocado, Bicycle, Users } from '@phosphor-icons/react';
 import { OrderByEnum, useFetch } from '@resourge/react-fetch';
 
 import DashboardCard from 'src/components/dashboardCard/DashboardCard';
 import DataTable from 'src/components/dataTable/DataTable';
 import InfoCard from 'src/components/infoCard/InfoCard';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
 import Routes from 'src/shared/routes/Routes';
@@ -40,21 +41,36 @@ export default function DashboardPage() {
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6"> 
 							<DashboardCard
 								className="bg-error"
-								icon={<UsersIcon className="h-8 w-8 " />}
+								icon={(
+									<PhosphorIcon 
+										color="white"
+										icon={<Users />}
+									/>
+								)}
 								link={Routes.DASHBOARD.CLIENTS.get()}
 								mainValue={stats.totalUsers.toString()}
 								secondaryValue={T.pages.dashboard.clients_in_system}
 							/>
 							<DashboardCard
 								className="bg-success"
-								icon={<CakeIcon className="h-8 w-8" />}
+								icon={(
+									<PhosphorIcon 
+										color="white"
+										icon={<Bicycle />}
+									/>
+								)}
 								link={Routes.DASHBOARD.EXERCISES.get()}
 								mainValue={stats.totalExercises.toString()}
 								secondaryValue={T.pages.dashboard.exercises_in_system}
 							/>
 							<DashboardCard
 								className="bg-warning"
-								icon={<CakeIcon className="h-8 w-8 " />}
+								icon={(
+									<PhosphorIcon 
+										color="white"
+										icon={<Avocado />}
+									/>
+								)}
 								link={Routes.DASHBOARD.FOOD.get()}
 								mainValue={stats.totalFoods.toString()}
 								secondaryValue={T.pages.dashboard.foods_in_system}

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
 	useEffect,
 	useRef,
@@ -6,14 +5,16 @@ import {
 	type ReactNode
 } from 'react';
 
-import { FolderArrowDownIcon } from '@heroicons/react/24/outline';
+import { PlusCircle } from '@phosphor-icons/react';
 
-import { useAuthentication } from 'src/shared/auth/useAuthentication';
+import { NoData } from 'src/assets/svg/Svg';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import A from '../A/A';
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
+import PhosphorIcon from '../phosphorIcon/PhosphorIcon';
+import Svg from '../svg/Svg';
   
 type ColumnsType = {
 	columnName: string
@@ -102,6 +103,8 @@ export default function DataTable({
 			modalRef.current.showModal();
 		}
 	}, [triggerModal]);
+
+	const showIcon = data.length === 0;
 	
 	return (
 		<div className={`flex flex-col ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7 w-full`}>
@@ -131,8 +134,12 @@ export default function DataTable({
 					form && formSubmission ? (
 						<div>
 							<Button 
-								className="btn-ghost"
-								icon={<FolderArrowDownIcon />}
+								className="btn-ghost text-primary"
+								icon={(
+									<PhosphorIcon
+										icon={<PlusCircle />}
+									/>
+								)}
 								onClick={() => {
 									if (modalRef.current) {
 										modalRef.current.showModal();
@@ -189,7 +196,15 @@ export default function DataTable({
 										className="text-center"
 										colSpan={columns.length + 1}
 									>
-										{ T.components.data_table.no_results }
+										{
+											showIcon 
+												? (
+													<Svg
+														element={NoData}
+														height="150"
+													/>
+												) : null 
+										}
 									</td>
 								</tr>
 							) : null 

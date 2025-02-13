@@ -6,6 +6,7 @@ import { type SelectItem } from 'src/shared/models/SelectItem';
 import Button from '../button/Button';
 
 const themes: SelectItem[] = [
+	
 	{
 		label: 'Coacher Blue',
 		value: 'myluxuryblue'
@@ -25,6 +26,10 @@ const themes: SelectItem[] = [
 	{
 		label: 'Coacher Purple',
 		value: 'myluxurypurple'
+	}, 
+	{
+		label: 'Coacher Rose',
+		value: 'myluxuryrosegoldblush'
 	}
 ];
 
@@ -47,7 +52,7 @@ export default function ThemeController() {
 	};
 
 	return (
-		<div className="dropdown w-max text-xs">
+		<div className="dropdown w-max text-xs relative z-[9998]">
 			<div
 				className="btn btn-sm text-sm btn-ghost flex"
 				role="button"
@@ -57,7 +62,7 @@ export default function ThemeController() {
 					{ theme.label }
 				</span>
 				<ul
-					className="dropdown-content top-10 right-0 bg-base-100 rounded-box z-[1] w-52 p-2 shadow-2xl"
+					className="dropdown-content top-10 right-0 bg-base-100 rounded-box z-[9998] w-52 p-2 shadow-2xl"
 					tabIndex={0}
 				>
 					{
