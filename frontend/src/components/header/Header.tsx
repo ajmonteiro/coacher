@@ -10,6 +10,7 @@ import { useTranslation } from 'src/shared/translations/Translations';
 
 import Button from '../button/Button';
 import LanguagePicker from '../languagePicker/LanguagePicker';
+import ThemeController from '../themeController/ThemeController';
 
 type HeaderProps = {
 	isSidebarOpen: boolean
@@ -73,6 +74,7 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 					</span>
 				</div>
 				<div className="flex gap-2 items-center">
+					<ThemeController />
 					<LanguagePicker
 						isDropdownOpen={isDropdownOpen} 
 						setIsDropdownOpen={setIsDropdownOpen} 

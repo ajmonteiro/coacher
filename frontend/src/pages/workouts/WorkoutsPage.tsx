@@ -10,11 +10,13 @@ import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import Input from 'src/components/input/Input';
 import SearchableInput from 'src/components/searchableInput/SearchableInput';
+import Textarea from 'src/components/textarea/Textarea';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
 import { SelectItem } from 'src/shared/models/SelectItem';
 import HttpBaseService from 'src/shared/services/HttpBaseService';
 import { useTranslation } from 'src/shared/translations/Translations';
+import { WEEKDAY_OPTIONS } from 'src/shared/utils/FormConstantsUtils';
 
 import WorkoutsPageApi from './WorkoutsPageApi';
 import { useWorkoutModel } from './interfaces/WorkoutModel';
@@ -120,12 +122,25 @@ export default function WorkoutsPage() {
 												error={hasError('name')}
 											/>
 										</FormControl>
+										<FormControl
+											errors={getErrors('weekDay')}
+											label={T.pages.workouts.table.weekDay}
+											required
+										>
+											<SearchableInput
+												{...field('weekDay')}
+												error={hasError('weekDay')}
+												options={WEEKDAY_OPTIONS}
+											/>
+										</FormControl>
+									</FormWrapper>
+									<FormWrapper className="w-full">
 										<FormControl 
 											errors={getErrors('description')}
 											label={T.pages.workouts.table.description}
 											required
 										>
-											<Input
+											<Textarea
 												{...field('description')}
 												error={hasError('description')}
 											/>
@@ -208,6 +223,7 @@ export default function WorkoutsPage() {
 								</>
 							)}
 							formSubmission={submit}
+							modalTitle={T.pages.workouts.table.addWorkout}
 							paginationData={pagination}
 							primaryKey="id"
 							tableTitle={T.pages.workouts.table.tableTitle}

@@ -26,10 +26,10 @@ export default function SidebarSectionItem({
 			<div
 				className="flex items-center gap-3"
 			>
-				<span className="w-6 h-6 text-base-content">
+				<span className="w-6 h-6 text-light text-base-content">
 					{ icon }
 				</span>
-				<span className="text-xs font-semibold text-base-content">
+				<span className="text-xs font-light text-base-content">
 					{
 						collapsed 
 							? text

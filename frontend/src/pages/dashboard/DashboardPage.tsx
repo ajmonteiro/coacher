@@ -6,6 +6,7 @@ import DataTable from 'src/components/dataTable/DataTable';
 import InfoCard from 'src/components/infoCard/InfoCard';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
+import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import UsersPageApi from '../clients/ClientsPageApi';
@@ -16,7 +17,6 @@ export default function DashboardPage() {
 	const { T } = useTranslation();
 	const { data: stats } = useFetch(async () => {
 		const result = await DashboardPageApi.getDashboardData();
-
 		return result.data;
 	}, {
 		initialState: undefined,
@@ -33,56 +33,65 @@ export default function DashboardPage() {
 
 	return (
 		<DashboardLayout>
-			<div className="flex flex-col gap-4">
-				<h1 className="text-base-content font-semibold text-2xl mb-5">Dashboard</h1>
+			<div className="container mx-auto p-4"> 
+				<h1 className="text-3xl font-bold text-gray-800 mb-6">{ T.pages.dashboard.title }</h1> 
 				{
 					stats ? (
-						<div className="grid grid-cols-2 gap-5 w-full">
+						<div className="grid grid-cols-1 md:grid-cols-3 gap-6"> 
 							<DashboardCard
-								className="flex-1"
-								color="bg-primary"
-								icon={<UsersIcon />}
+								className="bg-error"
+								icon={<UsersIcon className="h-8 w-8 " />}
+								link={Routes.DASHBOARD.CLIENTS.get()}
 								mainValue={stats.totalUsers.toString()}
-								secondaryValue="Users of the system"
+								secondaryValue={T.pages.dashboard.clients_in_system}
 							/>
 							<DashboardCard
-								className="flex-1"
-								color="bg-primary"
-								icon={<CakeIcon />}
-								mainValue={stats.totalFoods.toString()}
-								secondaryValue="Foods of the system"
+								className="bg-success"
+								icon={<CakeIcon className="h-8 w-8" />}
+								link={Routes.DASHBOARD.EXERCISES.get()}
+								mainValue={stats.totalExercises.toString()}
+								secondaryValue={T.pages.dashboard.exercises_in_system}
 							/>
-							<InfoCard>
-								{
-									rows.data ? (
-										<DataTable
-											changePage={changePage}
-											columns={[
-												{
-													columnName: 'username',
-													columnLabel: T.pages.clients.table.username
-												},
-												{
-													columnName: 'fullName',
-													columnLabel: T.pages.clients.table.fullName
-												},
-												{
-													columnName: 'phone',
-													columnLabel: T.pages.clients.table.phone
-												}
-											]}
-											data={rows.data}
-											deleteAllowed={false}
-											deleteEntities={deleteEntities}
-											fullWidthTable
-											paginationData={pagination}
-											primaryKey="id"
-											tableTitle={T.pages.clients.table.tableTitle}
-											undeletableRows={[]}
-										/>
-									) : null 
-								}
-							</InfoCard>
+							<DashboardCard
+								className="bg-warning"
+								icon={<CakeIcon className="h-8 w-8 " />}
+								link={Routes.DASHBOARD.FOOD.get()}
+								mainValue={stats.totalFoods.toString()}
+								secondaryValue={T.pages.dashboard.foods_in_system}
+							/>
+							<div className="md:col-span-3"> 
+								<InfoCard className="bg-white shadow rounded-lg p-6"> 
+									{
+										rows.data ? (
+											<DataTable
+												changePage={changePage}
+												columns={[
+													{
+														columnName: 'username',
+														columnLabel: T.pages.clients.table.username
+													},
+													{
+														columnName: 'fullName',
+														columnLabel: T.pages.clients.table.fullName
+													},
+													{
+														columnName: 'phone',
+														columnLabel: T.pages.clients.table.phone
+													}
+												]}
+												data={rows.data}
+												deleteAllowed={false}
+												deleteEntities={deleteEntities}
+												fullWidthTable
+												paginationData={pagination}
+												primaryKey="id"
+												tableTitle={T.pages.clients.table.tableTitle}
+												undeletableRows={[]}
+											/>
+										) : null 
+									}
+								</InfoCard>
+							</div>
 						</div>
 					) : null 
 				}

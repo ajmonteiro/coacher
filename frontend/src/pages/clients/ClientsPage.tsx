@@ -2,6 +2,9 @@ import { OrderByEnum } from '@resourge/react-fetch';
 import { useNavigate } from '@resourge/react-router';
 
 import DataTable from 'src/components/dataTable/DataTable';
+import FormControl from 'src/components/formControl/FormControl';
+import FormWrapper from 'src/components/formWrapper/FormWrapper';
+import Input from 'src/components/input/Input';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
@@ -9,14 +12,19 @@ import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import ClientsPageApi from './ClientsPageApi';
+import { useClientModel } from './interfaces/ClientModel';
 
 export default function ClientsPage() {
 	const { T } = useTranslation();
 	const { user } = useAuthentication();
 	const navigate = useNavigate();
+
+	const {
+		field, handleSubmit, getErrors, hasError 
+	} = useClientModel();
 	
 	const {
-		rows, changePage, paginationData: pagination, deleteEntities
+		rows, changePage, paginationData: pagination, deleteEntities, fetchResults
 	} = useDataTable({
 		entityClass: ClientsPageApi,
 		orderColumn: 'username',
@@ -26,6 +34,11 @@ export default function ClientsPage() {
 	const hasUndeletableRows = (rows: any[]) => {
 		return rows.find((row) => row.id === user.id);
 	};
+
+	const submit = handleSubmit(async (data) => {
+		await ClientsPageApi.create(data);
+		fetchResults();
+	});
 
 	return (
 		<DashboardLayout>
@@ -54,6 +67,66 @@ export default function ClientsPage() {
 							]}
 							data={rows.data}
 							deleteEntities={deleteEntities}
+							form={(
+								<FormWrapper>
+									<FormControl
+										errors={getErrors('user.username')}
+										label={T.pages.clients.table.username}
+										required
+									>
+										<Input
+											error={hasError('user.username')}
+											{...field('user.username')}
+											placeholder={T.pages.clients.table.username}
+										/>
+									</FormControl>
+									<FormControl
+										errors={getErrors('user.fullName')}
+										label={T.pages.clients.table.fullName}
+										required
+									>
+										<Input
+											error={hasError('user.fullName')}
+											{...field('user.fullName')}
+											placeholder={T.pages.clients.table.fullName}
+										/>
+									</FormControl>
+									<FormControl
+										errors={getErrors('user.phone')}
+										label={T.pages.clients.table.phone}
+										required
+									>
+										<Input
+											error={hasError('user.phone')}
+											{...field('user.phone')}
+											placeholder={T.pages.clients.table.phone}
+										/>
+									</FormControl>
+									<FormControl
+										errors={getErrors('user.weight')}
+										label={T.pages.clients.table.weight}
+										required
+									>
+										<Input
+											error={hasError('user.weight')}
+											{...field('user.weight')}
+											placeholder={T.pages.clients.table.weight}
+										/>
+									</FormControl>
+									<FormControl
+										errors={getErrors('user.height')}
+										label={T.pages.clients.table.height}
+										required
+									>
+										<Input
+											error={hasError('user.height')}
+											{...field('user.height')}
+											placeholder={T.pages.clients.table.height}
+										/>
+									</FormControl>
+								</FormWrapper>
+							)}
+							formSubmission={submit}
 							goToEntity={(id: string) => navigate(Routes.DASHBOARD.USER_PROFILE.get({
 								searchParams: {
 									userId: id

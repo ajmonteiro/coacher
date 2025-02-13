@@ -2,6 +2,7 @@ import HttpBaseService from 'src/shared/services/HttpBaseService';
 
 type DashboardDataResponse = {
 	data: {
+		totalExercises: number
 		totalFoods: number
 		totalUsers: number
 		Users: any

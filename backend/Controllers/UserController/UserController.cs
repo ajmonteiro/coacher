@@ -124,6 +124,26 @@ namespace Coacher.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public async Task<ActionResult<UserDto>> CreateUser(UserDto userDto)
+        {
+            var user = new User
+            {
+                Username = userDto.Username,
+                FullName = userDto.FullName,
+                Phone = userDto.Phone,
+                Weight = userDto.Weight,
+                Height = userDto.Height,
+                Role = "User"
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+        }
+
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> UpdateUser(int id, User user)
         {

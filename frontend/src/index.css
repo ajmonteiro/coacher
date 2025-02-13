@@ -7,5 +7,35 @@ html {
 }
 
 .btn-primary-soft {
-    @apply bg-primary-soft text-base-content border-0 hover:text-white;
-  }
+  background-color: var(--primary-soft);
+  color: var(--base-content);
+  border: 0;
+}
+
+.btn-primary-soft:hover {
+  color: white;
+}
+
+.bg-gold {
+  background-color: var(--gold);
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+.bg-cool-gray {
+  background-color: var(--cool-gray);
+}
+
+.text-cool-gray {
+  color: var(--cool-gray);
+}
+
+.bg-royal-blue {
+  background-color: var(--royal-blue);
+}
+
+.text-royal-blue {
+  color: var(--royal-blue);
+}

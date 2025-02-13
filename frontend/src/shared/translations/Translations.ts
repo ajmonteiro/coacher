@@ -25,9 +25,111 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 		htmlLanguage()
 	],
 	translations: {
+		formConstants: {
+			weekDays: {
+				monday: {
+					pt: 'Segunda-feira',
+					en: 'Monday',
+					es: 'Lunes',
+					fr: 'Lundi'
+				},
+				tuesday: {
+					pt: 'Terça-feira',
+					en: 'Tuesday',
+					es: 'Martes',
+					fr: 'Mardi'
+				},
+				wednesday: {
+					pt: 'Quarta-feira',
+					en: 'Wednesday',
+					es: 'Miércoles',
+					fr: 'Mercredi'
+				},
+				thursday: {
+					pt: 'Quinta-feira',
+					en: 'Thursday',
+					es: 'Jueves',
+					fr: 'Jeudi'
+				},
+				friday: {
+					pt: 'Sexta-feira',
+					en: 'Friday',
+					es: 'Viernes',
+					fr: 'Vendredi'
+				},
+				saturday: {
+					pt: 'Sábado',
+					en: 'Saturday',
+					es: 'Sábado',
+					fr: 'Samedi'
+				},
+				sunday: {
+					pt: 'Domingo',
+					en: 'Sunday',
+					es: 'Domingo',
+					fr: 'Dimanche'
+				}
+			}
+		},
 		pages: {
+			dashboard: {
+				title: {
+					pt: 'Dashboard',
+					en: 'Dashboard',
+					es: 'Tablero',
+					fr: 'Tableau de bord'
+				},
+				clients: {
+					pt: 'Clientes',
+					en: 'Clients',
+					es: 'Clientes',
+					fr: 'Clients'
+				},
+				clients_in_system: {
+					pt: 'Clientes no sistema',
+					en: 'Clients in the system',
+					es: 'Clientes en el sistema',
+					fr: 'Clients dans le système'
+				},
+				foods: {
+					pt: 'Alimentos',
+					en: 'Foods',
+					es: 'Comida',
+					fr: 'Nourriture'
+				},
+				foods_in_system: {
+					pt: 'Alimentos no sistema',
+					en: 'Foods in the system',
+					es: 'Comida en el sistema',
+					fr: 'Nourriture dans le système'
+				},
+				exercises: {
+					pt: 'Exercícios',
+					en: 'Exercises',
+					es: 'Ejercicios',
+					fr: 'Exercices'
+				},
+				exercises_in_system: {
+					pt: 'Exercícios no sistema',
+					en: 'Exercises in the system',
+					es: 'Ejercicios en el sistema',
+					fr: 'Exercices dans le système'
+				}
+			},
 			workouts: {
 				table: {
+					addWorkout: {
+						pt: 'Adicionar Treino',
+						en: 'Add Workout',
+						es: 'Añadir entrenamiento',
+						fr: 'Ajouter un entraînement'
+					},
+					weekDay: {
+						pt: 'Dia da semana',
+						en: 'Weekday',
+						es: 'Día de la semana',
+						fr: 'Jour de la semaine'
+					},
 					addExercise: {
 						pt: 'Adicionar Exercício',
 						en: 'Add Exercise',
@@ -252,6 +354,18 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			},
 			clients: {
 				table: {
+					weight: {
+						pt: 'Peso',
+						en: 'Weight',
+						es: 'Peso',
+						fr: 'Poids'
+					},
+					height: {
+						pt: 'Altura',
+						en: 'Height',
+						es: 'Altura',
+						fr: 'Taille'
+					},
 					tableTitle: {
 						pt: 'Clientes',
 						en: 'Clients',
@@ -259,10 +373,10 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 						fr: 'Clients'
 					},
 					username: {
-						pt: 'Nome de cliente',
-						en: 'Client name',
-						es: 'Nombre del cliente',
-						fr: 'Nom du client'
+						pt: 'Nome de utilizador',
+						en: 'Username',
+						es: 'Nombre de usuario',
+						fr: 'Nom d\'utilisateur'
 					},
 					fullName: {
 						pt: 'Nome completo',
@@ -370,6 +484,18 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		validations: {
+			repeatedSelection: {
+				pt: 'Seleção repetida',
+				en: 'Repeated selection',
+				es: 'Selección repetida',
+				fr: 'Sélection répétée'
+			},
+			invalidSelection: {
+				pt: 'Seleção inválida',
+				en: 'Invalid selection',
+				es: 'Selección inválida',
+				fr: 'Sélection invalide'
+			},
 			unique: {
 				pt: 'Este campo tem de ser único',
 				en: 'This field	has to be unique',

@@ -1,5 +1,6 @@
-import { string } from '@resourge/schema';
+import { object, string } from '@resourge/schema';
 
+import { type SelectItem } from '../models/SelectItem';
 import { TranslationInstance } from '../translations/Translations';
 
 export const schemaPassword = string()
@@ -27,21 +28,29 @@ export const confirmPassword = string()
 })
 .required(TranslationInstance.K.validations.password.required);
 
-export const validateExercises = (exercises: any[]) => {
-	const seenExercises = new Set<string>();
-	const errors: Record<string, string> = {};
+export const selectItemSchema = <T extends SelectItem>(
+	options: T[],
+	path: string
+) => {
+	return object<SelectItem>()
+	.test((_, parent ) => {
+		const matchingOption: boolean = options.some((option) => option.value === parent[path].value);
 
-	exercises.forEach((exercise, index) => {
-		if (exercise.exercise && exercise.exercise.value) {
-			const exerciseValue = exercise.exercise.value.toString();
-			if (seenExercises.has(exerciseValue)) {
-				errors[`exercises[${index}].exercise`] = TranslationInstance.K.validations.unique;
-			}
-			else {
-				seenExercises.add(exerciseValue);
-			}
+		if (!matchingOption) {
+			return [{
+				error: TranslationInstance.K.validations.invalidSelection,
+				path: ''
+			}];
 		}
-	});
-
-	return Object.keys(errors).length > 0 ? errors : null;
+		
+		if (!parent[path] || !parent[path].value) {
+			return [{
+				error: TranslationInstance.K.validations.required,
+				path: ''
+			}];
+		}
+		
+		return [];
+	})
+	.required(TranslationInstance.K.validations.required);
 };

@@ -40,6 +40,7 @@ type DataTableProps = {
 	formSubmission?: () => void
 	fullWidthTable?: boolean
 	goToEntity?: (id: string) => void
+	modalTitle?: string
 	primaryKey?: string
 	triggerModal?: boolean
 	undeletableRows?: string[]
@@ -56,6 +57,7 @@ export default function DataTable({
 	entityCreationTitle,
 	primaryKey,
 	form,
+	modalTitle,
 	undeletableRows,
 	deleteAllowed = true,
 	fullWidthTable = false,
@@ -107,7 +109,7 @@ export default function DataTable({
 				form && formSubmission ? (
 					<Modal
 						ref={modalRef}
-						modalTitle={T.components.data_table.new}
+						modalTitle={modalTitle ?? T.components.data_table.new}
 						onClose={() => {
 							handleCloseModal();
 						}}

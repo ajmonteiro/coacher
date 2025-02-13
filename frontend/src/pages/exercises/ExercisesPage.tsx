@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-key */
-
 import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import Input from 'src/components/input/Input';
+import Textarea from 'src/components/textarea/Textarea';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
 import { useTranslation } from 'src/shared/translations/Translations';
@@ -62,6 +61,7 @@ export default function ExercisesPage() {
 									{
 										form.exercises.map((exercise, index: number) => (
 											<div
+												key={index}
 												className="flex flex-col gap-2 
 												relative
 												ring-1 ring-base-200 rounded-box p-4"
@@ -74,7 +74,7 @@ export default function ExercisesPage() {
 													</span>
 													<hr className="h-2" />
 												</div>
-												<FormWrapper>
+												<FormWrapper className="w-full">
 													<FormControl
 														errors={getErrors(`exercises[${index}].name`)}
 														label={T.pages.exercises.table.name}
@@ -85,18 +85,20 @@ export default function ExercisesPage() {
 															error={hasError(`exercises[${index}].name`)}
 														/>
 													</FormControl>
+												</FormWrapper>
+												<FormWrapper className="w-full">
 													<FormControl
 														errors={getErrors(`exercises[${index}].description`)}
 														label={T.pages.exercises.table.description}
 														required
 													>
-														<Input
+														<Textarea
 															{...field(`exercises[${index}].description`)}
 															error={hasError(`exercises[${index}].description`)}
 														/>
 													</FormControl>
 												</FormWrapper>
-												<FormWrapper>
+												<FormWrapper className="w-full">
 													<FormControl
 														errors={getErrors(`exercises[${index}].video`)}
 														label={T.pages.exercises.table.video}
@@ -108,7 +110,7 @@ export default function ExercisesPage() {
 														/>
 													</FormControl>
 												</FormWrapper>
-												<div className="absolute bottom-5 right-5">
+												<div className="flex justify-end mt-5">
 													<Button
 														className="btn-square"
 														onClick={() => form.removeExercise(index)}

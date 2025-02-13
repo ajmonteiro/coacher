@@ -7,6 +7,7 @@ namespace Coacher.Models
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public string WeekDay { get; set; } = string.Empty;
         public int UserId { get; set; }
         public List<ExerciseInWorkoutDto> Exercises { get; set; } = new();
     }
@@ -23,6 +24,7 @@ namespace Coacher.Models
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public string WeekDay { get; set; } = string.Empty;
         public int UserId { get; set; }
         public List<WorkoutExerciseDto> Exercises { get; set; } = new();
     }
@@ -39,6 +41,7 @@ namespace Coacher.Models
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public string WeekDay { get; set; } = string.Empty;
         public int UserId { get; set; } 
 
         public List<ExerciseInWorkoutDto> Exercises { get; set; } = new();
