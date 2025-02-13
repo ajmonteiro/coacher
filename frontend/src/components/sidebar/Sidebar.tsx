@@ -21,13 +21,22 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 	const { T } = useTranslation();
 	return (
 		<div
-			className="bg-base-100 z-10 mt-5 transition-all 
-			duration-300 overflow-hidden lg:flex hidden w-full relative"
-			style={{
-				width: isSidebarOpen ? '250px' : '90px' 
-			}}
+			className={`sidebar bg-base-100 lg:z-10 lg:mt-5 transition-all
+			duration-500 ease-in-out overflow-hidden 
+			lg:relative 
+			${isSidebarOpen ? 'lg:w-[250px] w-screen' : 'lg:w-[45px] w-0 sm:w-0'} 
+			${isSidebarOpen ? 'lg:h-auto h-[calc(100vh-5.5rem)]' : 'h-[calc(100vh-5.5rem)]'}
+			fixed bottom-0 left-0 z-[9998] lg:px-0 px-3
+			${isSidebarOpen ? 'opacity-100 visible' : 'lg:opacity-100 lg:visible opacity-0 invisible'} 
+			`}
 		>
-			<div className={`flex flex-col  gap-5 p-5 w-full ${!isSidebarOpen ? 'items-center' : 'pl-0'}`}> 
+			<div
+				className={`flex flex-col items-center gap-5 
+				w-full
+				md:container sm:container-0 mx-auto
+				${isSidebarOpen ? 'items-center' : ''}
+				`}
+			> 
 				<SidebarSection>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}

@@ -104,7 +104,7 @@ export default function DataTable({
 	}, [triggerModal]);
 	
 	return (
-		<div className={`flex flex-col ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7`}>
+		<div className={`flex flex-col ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7 w-full`}>
 			{
 				form && formSubmission ? (
 					<Modal
@@ -145,7 +145,7 @@ export default function DataTable({
 					) : null 
 				}
 			</div>
-			<div className="">
+			<div className="overflow-x-scroll">
 				<table className="table ring-1 ring-t-0 ring-base-300 bg-base-100">
 					<thead>
 						<tr>

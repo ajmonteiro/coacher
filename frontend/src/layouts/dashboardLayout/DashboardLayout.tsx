@@ -28,7 +28,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 						isSidebarOpen={isSidebarOpen}
 						setSidebarOpen={() => setIsSidebarOpen((prev) => !prev)}
 					/>
-					<div className="flex h-full flex-grow container mx-auto">
+					<div className="flex h-full flex-grow container mx-auto gap-5">
 						<Sidebar isSidebarOpen={isSidebarOpen} />
 						<MainContainer>
 							{ children }

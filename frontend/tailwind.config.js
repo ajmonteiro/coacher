@@ -7,16 +7,28 @@ export default {
     "node_modules/react-daisyui/dist/**/*.js",
     "node_modules/daisyui/dist/**/*.js",
   ],
-  plugins: [require('daisyui')],
+  plugins: [require("daisyui")],
   daisyui: {
     themes: [
       {
         myluxuryfitness: {
           "primary": "#c99a3f",
+          "primary-content": "#ffffff",
           "secondary": "#ececec",
+          "secondary-content": "#222222",
           "accent": "#0056b3",
+          "accent-content": "#ffffff",
           "neutral": "#f8f8f8",
+          "neutral-content": "#222222",
           "base-100": "#ffffff",
+          "base-200": "#f2f2f2",
+          "base-300": "#e6e6e6",
+          "base-content": "#222222",
+
+          "info": "#2094f3",
+          "success": "#009485",
+          "warning": "#ff9900",
+          "error": "#ff5724",
 
           "--gold": "#c99a3f",
           "--cool-gray": "#ececec",
@@ -33,10 +45,22 @@ export default {
       {
         myluxuryred: {
           "primary": "#B22222",
+          "primary-content": "#ffffff",
           "secondary": "#F5E0DC",
+          "secondary-content": "#660000",
           "accent": "#7D1313",
+          "accent-content": "#ffffff",
           "neutral": "#FAF3F3",
+          "neutral-content": "#222222",
           "base-100": "#ffffff",
+          "base-200": "#f8eaea",
+          "base-300": "#f0dcdc",
+          "base-content": "#222222",
+
+          "info": "#db4c40",
+          "success": "#00a86b",
+          "warning": "#ffb703",
+          "error": "#d90429",
 
           "--gold": "#8B0000",
           "--cool-gray": "#F5E0DC",
@@ -53,10 +77,22 @@ export default {
       {
         myluxurygreen: {
           "primary": "#2E8B57",
+          "primary-content": "#ffffff",
           "secondary": "#D4EED1",
+          "secondary-content": "#1E5631",
           "accent": "#1E5631",
+          "accent-content": "#ffffff",
           "neutral": "#EFFAF3",
+          "neutral-content": "#222222",
           "base-100": "#ffffff",
+          "base-200": "#E5F5E8",
+          "base-300": "#D4EED1",
+          "base-content": "#222222",
+
+          "info": "#4caf50",
+          "success": "#00a86b",
+          "warning": "#fbc02d",
+          "error": "#d32f2f",
 
           "--gold": "#2E8B57",
           "--cool-gray": "#D4EED1",
@@ -73,10 +109,22 @@ export default {
       {
         myluxurypurple: {
           "primary": "#6A0DAD",
+          "primary-content": "#ffffff",
           "secondary": "#E8D5F5",
+          "secondary-content": "#4B0082",
           "accent": "#4B0082",
+          "accent-content": "#ffffff",
           "neutral": "#F7F0FA",
+          "neutral-content": "#222222",
           "base-100": "#ffffff",
+          "base-200": "#F0E6F7",
+          "base-300": "#E8D5F5",
+          "base-content": "#222222",
+
+          "info": "#957dad",
+          "success": "#7b68ee",
+          "warning": "#ffb74d",
+          "error": "#e91e63",
 
           "--gold": "#6A0DAD",
           "--cool-gray": "#E8D5F5",
@@ -93,10 +141,22 @@ export default {
       {
         myluxuryblue: {
           "primary": "#1E3A8A",
+          "primary-content": "#ffffff",
           "secondary": "#CBD5E1",
+          "secondary-content": "#0F172A",
           "accent": "#0F172A",
+          "accent-content": "#ffffff",
           "neutral": "#E0F2FE",
+          "neutral-content": "#222222",
           "base-100": "#ffffff",
+          "base-200": "#D7E7F9",
+          "base-300": "#CBD5E1",
+          "base-content": "#222222",
+
+          "info": "#42a5f5",
+          "success": "#4caf50",
+          "warning": "#ffa726",
+          "error": "#d32f2f",
 
           "--gold": "#1E3A8A",
           "--cool-gray": "#CBD5E1",
@@ -128,4 +188,4 @@ export default {
       },
     },
   },
-}
+};

@@ -65,7 +65,10 @@ export default function UserProfilePage() {
 									{ T.pages.userProfile.weight }
 									:
 								</span>
-								<span className="text-xs">{ user.weight }</span>
+								<span className="text-xs">
+									{ user.weight }
+									kg
+								</span>
 							</p>
 							<p className="flex items-center"> 
 								<span className="text-xs font-bold mr-2"> 

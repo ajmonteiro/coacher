@@ -42,104 +42,102 @@ export default function ClientsPage() {
 
 	return (
 		<DashboardLayout>
-			<div className="w-full h-full rounded-box">
-				{
-					rows.data ? (
-						<DataTable
-							changePage={changePage}
-							columns={[
-								{
-									columnName: 'username',
-									columnLabel: T.pages.clients.table.username
-								},
-								{
-									columnName: 'fullName',
-									columnLabel: T.pages.clients.table.fullName
-								},
-								{
-									columnName: 'phone',
-									columnLabel: T.pages.clients.table.phone
-								},
-								{
-									columnName: 'role',
-									columnLabel: T.pages.clients.table.role
-								}
-							]}
-							data={rows.data}
-							deleteEntities={deleteEntities}
-							form={(
-								<FormWrapper>
-									<FormControl
-										errors={getErrors('user.username')}
-										label={T.pages.clients.table.username}
-										required
-									>
-										<Input
-											error={hasError('user.username')}
-											{...field('user.username')}
-											placeholder={T.pages.clients.table.username}
-										/>
-									</FormControl>
-									<FormControl
-										errors={getErrors('user.fullName')}
-										label={T.pages.clients.table.fullName}
-										required
-									>
-										<Input
-											error={hasError('user.fullName')}
-											{...field('user.fullName')}
-											placeholder={T.pages.clients.table.fullName}
-										/>
-									</FormControl>
-									<FormControl
-										errors={getErrors('user.phone')}
-										label={T.pages.clients.table.phone}
-										required
-									>
-										<Input
-											error={hasError('user.phone')}
-											{...field('user.phone')}
-											placeholder={T.pages.clients.table.phone}
-										/>
-									</FormControl>
-									<FormControl
-										errors={getErrors('user.weight')}
-										label={T.pages.clients.table.weight}
-										required
-									>
-										<Input
-											error={hasError('user.weight')}
-											{...field('user.weight')}
-											placeholder={T.pages.clients.table.weight}
-										/>
-									</FormControl>
-									<FormControl
-										errors={getErrors('user.height')}
-										label={T.pages.clients.table.height}
-										required
-									>
-										<Input
-											error={hasError('user.height')}
-											{...field('user.height')}
-											placeholder={T.pages.clients.table.height}
-										/>
-									</FormControl>
-								</FormWrapper>
-							)}
-							formSubmission={submit}
-							goToEntity={(id: string) => navigate(Routes.DASHBOARD.USER_PROFILE.get({
-								searchParams: {
-									userId: id
-								}
-							}))}
-							paginationData={pagination}
-							primaryKey="id"
-							tableTitle={T.pages.clients.table.tableTitle}
-							undeletableRows={hasUndeletableRows(rows.data) ? [user.id] : []}
-						/>
-					) : null 
-				}
-			</div>
+			{
+				rows.data ? (
+					<DataTable
+						changePage={changePage}
+						columns={[
+							{
+								columnName: 'username',
+								columnLabel: T.pages.clients.table.username
+							},
+							{
+								columnName: 'fullName',
+								columnLabel: T.pages.clients.table.fullName
+							},
+							{
+								columnName: 'phone',
+								columnLabel: T.pages.clients.table.phone
+							},
+							{
+								columnName: 'role',
+								columnLabel: T.pages.clients.table.role
+							}
+						]}
+						data={rows.data}
+						deleteEntities={deleteEntities}
+						form={(
+							<FormWrapper>
+								<FormControl
+									errors={getErrors('user.username')}
+									label={T.pages.clients.table.username}
+									required
+								>
+									<Input
+										error={hasError('user.username')}
+										{...field('user.username')}
+										placeholder={T.pages.clients.table.username}
+									/>
+								</FormControl>
+								<FormControl
+									errors={getErrors('user.fullName')}
+									label={T.pages.clients.table.fullName}
+									required
+								>
+									<Input
+										error={hasError('user.fullName')}
+										{...field('user.fullName')}
+										placeholder={T.pages.clients.table.fullName}
+									/>
+								</FormControl>
+								<FormControl
+									errors={getErrors('user.phone')}
+									label={T.pages.clients.table.phone}
+									required
+								>
+									<Input
+										error={hasError('user.phone')}
+										{...field('user.phone')}
+										placeholder={T.pages.clients.table.phone}
+									/>
+								</FormControl>
+								<FormControl
+									errors={getErrors('user.weight')}
+									label={T.pages.clients.table.weight}
+									required
+								>
+									<Input
+										error={hasError('user.weight')}
+										{...field('user.weight')}
+										placeholder={T.pages.clients.table.weight}
+									/>
+								</FormControl>
+								<FormControl
+									errors={getErrors('user.height')}
+									label={T.pages.clients.table.height}
+									required
+								>
+									<Input
+										error={hasError('user.height')}
+										{...field('user.height')}
+										placeholder={T.pages.clients.table.height}
+									/>
+								</FormControl>
+							</FormWrapper>
+						)}
+						formSubmission={submit}
+						goToEntity={(id: string) => navigate(Routes.DASHBOARD.USER_PROFILE.get({
+							searchParams: {
+								userId: id
+							}
+						}))}
+						paginationData={pagination}
+						primaryKey="id"
+						tableTitle={T.pages.clients.table.tableTitle}
+						undeletableRows={hasUndeletableRows(rows.data) ? [user.id] : []}
+					/>
+				) : null 
+			}
 		</DashboardLayout>
 	);
 }

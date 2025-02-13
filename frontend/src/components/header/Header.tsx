@@ -40,15 +40,12 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 
 	return (
 		<div
-			className="flex justify-between items-center gap-4 bg-base-100 py-10 sticky z-[9999] h-[3rem] transition-all duration-300"
+			className="flex justify-between items-center gap-4 bg-base-100 
+			py-10 relative z-[9999] h-[3rem] transition-all duration-300"
 		>
 			<div
 				className={`flex justify-between items-center text-base-content 
-				transition-all duration-300`}
-				style={{
-					width: isSidebarOpen ? '250px' : '90px', 
-					paddingLeft: isSidebarOpen ? '0px' : '1.25rem'
-				}}
+				transition-all duration-300 ${isSidebarOpen ? 'lg:w-[250px] w-[45px]' : 'md:w-[90px] w-[45px]'}`}
 			> 
 				{
 					isSidebarOpen ? (
@@ -63,8 +60,11 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 					<Bars3Icon className="w-6 h-6" />
 				</Button>
 			</div>
-			<div className="flex-1 flex items-center justify-between w-full gap-5">
-				<div className="text-md flex gap-1">
+			<div
+				className="
+			flex-1 flex items-center justify-between gap-5"
+			>
+				<div className="text-md lg:flex hidden gap-1 grow justify-start w-full">
 					<span>
 						{ T.components.header.welcome }
 						,
@@ -73,7 +73,7 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 						{ user.username }
 					</span>
 				</div>
-				<div className="flex gap-2 items-center">
+				<div className="flex gap-2 items-center flex-1 justify-end">
 					<ThemeController />
 					<LanguagePicker
 						isDropdownOpen={isDropdownOpen} 

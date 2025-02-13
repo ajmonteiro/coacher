@@ -9,19 +9,21 @@ import { TranslationInstance } from './shared/translations/Translations';
 
 function App() {
 	return (
-		<Translations>
-			<BrowserRouter defaultFallback={<LoadingSuspense />}>
-				<LanguageRoute 
-					fallbackLanguage={TranslationInstance.language} 
-					languages={TranslationInstance.languages}
-				>
-					<Authentication>
-						<Router />
-					</Authentication>
-				</LanguageRoute>
-				<GlobalLoader />
-			</BrowserRouter>
-		</Translations>
+		<>
+			<Translations>
+				<BrowserRouter defaultFallback={<LoadingSuspense />}>
+					<LanguageRoute 
+						fallbackLanguage={TranslationInstance.language} 
+						languages={TranslationInstance.languages}
+					>
+						<Authentication>
+							<Router />
+						</Authentication>
+					</LanguageRoute>
+					<GlobalLoader />
+				</BrowserRouter>
+			</Translations>
+		</>
 	);
 }
 

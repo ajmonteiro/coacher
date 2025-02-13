@@ -15,21 +15,22 @@ export default function SidebarSectionItem({
 }: SidebarSectionItemProps) {
 	return (
 		<A
-			className={`w-full flex items-center justify-start px-4 btn btn-circle text-center
+			className={`w-full flex items-center justify-start px-4 btn text-center
 				border-0
                 ${active ? 'font-bold bg-primary-soft text-primary' : 'font-semibold text-black'}
-				${!collapsed ? 'mx-auto pl-[0.75rem]' : ''}
+				${!collapsed ? 'justify-center mx-auto' : ''}
 				`}
 			href={href}
 			variant="simple"
 		>
 			<div
-				className="flex items-center gap-3"
+				className={`
+					flex items-center ${collapsed ? 'gap-3' : 'gap-0'}`}
 			>
-				<span className="w-6 h-6 text-light text-base-content">
+				<span className="w-6 h-6 text-semibold text-base-content">
 					{ icon }
 				</span>
-				<span className="text-xs font-light text-base-content">
+				<span className="text-xs font-semibold text-base-content">
 					{
 						collapsed 
 							? text

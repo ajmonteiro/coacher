@@ -31,7 +31,7 @@ const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 					overflow-y-scroll
 					h-fit mb:mt-0 mt-auto md:m-auto m-0
 					overflow-visible
-					bg-white rounded-box p-6`}
+					bg-primary-content rounded-box p-6`}
 			>
 				<div className="flex flex-col gap-4 w-full">
 					<div
