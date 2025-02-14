@@ -40,16 +40,20 @@ namespace backend.Controllers
             return Ok(result);
         }
 
-      [HttpPost("logout")]
-        public async Task<ActionResult> Logout([FromBody] LogoutRequestDto request)
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout(LogoutRequestDto request)
         {
-            if (request == null || string.IsNullOrEmpty(request.RefreshToken))
+            try
             {
-                return BadRequest("Refresh token is required.");
+                await authService.LogoutAsync(request);
+                return Ok("Logged out successfully.");
             }
-
-            await authService.LogoutAsync(request);
-            return Ok(); // Or NoContent()
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
         }
+
     }
 }

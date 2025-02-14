@@ -15,6 +15,7 @@ namespace backend.Models
         public Guid RoleId { get; init; }
         [JsonIgnore]
         public RoleDto Role { get; init; } = new();
+        public UserPermissionDto Permissions { get; init; } = new();
         public List<WorkoutDto> Workouts { get; set; } = new();
         public List<DietDto> Diets { get; set; } = new();
 

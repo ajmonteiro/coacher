@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using backend.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace backend.Controllers.UserController
 {
@@ -21,8 +22,11 @@ namespace backend.Controllers.UserController
             if (page < 1 || perPage < 1)
                 return BadRequest("Page and perPage must be greater than 0.");
 
-            var totalItems = await context.Users.CountAsync();
+            var totalItems = await context.Users
+                
+                .CountAsync();
             var users = await context.Users
+                .Include(u => u.Role)
                 .Skip((page - 1) * perPage)
                 .Take(perPage)
                 .ToListAsync();
@@ -120,8 +124,24 @@ namespace backend.Controllers.UserController
                 {
                     return NotFound("User not found.");
                 }
+                
+                var isCoach = user.Role.Name == "Coach";
+                
+                var permissions = new UserPermissionDto
+                {
+                    CanViewDashboard = isCoach, 
+                    CanViewClients = isCoach,
+                    CanViewDiets = isCoach,
+                    CanViewExercises = isCoach,
+                    CanViewFood = isCoach,
+                    CanViewMeals = isCoach,
+                    CanViewWorkouts = isCoach
+                };
 
-                return Ok(user);
+           
+                    
+
+                return Ok(new { User = user, Permissions = permissions });
             }
             catch (Exception ex)
             {
@@ -134,20 +154,26 @@ namespace backend.Controllers.UserController
         [HttpPost]
         public async Task<ActionResult<UserDto>> CreateUser(UserDto userDto)
         {
-            var role = await context.Roles.FirstOrDefaultAsync(r => r.Id == userDto.RoleId);
-            if (role == null)
-                return BadRequest("Role with the given ID does not exist.");
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Id == userDto.RoleId); 
+
+            if (role == null) 
+            {
+                role = await context.Roles.FirstOrDefaultAsync(r => r.Name == "Client");
+                if (role == null)
+                    return BadRequest("Default role 'Client' not found.");
+            }
 
             var user = new User
             {
                 Username = userDto.Username,
                 FullName = userDto.FullName,
                 Phone = userDto.Phone,
+                PasswordHash = new PasswordHasher<UserDto>()
+                    .HashPassword(userDto, "password"),
                 Weight = userDto.Weight,
                 Height = userDto.Height,
-                RoleId = userDto.RoleId
+                RoleId = role.Id
             };
-
 
             context.Users.Add(user);
             await context.SaveChangesAsync();

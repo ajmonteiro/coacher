@@ -13,7 +13,7 @@ namespace backend.Controllers.FoodController
     {
         public Food food { get; set; } = new Food();
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet]
         public async Task<ActionResult<object>> GetFoods(int page = 1, int perPage = 10)
         {
@@ -35,7 +35,7 @@ namespace backend.Controllers.FoodController
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
         public ActionResult<Food> GetFood(int id)
         {
@@ -45,7 +45,7 @@ namespace backend.Controllers.FoodController
             return food;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet("options")]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetFoodOptions()
         {
@@ -57,7 +57,7 @@ namespace backend.Controllers.FoodController
             return Ok(foods);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPost]
         public async Task<ActionResult<Food>> CreateFood(Food food)
         {
@@ -66,7 +66,7 @@ namespace backend.Controllers.FoodController
             return Ok(food);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Food>> UpdateFood(Guid id, Food food)
         {
@@ -77,7 +77,7 @@ namespace backend.Controllers.FoodController
             return Ok(food);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Food>> DeleteFood(Guid id)
         {

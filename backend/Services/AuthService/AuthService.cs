@@ -19,7 +19,7 @@ namespace backend.Services.AuthService
             var user = await context.Users
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.Username == request.Username);
-    
+            
             if (user is null)
             {
                 return null;
@@ -29,8 +29,21 @@ namespace backend.Services.AuthService
             {
                 return null;
             }
+            
+            var isCoach = user.Role.Name == "Coach";
+            
+            var permissions = new UserPermissionDto
+            {
+                CanViewDashboard = isCoach,
+                CanViewClients = isCoach,
+                CanViewDiets = isCoach,
+                CanViewExercises = isCoach,
+                CanViewFood = isCoach,
+                CanViewMeals = isCoach,
+                CanViewWorkouts = isCoach
+            };
 
-            return await CreateTokenResponse(user);
+            return await CreateTokenResponse(user, permissions);
         }
 
         public async Task LogoutAsync(LogoutRequestDto request)
@@ -45,14 +58,16 @@ namespace backend.Services.AuthService
             }
         }
 
-        private async Task<TokenResponseDto> CreateTokenResponse(User? user)
+        private async Task<TokenResponseDto> CreateTokenResponse(User user, UserPermissionDto permissions)
         {
             return new TokenResponseDto
             {
-                AccessToken = CreateToken(user!),
-                RefreshToken = await GenerateAndSaveRefreshTokenAsync(user!)
+                AccessToken = CreateToken(user),
+                RefreshToken = await GenerateAndSaveRefreshTokenAsync(user),
+                Permissions = permissions
             };
         }
+
 
         public async Task<User?> RegisterAsync(UserDto request)
         {
@@ -88,8 +103,20 @@ namespace backend.Services.AuthService
             var user = await ValidateRefreshTokenAsync(request.UserId, request.RefreshToken);
             if (user is null)
                 return null;
+            
+            var isCoach = user.Role.Name == "Coach";
+            var permissions = new UserPermissionDto
+            {
+                CanViewDashboard = isCoach,
+                CanViewClients = isCoach,
+                CanViewDiets = isCoach,
+                CanViewExercises = isCoach,
+                CanViewFood = isCoach,
+                CanViewMeals = isCoach,
+                CanViewWorkouts = isCoach
+            };
 
-            return await CreateTokenResponse(user);
+            return await CreateTokenResponse(user, permissions);
         }
 
         private async Task<User?> ValidateRefreshTokenAsync(Guid userId, string refreshToken)

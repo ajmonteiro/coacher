@@ -13,7 +13,7 @@ namespace backend.Controllers.WorkoutController
     {
         public Workout Workout { get; set; } = new Workout();
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet]
         public async Task<ActionResult<object>> GetWorkouts(int page = 1, int perPage = 10)
         {
@@ -66,7 +66,7 @@ namespace backend.Controllers.WorkoutController
             return Workout;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPost]
         public async Task<ActionResult<WorkoutResponseDto>> CreateWorkout(WorkoutCreateDto workoutDto)
         {
@@ -130,7 +130,7 @@ namespace backend.Controllers.WorkoutController
             return Ok(workoutResponse);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Workout>> UpdateWorkout(Guid id, Workout Workout)
         {
@@ -141,7 +141,7 @@ namespace backend.Controllers.WorkoutController
             return Ok(Workout);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Workout>> DeleteWorkout(Guid id)
         {

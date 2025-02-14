@@ -8,6 +8,7 @@ namespace backend.Controllers.DashboardController
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Coach")]
     public class DashboardController(AppDbContext context) : ControllerBase
     {
         [Authorize]

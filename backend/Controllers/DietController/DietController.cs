@@ -13,7 +13,7 @@ namespace backend.Controllers.DietController
     {
         public Diet Diet { get; set; } = new Diet();
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet]
         public async Task<ActionResult<object>> GetDiets(int page = 1, int perPage = 10)
         {
@@ -52,7 +52,7 @@ namespace backend.Controllers.DietController
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
         public async Task<ActionResult<DietDto>> GetDiet(Guid id)
         {
@@ -98,7 +98,7 @@ namespace backend.Controllers.DietController
             return dietDto;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPost]
         public async Task<ActionResult<DietDto>> CreateDiet([FromBody] CreateDietDto createDietDto)
         {
@@ -186,7 +186,7 @@ namespace backend.Controllers.DietController
             return CreatedAtAction(nameof(GetDiet), new { id = diet.Id }, dietDto);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Diet>> UpdateDiet(Guid id, Diet Diet)
         {
@@ -197,7 +197,7 @@ namespace backend.Controllers.DietController
             return Ok(Diet);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Diet>> DeleteDiet(Guid id)
         {

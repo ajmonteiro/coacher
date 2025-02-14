@@ -13,7 +13,7 @@ namespace backend.Controllers.ExerciseController
     {
         public Exercise Exercise { get; set; } = new Exercise();
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet]
         public async Task<ActionResult<object>> GetExercises(int page = 1, int perPage = 10)
         {
@@ -35,7 +35,7 @@ namespace backend.Controllers.ExerciseController
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet("options")]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetExerciseOptions()
         {
@@ -46,7 +46,7 @@ namespace backend.Controllers.ExerciseController
             return Ok(exercises);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
         public ActionResult<Exercise> GetExercise(Guid id)
         {
@@ -56,7 +56,7 @@ namespace backend.Controllers.ExerciseController
             return Exercise;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPost]
         public async Task<ActionResult<Exercise>> CreateExercise(Exercise Exercise)
         {
@@ -65,7 +65,7 @@ namespace backend.Controllers.ExerciseController
             return Ok(Exercise);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Exercise>> UpdateExercise(Guid id, Exercise Exercise)
         {
@@ -76,7 +76,7 @@ namespace backend.Controllers.ExerciseController
             return Ok(Exercise);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Exercise>> DeleteExercise(Guid id)
         {
