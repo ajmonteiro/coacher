@@ -1,11 +1,11 @@
-using Coacher.Entities;
-using Coacher.Models;
-using Coacher.Data;
+using backend.Entities;
+using backend.Models;
+using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Coacher.Controllers
+namespace backend.Controllers.ExerciseController
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -48,7 +48,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<Exercise> GetExercise(int id)
+        public ActionResult<Exercise> GetExercise(Guid id)
         {
             var Exercise = context.Exercises.Find(id);
             if (Exercise is null)
@@ -67,7 +67,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Exercise>> UpdateExercise(int id, Exercise Exercise)
+        public async Task<ActionResult<Exercise>> UpdateExercise(Guid id, Exercise Exercise)
         {
             if (id != Exercise.Id)
                 return BadRequest();
@@ -78,7 +78,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Exercise>> DeleteExercise(int id)
+        public async Task<ActionResult<Exercise>> DeleteExercise(Guid id)
         {
             var Exercise = context.Exercises.Find(id);
             if (Exercise is null)

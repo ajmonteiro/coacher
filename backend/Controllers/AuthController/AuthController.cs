@@ -1,10 +1,10 @@
-using Coacher.Entities;
-using Coacher.Models;
-using Coacher.Services;
+using backend.Models;
+using backend.Services;
+using backend.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Coacher.Controllers
+namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

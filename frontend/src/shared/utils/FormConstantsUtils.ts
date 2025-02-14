@@ -31,3 +31,14 @@ export const WEEKDAY_OPTIONS: SelectItem[] = [
 		value: 'sunday'
 	}
 ];
+
+export const FOOD_UNIT_OPTIONS: SelectItem[] = [
+	{
+		label: TranslationInstance.T.formConstants.foodUnits.gram,
+		value: 'g'
+	},
+	{
+		label: TranslationInstance.T.formConstants.foodUnits.milliliter,
+		value: 'ml'
+	}
+];

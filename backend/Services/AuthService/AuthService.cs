@@ -1,6 +1,6 @@
-﻿using Coacher.Data;
-using Coacher.Entities;
-using Coacher.Models;
+﻿using backend.Data;
+using backend.Entities;
+using backend.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,19 +9,23 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Coacher.Services
+
+namespace backend.Services.AuthService
 {
     public class AuthService(AppDbContext context, IConfiguration configuration) : IAuthService
     {
         public async Task<TokenResponseDto?> LoginAsync(LoginDto request)
         {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+            var user = await context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Username == request.Username);
+    
             if (user is null)
             {
                 return null;
             }
-            if (new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password)
-                == PasswordVerificationResult.Failed)
+
+            if (new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
             {
                 return null;
             }
@@ -57,13 +61,17 @@ namespace Coacher.Services
                 return null;
             }
 
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Id == request.RoleId);
+            if (role == null)
+                return null;
+
             var user = new User();
             var hashedPassword = new PasswordHasher<User>()
                 .HashPassword(user, request.Password);
 
             user.Username = request.Username;
             user.PasswordHash = hashedPassword;
-            user.Role = "User";
+            user.RoleId = request.RoleId;
             user.FullName = request.FullName;
             user.Phone = request.Phone;
             user.Weight = request.Weight;
@@ -115,11 +123,16 @@ namespace Coacher.Services
 
         private string CreateToken(User user)
         {
+            if (user.Role == null)
+            {
+                throw new InvalidOperationException("User's role is null.");
+            }
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.Role!)
+                new Claim(ClaimTypes.Role, user.Role.Name)
             };
 
             var key = new SymmetricSecurityKey(
@@ -137,5 +150,6 @@ namespace Coacher.Services
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
     }
 }

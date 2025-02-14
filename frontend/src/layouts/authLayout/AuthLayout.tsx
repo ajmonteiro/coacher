@@ -1,8 +1,9 @@
-/* eslint-disable jsx-a11y/alt-text */
 import { type ReactNode } from 'react';
 
+import { Barbell } from '@phosphor-icons/react';
+
 import { Login } from 'src/assets/svg/Svg';
-import InfoCard from 'src/components/infoCard/InfoCard';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import Svg from 'src/components/svg/Svg';
 import ThemeController from 'src/components/themeController/ThemeController';
 
@@ -31,7 +32,13 @@ export default function AuthLayout({ children, layoutTitle }: AuthLayoutProps) {
 						<div className="flex justify-end">
 							<ThemeController />
 						</div>				
-						<span className="text-xl font-bold">{ layoutTitle }</span>
+						<div className="flex items-center justify-center gap-2">
+							<PhosphorIcon
+								icon={<Barbell />}
+								size={32}
+							/>
+							<span className="text-xl font-bold">{ layoutTitle }</span>
+						</div>
 						<div className="w-full">
 							{ children }
 						</div>

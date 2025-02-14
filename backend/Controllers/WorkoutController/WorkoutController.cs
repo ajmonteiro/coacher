@@ -1,11 +1,11 @@
-using Coacher.Entities;
-using Coacher.Data;
-using Coacher.Models;
+using backend.Models;
+using backend.Entities;
+using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Coacher.Controllers
+namespace backend.Controllers.WorkoutController
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -132,7 +132,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Workout>> UpdateWorkout(int id, Workout Workout)
+        public async Task<ActionResult<Workout>> UpdateWorkout(Guid id, Workout Workout)
         {
             if (id != Workout.Id)
                 return BadRequest();
@@ -143,7 +143,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Workout>> DeleteWorkout(int id)
+        public async Task<ActionResult<Workout>> DeleteWorkout(Guid id)
         {
             var Workout = context.Workouts.Find(id);
             if (Workout is null)

@@ -1,4 +1,4 @@
-﻿namespace Coacher.Models
+﻿namespace backend.Models
 {
     public class RefreshTokenRequestDto
     {

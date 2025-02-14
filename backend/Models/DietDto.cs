@@ -1,19 +1,27 @@
-using Coacher.Entities;
+using backend.Entities;
 
-namespace Coacher.Models
+namespace backend.Models
 {
+    public class CreateDietDto
+    {
+        public Guid UserId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public List<CreateMealDto> Meals { get; set; } = new List<CreateMealDto>();
+    }
+
     public class DietResponseDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public List<MealInDietDto> Meals { get; set; } = new();
     }
 
     public class MealInDietDto
     {
-        public int MealId { get; set; }
+        public Guid MealId { get; set; }
         public string Name { get; set; } = string.Empty;
     }
 
@@ -21,22 +29,21 @@ namespace Coacher.Models
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public List<DietMealDto> Meals { get; set; } = new();
     }
 
      public class DietMealDto
     {
-        public int MealId { get; set; }
+        public Guid MealId { get; set; }
     }
 
      public class DietDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public int UserId { get; set; } 
-
-        public List<MealInDietDto> Meals { get; set; } = new();
+        public string? Description { get; set; }
+        public List<MealDto> Meals { get; set; } = new List<MealDto>();
     }
 }

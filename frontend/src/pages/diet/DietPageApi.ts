@@ -19,6 +19,14 @@ class DietPageApi {
 	public async delete(id: string) {
 		return await HttpBaseService.delete(`/Diet/${id}`);
 	}
+
+	public async foodOptions() {
+		return await HttpBaseService.get('/Food/options');
+	}
+
+	public async userOptions() {
+		return await HttpBaseService.get('/User/options');
+	}
 }
 
 export default new DietPageApi();

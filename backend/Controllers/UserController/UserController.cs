@@ -1,19 +1,18 @@
-using Coacher.Entities;
-using Coacher.Data;
-using Coacher.Models;
+using backend.Entities;
+using backend.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using backend.Models;
 
-namespace Coacher.Controllers
+namespace backend.Controllers.UserController
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class UserController(AppDbContext context) : ControllerBase
     {
-        private readonly AppDbContext _context = context;
 
         [Authorize]
         [HttpGet]
@@ -22,8 +21,8 @@ namespace Coacher.Controllers
             if (page < 1 || perPage < 1)
                 return BadRequest("Page and perPage must be greater than 0.");
 
-            var totalItems = await _context.Users.CountAsync();
-            var users = await _context.Users
+            var totalItems = await context.Users.CountAsync();
+            var users = await context.Users
                 .Skip((page - 1) * perPage)
                 .Take(perPage)
                 .ToListAsync();
@@ -50,9 +49,10 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(int id)
+        public async Task<ActionResult<UserDto>> GetUser(Guid id)
         {
-            var user = await _context.Users
+            var user = await context.Users
+                .Include(u => u.Role) 
             .Include(u => u.Workouts)
                 .ThenInclude(w => w.WorkoutExercises)
                     .ThenInclude(we => we.Exercise)
@@ -74,7 +74,7 @@ namespace Coacher.Controllers
                 Phone = user.Phone,
                 Weight = user.Weight,
                 Height = user.Height,
-                Role = user.Role,
+                Role = new RoleDto { Name = user.Role.Name },
                 Workouts = user.Workouts.Select(w => new WorkoutDto
                 {
                     Id = w.Id,
@@ -107,12 +107,15 @@ namespace Coacher.Controllers
                     return Unauthorized("User ID not found in token.");
                 }
 
-                if (!int.TryParse(userIdClaim, out int userId))
+                if (!Guid.TryParse(userIdClaim, out Guid userId))
                 {
                     return Unauthorized("Invalid user ID format.");
                 }
 
-                var user = await _context.Users.FindAsync(userId);
+                var user = await context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Id == userId);
+                
                 if (user is null)
                 {
                     return NotFound("User not found.");
@@ -126,10 +129,15 @@ namespace Coacher.Controllers
             }
         }
 
+
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<UserDto>> CreateUser(UserDto userDto)
         {
+            var role = await context.Roles.FirstOrDefaultAsync(r => r.Id == userDto.RoleId);
+            if (role == null)
+                return BadRequest("Role with the given ID does not exist.");
+
             var user = new User
             {
                 Username = userDto.Username,
@@ -137,37 +145,49 @@ namespace Coacher.Controllers
                 Phone = userDto.Phone,
                 Weight = userDto.Weight,
                 Height = userDto.Height,
-                Role = "User"
+                RoleId = userDto.RoleId
             };
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
+
+            var createdUserDto = new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                FullName = user.FullName,
+                Phone = user.Phone,
+                Weight = user.Weight,
+                Height = user.Height,
+                RoleId = user.RoleId
+            };
+
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, createdUserDto);
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> UpdateUser(int id, User user)
+        public async Task<ActionResult<User>> UpdateUser(Guid id, User user)
         {
             if (id != user.Id)
                 return BadRequest("ID mismatch.");
 
-            _context.Entry(user).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            context.Entry(user).State = EntityState.Modified;
+            await context.SaveChangesAsync();
             return Ok(user);
         }
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await context.Users.FindAsync(id);
             if (user is null)
                 return NotFound();
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
             return NoContent();
         }
     }

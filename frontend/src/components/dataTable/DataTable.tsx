@@ -127,7 +127,7 @@ export default function DataTable({
 				) : null 
 			}
 			<div className="flex justify-between">
-				<span className="text-2xl text-base-content font-bold">
+				<span className="text-2xl text-gold font-bold">
 					{ tableTitle }
 				</span>
 				{

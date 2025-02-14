@@ -35,12 +35,11 @@ export default function DashboardPage() {
 	return (
 		<DashboardLayout>
 			<div className="container mx-auto p-4"> 
-				<h1 className="text-3xl font-bold text-gray-800 mb-6">{ T.pages.dashboard.title }</h1> 
+				<h1 className="text-3xl font-bold text-gold mb-6">{ T.pages.dashboard.title }</h1> 
 				{
 					stats ? (
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6"> 
 							<DashboardCard
-								className="bg-error"
 								icon={(
 									<PhosphorIcon 
 										color="white"
@@ -52,7 +51,6 @@ export default function DashboardPage() {
 								secondaryValue={T.pages.dashboard.clients_in_system}
 							/>
 							<DashboardCard
-								className="bg-success"
 								icon={(
 									<PhosphorIcon 
 										color="white"
@@ -64,7 +62,6 @@ export default function DashboardPage() {
 								secondaryValue={T.pages.dashboard.exercises_in_system}
 							/>
 							<DashboardCard
-								className="bg-warning"
 								icon={(
 									<PhosphorIcon 
 										color="white"

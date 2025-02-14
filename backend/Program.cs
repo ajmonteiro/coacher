@@ -1,13 +1,12 @@
-using Coacher.Data;
-using Coacher.Services;
+using backend.Data;
+using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using backend.Services.AuthService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,11 +23,6 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost:3000")
                   .AllowAnyMethod()
                   .AllowAnyHeader();
-        });
-
-    options.AddPolicy("AllowAll", builder =>
-        {
-            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
         });
 });
 
@@ -50,7 +44,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coacher API", Version = "v1" });
 
-    // 1. Define the Security Scheme
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer 12345abcdef\"",
@@ -106,7 +99,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("FrontendPolicy");
-app.UseCors("AllowAll");
 
 app.UseAuthentication();
 

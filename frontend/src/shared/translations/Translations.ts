@@ -25,7 +25,71 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 		htmlLanguage()
 	],
 	translations: {
+		themes: {
+			emerald: {
+				pt: 'Emeralda',
+				en: 'Emerald',
+				es: 'Esmeralda',
+				fr: 'Émeraude'
+			},
+			ruby: {
+				pt: 'Rubi',
+				en: 'Ruby',
+				es: 'Rubí',
+				fr: 'Rubis'
+			},
+			sapphire: {
+				pt: 'Safira',
+				en: 'Sapphire',
+				es: 'Zafiro',
+				fr: 'Saphir'
+			},
+			onyx: {
+				pt: 'Ónix',
+				en: 'Onyx',
+				es: 'Ónice',
+				fr: 'Onyx'
+			},
+			bronze: {
+				pt: 'Bronze',
+				en: 'Bronze',
+				es: 'Bronce',
+				fr: 'Bronze'
+			},
+			fitness: {
+				pt: 'Fitness',
+				en: 'Fitness',
+				es: 'Fitness',
+				fr: 'Fitness'
+			},
+			pink: {
+				pt: 'Rosa',
+				en: 'Pink',
+				es: 'Rosa',
+				fr: 'Rose'
+			},
+			rosegoldblush: {
+				pt: 'Rose Gold Blush',
+				en: 'Rose Gold Blush',
+				es: 'Oro rosa',
+				fr: 'Or rose'
+			}
+		},
 		formConstants: {
+			foodUnits: {
+				gram: {
+					pt: 'Gramas',
+					en: 'Grams',
+					es: 'Gramos',
+					fr: 'Grammes'
+				},
+				milliliter: {
+					pt: 'Mililitros',
+					en: 'Milliliters',
+					es: 'Mililitros',
+					fr: 'Millilitres'
+				}
+			},
 			weekDays: {
 				monday: {
 					pt: 'Segunda-feira',
@@ -102,6 +166,60 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			},
 			diet: {
 				table: {
+					addMeal: {
+						pt: 'Adicionar Refeição',
+						en: 'Add Meal',
+						es: 'Añadir comida',
+						fr: 'Ajouter un repas'
+					},
+					food: {
+						pt: 'Alimento',
+						en: 'Food',
+						es: 'Comida',
+						fr: 'Nourriture'
+					},
+					quantity: {
+						pt: 'Quantidade',
+						en: 'Quantity',
+						es: 'Cantidad',
+						fr: 'Quantité'
+					},
+					unit: {
+						pt: 'Unidade',
+						en: 'Unit',
+						es: 'Unidad',
+						fr: 'Unité'
+					},
+					removeMeal: {
+						pt: 'Remover Refeição',
+						en: 'Remove Meal',
+						es: 'Eliminar comida',
+						fr: 'Supprimer le repas'
+					},
+					mealFoods: {
+						pt: 'Alimentos',
+						en: 'Foods',
+						es: 'Comida',
+						fr: 'Nourriture'
+					},
+					meal: {
+						pt: 'Refeição',
+						en: 'Meal',
+						es: 'Comida',
+						fr: 'Repas'
+					},
+					mealName: {
+						pt: 'Nome da Refeição',
+						en: 'Meal Name',
+						es: 'Nombre de la comida',
+						fr: 'Nom du repas'
+					},
+					mealDescription: {
+						pt: 'Descrição da Refeição',
+						en: 'Meal Description',
+						es: 'Descripción de la comida',
+						fr: 'Description du repas'
+					},
 					userFullName: {
 						pt: 'Nome do Utilizador',
 						en: 'User Name',

@@ -1,19 +1,24 @@
 import { useEffect } from 'react';
 
-import { OrderByEnum, useFetch } from '@resourge/react-fetch';
+import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
+import { OrderByEnum } from '@resourge/react-fetch';
 import { useSearchParams } from '@resourge/react-router';
 
+import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
+import InfoCard from 'src/components/infoCard/InfoCard';
 import Input from 'src/components/input/Input';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import SearchableInput from 'src/components/searchableInput/SearchableInput';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
-import HttpBaseService from 'src/shared/services/HttpBaseService';
 import { useTranslation } from 'src/shared/translations/Translations';
+import { FOOD_UNIT_OPTIONS } from 'src/shared/utils/FormConstantsUtils';
 
 import DietPageApi from './DietPageApi';
+import { useDietRelations } from './hooks/useDietRelations';
 import { useDietModel } from './interfaces/DietModel';
 
 export default function DietPage() {
@@ -21,19 +26,13 @@ export default function DietPage() {
 	const { userId } = useSearchParams();
 
 	const {
-		field, handleSubmit, getErrors, hasError, reset
+		field, handleSubmit, form, getErrors, hasError, reset
 	} = useDietModel();
 
-	const { data: users } = useFetch<any, any>(async () => {
-		const result = await HttpBaseService.get('/User/options');
-
-		return result.data;
-	}, {
-		deps: [],
-		initialState: [],
-		enable: !userId
+	const { users, foods } = useDietRelations({
+		userId 
 	});
-	
+
 	const {
 		rows, changePage, paginationData: pagination, deleteEntities, fetchResults
 	} = useDataTable({
@@ -46,6 +45,8 @@ export default function DietPage() {
 		await DietPageApi.create(data);
 		fetchResults();
 	});
+
+	console.log(form);
 
 	useEffect(() => {
 		if (userId) {
@@ -97,7 +98,6 @@ export default function DietPage() {
 									) : null 
 								}
 								<FormWrapper>
-								
 									<FormControl
 										errors={getErrors('name')}
 										label={T.pages.diet.table.name}
@@ -121,6 +121,96 @@ export default function DietPage() {
 										/>
 									</FormControl>
 								</FormWrapper>
+								{
+									form.meals.map((meal, index) => (
+										<InfoCard
+											key={index}
+											className="w-full"
+										>
+											<div className="text-sm mb-3">
+												{ T.pages.diet.table.meal } 
+												{ ' ' }
+												{ index + 1 }
+											</div>
+											<hr />
+											<FormControl
+												errors={getErrors(`meals[${index}].name`)}
+												label={T.pages.diet.table.mealName}
+											>
+												<Input
+													{...field(`meals[${index}].name`)}
+													error={hasError(`meals[${index}].name`)}
+												/>
+											</FormControl>
+											<FormControl
+												errors={getErrors(`meals[${index}].description`)}
+												label={T.pages.diet.table.mealDescription}
+											>
+												<Input
+													{...field(`meals[${index}].description`)}
+													error={hasError(`meals[${index}].description`)}
+												/>
+											</FormControl>
+											{
+												form.meals[index].mealFoods.map((mealFood, foodIndex) => (
+													<InfoCard key={foodIndex}>
+														<FormControl
+															errors={getErrors(`meals[${index}].mealFoods[${foodIndex}].food`)}
+															label={T.pages.diet.table.food}
+														>
+															<SearchableInput
+																{...field(`meals[${index}].mealFoods[${foodIndex}].food`)}
+																error={hasError(`meals[${index}].mealFoods[${foodIndex}].food`)}
+																options={foods}
+															/>
+														</FormControl>
+														<FormControl
+															errors={getErrors(`meals[${index}].mealFoods[${foodIndex}].quantity`)}
+															label={T.pages.diet.table.quantity}
+														>
+															<Input
+																{...field(`meals[${index}].mealFoods[${foodIndex}].quantity`)}
+																error={hasError(`meals[${index}].mealFoods[${foodIndex}].quantity`)}
+																type="number"
+															/>
+														</FormControl>
+														<FormControl
+															errors={getErrors(`meals[${index}].mealFoods[${foodIndex}].unit`)}
+															label={T.pages.diet.table.unit}
+														>
+															<SearchableInput
+																{...field(`meals[${index}].mealFoods[${foodIndex}].unit`)}
+																error={hasError(`meals[${index}].mealFoods[${foodIndex}].unit`)}
+																options={FOOD_UNIT_OPTIONS}
+															/>
+														</FormControl>
+													</InfoCard>
+												)) 
+											}
+											
+											<Button
+												className="mt-2"
+												onClick={() => form.removeMeal(index)}
+											>
+												<PhosphorIcon
+													color="gold"
+													icon={<MinusCircle />}
+												/>
+												{ T.pages.diet.table.removeMeal }
+											</Button>
+										</InfoCard>
+									)) 
+								}
+								<Button
+									className="mt-2"
+									onClick={() => form.addMeal()}
+								>
+									<PhosphorIcon
+										color="gold"
+										icon={<PlusCircle />}
+									/>
+									{ T.pages.diet.table.addMeal }
+								</Button>
 							</>
 						)}
 						formSubmission={submit}

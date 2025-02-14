@@ -1,33 +1,36 @@
 import { useForm } from '@resourge/react-form';
 import { object, string } from '@resourge/schema';
 
+import { MealModel } from 'src/pages/meal/interfaces/MealModel';
 import { type SelectItem } from 'src/shared/models/SelectItem';
 
 export type DietType = {
-    
+	description: string
+	meals: MealModel[]
+	name: string
+	userId: string
 };
 
-// {
-// 	"name": "string",
-// 	"description": "string",
-// 	"userId": 0,
-// 	"meals": [
-// 	  {
-// 		"mealId": 0
-// 	  }
-// 	]
-//   }
 export class DietModel {
 	public userId: number | SelectItem = 0;
 	public name: string = '';
 	public description: string = '';
+	public meals: MealModel[] = [];
+
+	public addMeal() {
+		this.meals.push(new MealModel());
+	}
+
+	public removeMeal(index: number) {
+		this.meals.splice(index, 1);
+	}
 
 	public toModel() {
 		return {
 			userId: typeof this.userId === 'number' ? this.userId.toString() : parseInt(this.userId.value),
 			name: this.name,
 			description: this.description,
-			meals: []
+			meals: this.meals.map((meal) => meal.toModel())
 		};
 	}
 }

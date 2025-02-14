@@ -1,10 +1,11 @@
-using Coacher.Entities;
-using Coacher.Data;
+using backend.Entities;
+using backend.Data;
+using backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Coacher.Controllers
+namespace backend.Controllers.FoodController
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,8 +19,8 @@ namespace Coacher.Controllers
         {
              if (page < 1 || perPage < 1)
                 return BadRequest("Page and perPage must be greater than 0.");
-
-            var totalItems = await context.Foods.CountAsync();
+            
+             var totalItems = await context.Foods.CountAsync();
             var foods = await context.Foods
                 .Skip((page - 1) * perPage)
                 .Take(perPage)
@@ -45,6 +46,18 @@ namespace Coacher.Controllers
         }
 
         [Authorize]
+        [HttpGet("options")]
+        public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetFoodOptions()
+        {
+            var foods = await context.Foods
+                .AsQueryable()
+                .Select(e => new SelectItemDto { label = e.Name!, value = e.Id })
+                .ToListAsync();
+
+            return Ok(foods);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Food>> CreateFood(Food food)
         {
@@ -55,7 +68,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Food>> UpdateFood(int id, Food food)
+        public async Task<ActionResult<Food>> UpdateFood(Guid id, Food food)
         {
             if (id != food.Id)
                 return BadRequest();
@@ -66,7 +79,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Food>> DeleteFood(int id)
+        public async Task<ActionResult<Food>> DeleteFood(Guid id)
         {
             var food = context.Foods.Find(id);
             if (food is null)

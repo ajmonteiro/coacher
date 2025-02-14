@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { ArrowRightEndOnRectangleIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Bars3Icon } from '@heroicons/react/24/solid';
+import { Barbell } from '@phosphor-icons/react';
 import { useNavigate } from '@resourge/react-router';
 
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
@@ -10,6 +11,7 @@ import { useTranslation } from 'src/shared/translations/Translations';
 
 import Button from '../button/Button';
 import LanguagePicker from '../languagePicker/LanguagePicker';
+import PhosphorIcon from '../phosphorIcon/PhosphorIcon';
 import ThemeController from '../themeController/ThemeController';
 
 type HeaderProps = {
@@ -49,7 +51,13 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 			> 
 				{
 					isSidebarOpen ? (
-						<span className="text-md font-bold text-base-content lg:flex hidden">coacher.</span>
+						<div className="items-center gap-2 lg:flex hidden">
+							<PhosphorIcon
+								icon={<Barbell />}
+								size={42}
+							/>
+							<span className="text-md font-black text-base-content">COACHER.</span>
+						</div>
 					) : null 
 				}
 				<Button

@@ -1,7 +1,7 @@
-﻿using Coacher.Entities;
-using Coacher.Models;
+﻿using backend.Models;
+using backend.Entities;
 
-namespace Coacher.Services
+namespace backend.Services
 {
     public interface IAuthService
     {

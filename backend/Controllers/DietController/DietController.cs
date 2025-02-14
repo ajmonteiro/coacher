@@ -1,11 +1,11 @@
-using Coacher.Entities;
-using Coacher.Data;
-using Coacher.Models;
+using backend.Models;
+using backend.Entities;
+using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Coacher.Controllers
+namespace backend.Controllers.DietController
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -52,78 +52,143 @@ namespace Coacher.Controllers
             });
         }
 
-
         [Authorize]
         [HttpGet("{id}")]
-        public ActionResult<Diet> GetDiet(int id)
+        public async Task<ActionResult<DietDto>> GetDiet(Guid id)
         {
-            var Diet = context.Diets.Find(id);
-            if (Diet is null)
+            var diet = await context.Diets
+                .Include(d => d.Meals)
+                .ThenInclude(m => m.MealFoods)
+                .ThenInclude(mf => mf.Food)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (diet == null)
+            {
                 return NotFound();
-            return Diet;
+            }
+
+            var dietDto = new DietDto
+            {
+                Id = diet.Id,
+                UserId = diet.UserId,
+                Name = diet.Name,
+                Description = diet.Description,
+                Meals = diet.Meals.Select(m => new MealDto
+                {
+                    Name = m.Name,
+                    Description = m.Description,
+                    MealFoods = m.MealFoods.Select(mf => new MealFoodDto
+                    {
+                        FoodId = mf.FoodId,
+                        Quantity = mf.Quantity,
+                        Unit = mf.Unit,
+                        Food = new FoodDto
+                        {
+                            Name = mf.Food.Name,
+                            Description = mf.Food.Description,
+                            Calories = mf.Food.Calories,
+                            Protein = mf.Food.Protein,
+                            Carbs = mf.Food.Carbs,
+                            Fat = mf.Food.Fat
+                        }
+                    }).ToList()
+                }).ToList()
+            };
+
+            return dietDto;
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<DietResponseDto>> CreateDiet(DietCreateDto DietDto)
+        public async Task<ActionResult<DietDto>> CreateDiet([FromBody] CreateDietDto createDietDto)
         {
-            var Diet = new Diet
+            if (createDietDto == null)
             {
-                Name = DietDto.Name,
-                Description = DietDto.Description,
-                UserId = DietDto.UserId
-            };
-
-            using var transaction = context.Database.BeginTransaction();
-
-            context.Diets.Add(Diet);
-            await context.SaveChangesAsync();
-
-            foreach (var Meal in DietDto.Meals)
-            {
-                var existingDietMeal = await context.DietMeals.FirstOrDefaultAsync(we =>
-                    we.DietId == Diet.Id && we.MealId == Meal.MealId);
-
-                if (existingDietMeal == null)
-                {
-                    var DietMeal = new DietMeal
-                    {
-                        DietId = Diet.Id,
-                        MealId = Meal.MealId,
-                    };
-                    context.DietMeals.Add(DietMeal);
-                }
-                else
-                {
-                    context.DietMeals.Update(existingDietMeal);
-                }
+                return BadRequest("Diet data is required.");
             }
 
-            await context.SaveChangesAsync();
-            await transaction.CommitAsync();
-
-            var DietResponse = new DietResponseDto
+            var diet = new Diet
             {
-                Id = Diet.Id,
-                Name = Diet.Name,
-                Description = Diet.Description,
-                UserId = Diet.UserId,
-                Meals = context.DietMeals
-                    .Include(we => we.Meal)
-                    .Where(we => we.DietId == Diet.Id)
-                    .Select(we => new MealInDietDto
-                    {
-                        MealId = we.MealId,
-                        Name = we.Meal.Name,
-                    }).ToList()
+                UserId = createDietDto.UserId,
+                Name = createDietDto.Name,
+                Description = createDietDto.Description
             };
 
-            return Ok(DietResponse);
+            foreach (var mealDto in createDietDto.Meals)
+            {
+                var meal = new Meal
+                {
+                    Name = mealDto.Name,
+                    Description = mealDto.Description
+                };
+
+                foreach (var mealFoodDto in mealDto.MealFoods)
+                {
+                    var food = await context.Foods.FindAsync(mealFoodDto.FoodId);
+                    if (food == null)
+                    {
+                        return NotFound($"Food with ID {mealFoodDto.FoodId} not found.");
+                    }
+
+                    var mealFood = new MealFood
+                    {
+                        Food = food,
+                        Quantity = mealFoodDto.Quantity,
+                        Unit = mealFoodDto.Unit
+                    };
+
+                    meal.MealFoods.Add(mealFood);
+                }
+
+                diet.Meals.Add(meal);
+            }
+
+            context.Diets.Add(diet);
+            await context.SaveChangesAsync();
+
+            diet = await context.Diets
+                .Include(d => d.Meals)
+                .ThenInclude(m => m.MealFoods)
+                .ThenInclude(mf => mf.Food)
+                .FirstOrDefaultAsync(d => d.Id == diet.Id);
+
+            var dietDto = new DietDto
+            {
+                Id = diet.Id,
+                UserId = diet.UserId,
+                Name = diet.Name,
+                Description = diet.Description,
+                Meals = diet.Meals.Select(m => new MealDto
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Description = m.Description,
+                    DietId = m.DietId,
+                    MealFoods = m.MealFoods.Select(mf => new MealFoodDto
+                    {
+                        FoodId = mf.FoodId,
+                        Quantity = mf.Quantity,
+                        Unit = mf.Unit,
+                        Food = new FoodDto
+                        {
+                            Id = mf.Food.Id,
+                            Name = mf.Food.Name,
+                            Description = mf.Food.Description,
+                            Calories = mf.Food.Calories,
+                            Protein = mf.Food.Protein,
+                            Carbs = mf.Food.Carbs,
+                            Fat = mf.Food.Fat
+                        }
+                    }).ToList()
+                }).ToList()
+            };
+
+            return CreatedAtAction(nameof(GetDiet), new { id = diet.Id }, dietDto);
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Diet>> UpdateDiet(int id, Diet Diet)
+        public async Task<ActionResult<Diet>> UpdateDiet(Guid id, Diet Diet)
         {
             if (id != Diet.Id)
                 return BadRequest();
@@ -134,7 +199,7 @@ namespace Coacher.Controllers
 
         [Authorize]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Diet>> DeleteDiet(int id)
+        public async Task<ActionResult<Diet>> DeleteDiet(Guid id)
         {
             var Diet = context.Diets.Find(id);
             if (Diet is null)

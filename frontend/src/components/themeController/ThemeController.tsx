@@ -5,33 +5,7 @@ import { type SelectItem } from 'src/shared/models/SelectItem';
 
 import Button from '../button/Button';
 
-const themes: SelectItem[] = [
-	
-	{
-		label: 'Coacher Blue',
-		value: 'myluxuryblue'
-	},
-	{
-		label: 'Coacher Fitness',
-		value: 'myluxuryfitness'
-	},
-	{
-		label: 'Coacher Red',
-		value: 'myluxuryred'
-	},
-	{
-		label: 'Coacher Green',
-		value: 'myluxurygreen'
-	},
-	{
-		label: 'Coacher Purple',
-		value: 'myluxurypurple'
-	}, 
-	{
-		label: 'Coacher Rose',
-		value: 'myluxuryrosegoldblush'
-	}
-];
+import { themes } from './themes';
 
 export default function ThemeController() {
 	const [theme, setTheme] = useState<SelectItem>(() => {
