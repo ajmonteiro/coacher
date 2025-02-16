@@ -24,6 +24,7 @@ export default function UserProfilePage() {
 		initialState: null
 	});
 
+	console.log('user', user);
 	return (
 		<DashboardLayout>
 			<div className="container mx-auto p-6">
@@ -179,12 +180,78 @@ export default function UserProfilePage() {
 															</div>
 														</summary>
 														<div className="collapse-content p-6 rounded-b-lg">
-															<div className="flex gap-2">
-																<span className="font-bold">
-																	{ T.pages.diet.table.userFullName }
-																	:
-																</span>
-																<span>{ diet.user.fullName }</span>
+															<div>
+																{
+																	diet.meals.map((meal, mealIndex) => (
+																		<div
+																			key={mealIndex}
+																			className="mb-6 p-4 rounded-lg shadow"
+																		>
+																			<div className="flex gap-2">
+																				<span className="font-bold">
+																					{ T.pages.diet.table.mealName }
+																					:
+																				</span>
+																				<span>{ meal.name }</span>
+																			</div>
+																			<div className="flex gap-2">
+																				<span className="font-bold">
+																					{ T.pages.diet.table.mealDescription }
+																					:
+																				</span>
+																				<span>{ meal.description }</span>
+																			</div>
+																			{
+																				meal.mealFoods.map((food, foodIndex) => (
+																					<div
+																						key={foodIndex}
+																						className="card bg-base-100 shadow-sm mb-4"
+																					> 
+																						<div className="card-body p-4"> 
+																							<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2"> 
+																								<h3 className="card-title text-lg font-semibold">{ food.foodName }</h3> 
+																								<div className="flex items-center gap-2"> 
+																									<span className="text-gray-600">{ food.quantity }</span>
+																									<span className="text-gray-600">{ food.unit }</span>
+																								</div>
+																							</div>
+																							<div className="grid grid-cols-2 md:grid-cols-4 gap-4"> 
+																								<div>
+																									<span className="font-semibold">
+																										{ T.pages.userProfile.calories }
+																										:
+																									</span> 
+																									<span>{ food.calories }</span>
+																								</div>
+																								<div>
+																									<span className="font-semibold">
+																										{ T.pages.userProfile.protein }
+																										:
+																									</span> 
+																									<span>{ food.protein }</span>
+																								</div>
+																								<div>
+																									<span className="font-semibold">
+																										{ T.pages.userProfile.carbs }
+																										:
+																									</span> 
+																									<span>{ food.carbs }</span>
+																								</div>
+																								<div>
+																									<span className="font-semibold">
+																										{ T.pages.userProfile.fat }
+																										:
+																									</span> 
+																									<span>{ food.fat }</span>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				))
+																			}
+																		</div>
+																	))
+																}
 															</div>
 														</div>
 													</details>

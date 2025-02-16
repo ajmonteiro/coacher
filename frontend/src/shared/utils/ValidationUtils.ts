@@ -28,29 +28,23 @@ export const confirmPassword = string()
 })
 .required(TranslationInstance.K.validations.password.required);
 
-export const selectItemSchema = <T extends SelectItem>(
-	options: T[],
-	path: string
-) => {
+export const selectItemSchema = () => { 
 	return object<SelectItem>()
-	.test((_, parent ) => {
-		const matchingOption: boolean = options.some((option) => option.value === parent[path].value);
-
-		if (!matchingOption) {
+	.test((value) => {
+		if (!value || !value.value || !value.label) {
 			return [{
-				error: TranslationInstance.K.validations.invalidSelection,
-				path: ''
+				error: TranslationInstance.K.validations.required,
+				path: '' 
 			}];
 		}
-		
-		if (!parent[path] || !parent[path].value) {
+
+		if (value.value.trim() === '' || value.label.trim() === '') {
 			return [{
 				error: TranslationInstance.K.validations.required,
 				path: ''
 			}];
 		}
-		
+
 		return [];
-	})
-	.required(TranslationInstance.K.validations.required);
+	});
 };

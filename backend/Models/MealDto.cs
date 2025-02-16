@@ -17,10 +17,16 @@ public class MealFoodCreateDto
 
 public class MealFoodDto
 {
+    public Guid? Id { get; set; }
     public Guid FoodId { get; set; }
+    public string FoodName { get; set; } = string.Empty;
     public int Quantity { get; set; }
     public string Unit { get; set; } = null!;
     public FoodDto Food { get; set; } = null!;
+    public double? Calories { get; set; }
+    public double? Protein { get; set; }
+    public double? Fat { get; set; }
+    public double? Carbs { get; set; }
 }
 
 public class MealDto

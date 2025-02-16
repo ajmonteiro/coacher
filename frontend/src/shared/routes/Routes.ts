@@ -5,10 +5,12 @@ const Routes = SetupPaths({
 		LOGIN: path('login')
 	}),
 	DASHBOARD: path('dashboard').routes({
+		INITIAL: path(''),
 		MAIN: path('index'),
 		CLIENTS: path('clients'),
 		FOOD: path('food'),
 		DIET: path('diet').searchParams({
+			dietId: searchParam<{ dietId?: string }>,
 			userId: searchParam<{ userId?: string }>
 		}),
 		MEAL: path('meal'),

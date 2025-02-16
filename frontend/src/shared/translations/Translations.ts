@@ -184,6 +184,18 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			},
 			diet: {
 				table: {
+					addFood: {
+						pt: 'Adicionar Alimento',
+						en: 'Add Food',
+						es: 'Añadir comida',
+						fr: 'Ajouter de la nourriture'
+					},
+					removeFood: {
+						pt: 'Remover Alimento',
+						en: 'Remove Food',
+						es: 'Eliminar comida',
+						fr: 'Supprimer la nourriture'
+					},
 					addMeal: {
 						pt: 'Adicionar Refeição',
 						en: 'Add Meal',
@@ -379,6 +391,42 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			userProfile: {
+				calories: {
+					pt: 'Calorias',
+					en: 'Calories',
+					es: 'Calorías',
+					fr: 'Calories'
+				},
+				fat: {
+					pt: 'Gorduras',
+					en: 'Fats',
+					es: 'Grasas',
+					fr: 'Graisses'
+				},
+				protein: {
+					pt: 'Proteínas',
+					en: 'Proteins',
+					es: 'Proteínas',
+					fr: 'Protéines'
+				},
+				carbs: {
+					pt: 'Hidratos de carbono',
+					en: 'Carbs',
+					es: 'Carbohidratos',
+					fr: 'Glucides'
+				},
+				meals: {
+					pt: 'Refeições',
+					en: 'Meals',
+					es: 'Comidas',
+					fr: 'Repas'
+				},
+				food: {
+					pt: 'Alimento',
+					en: 'Food',
+					es: 'Comida',
+					fr: 'Nourriture'
+				},
 				diets: {
 					pt: 'Dietas',
 					en: 'Diets',

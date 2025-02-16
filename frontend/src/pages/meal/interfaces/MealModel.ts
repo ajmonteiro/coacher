@@ -1,8 +1,9 @@
 import { useForm } from '@resourge/react-form';
-import { object } from '@resourge/schema';
+import { array, object, string } from '@resourge/schema';
 
+import { MealFoodModel, mealFoodSchema } from 'src/pages/diet/interfaces/MealFoodModel';
 import { type SelectItem } from 'src/shared/models/SelectItem';
-import { FOOD_UNIT_OPTIONS } from 'src/shared/utils/FormConstantsUtils';
+import { TranslationInstance } from 'src/shared/translations/Translations';
 
 export type MealType = {
 	description: string
@@ -11,30 +12,13 @@ export type MealType = {
 	userId: string
 };
 
-type MealFoodType = {
-	food: SelectItem
-	quantity: number
-	unit: SelectItem
-};
-
 export class MealModel {
 	public name: string = '';
 	public description: string = '';
-	public mealFoods: MealFoodType[] = [];
-
-	constructor() {
-		this.addMealFood();
-	}
-
+	public mealFoods: MealFoodModel[] = [new MealFoodModel()];
+	
 	public addMealFood() {
-		this.mealFoods.push({
-			food: {
-				value: '',
-				label: '' 
-			},
-			quantity: 0,
-			unit: FOOD_UNIT_OPTIONS[0]
-		});
+		this.mealFoods.push(new MealFoodModel());
 	}
 
 	public removeMealFood(index: number) {
@@ -45,16 +29,16 @@ export class MealModel {
 		return {
 			name: this.name,
 			description: this.description,
-			mealFoods: this.mealFoods.map((mealFood: MealFoodType) => ({
-				foodId: mealFood.food.value,
-				quantity: Number(mealFood.quantity),
-				unit: mealFood.unit.value
-			}))
+			mealFoods: this.mealFoods.map((mealFood: MealFoodModel) => mealFood.toModel())
 		};
 	}
 }
 
-export const mealSchema = object({});
+export const mealSchema = object({
+	name: string().required(TranslationInstance.K.validations.required),
+	description: string().required(TranslationInstance.K.validations.required),
+	mealFoods: array(mealFoodSchema)
+});
 
 export const useMealModel = () => useForm(MealModel, {
 	validate: (form) => mealSchema.validate(form),

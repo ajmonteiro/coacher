@@ -68,9 +68,18 @@ const Router: React.FC = () => {
 			<Route path={Routes.AUTH.path}>
 				<AuthRouter />
 			</Route>
+
 			<AuthorizedRoute path={Routes.DASHBOARD.path}>
 				<DashboardRouter />
 			</AuthorizedRoute>
+			<Route
+				path="/"
+			>
+				<Navigate
+					replace={true}
+					to={Routes.DASHBOARD.get()}
+				/>
+			</Route>
 			<Route 
 				path="*"
 			>

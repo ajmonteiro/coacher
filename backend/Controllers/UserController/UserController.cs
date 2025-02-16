@@ -63,9 +63,11 @@ namespace backend.Controllers.UserController
             .Include(u => u.Workouts)
                 .ThenInclude(w => w.WorkoutExercises)
                     .ThenInclude(we => we.Exercise)
-            .Include(u => u.Diets)
+                .Include(u => u.Diets)
                 .ThenInclude(d => d.DietMeals)
-                    .ThenInclude(dm => dm.Meal)
+                .ThenInclude(dm => dm.Meal)
+                .ThenInclude(m => m.MealFoods)
+                .ThenInclude(mf => mf.Food)
             .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
@@ -83,6 +85,29 @@ namespace backend.Controllers.UserController
                 Height = user.Height,
                 RoleId = user.RoleId,
                 RoleName = user.Role.Name,
+                Diets = user.Diets.Select(d => new DietDto
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Description = d.Description,
+                    Meals = d.DietMeals.Select(dm => new MealDto
+                    {
+                        Id = dm.Meal.Id,
+                        Name = dm.Meal.Name,
+                        Description = dm.Meal.Description,
+                        MealFoods = dm.Meal.MealFoods.Select(mf => new MealFoodDto
+                        {
+                            FoodId = mf.FoodId,
+                            Quantity = mf.Quantity,
+                            Unit = mf.Unit,
+                            FoodName = mf.Food.Name!,
+                            Fat = mf.Food.Fat,
+                            Calories = mf.Food.Calories,
+                            Carbs = mf.Food.Carbs,
+                            Protein = mf.Food.Protein,
+                        }).ToList()
+                    }).ToList(),
+                }).ToList(),
                 Workouts = user.Workouts.Select(w => new WorkoutDto
                 {
                     Id = w.Id,

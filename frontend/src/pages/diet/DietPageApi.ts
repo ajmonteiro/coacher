@@ -12,6 +12,10 @@ class DietPageApi {
 		`);
 	}
 
+	public async get(id: string) {
+		return await HttpBaseService.get(`/Diet/${id}`);
+	}
+	
 	public async create(data: DietModel) {
 		return await HttpBaseService.post('/Diet', data.toModel());
 	}

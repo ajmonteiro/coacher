@@ -55,13 +55,13 @@ namespace backend.Controllers.DietController
             });
         }
 
-        [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
         [HasPermission(Permission.ReadDiet)]
         public async Task<ActionResult<DietDto>> GetDiet(Guid id)
         {
             var diet = await context.Diets
-                .Include(d => d.Meals)
+                .Include(d => d.DietMeals)
+                .ThenInclude(dm => dm.Meal)
                 .ThenInclude(m => m.MealFoods)
                 .ThenInclude(mf => mf.Food)
                 .FirstOrDefaultAsync(d => d.Id == id);
@@ -77,42 +77,33 @@ namespace backend.Controllers.DietController
                 UserId = diet.UserId,
                 Name = diet.Name,
                 Description = diet.Description,
-                Meals = diet.Meals.Select(m => new MealDto
+                Meals = diet.DietMeals.Select(dm => new MealDto
                 {
-                    Name = m.Name,
-                    Description = m.Description,
-                    MealFoods = m.MealFoods.Select(mf => new MealFoodDto
+                    Id = dm.Meal.Id,
+                    Name = dm.Meal.Name,
+                    Description = dm.Meal.Description,
+                    MealFoods = dm.Meal.MealFoods.Select(mf => new MealFoodDto
                     {
                         FoodId = mf.FoodId,
                         Quantity = mf.Quantity,
                         Unit = mf.Unit,
                         Food = new FoodDto
                         {
-                            Name = mf.Food.Name,
-                            Description = mf.Food.Description,
-                            Calories = mf.Food.Calories,
-                            Protein = mf.Food.Protein,
-                            Carbs = mf.Food.Carbs,
-                            Fat = mf.Food.Fat
+                            Id = mf.Food.Id,
                         }
                     }).ToList()
                 }).ToList()
             };
 
-            return dietDto;
+            return Ok(dietDto);
         }
 
+        
         [Authorize(Roles = "Coach")]
         [HttpPost]
         [HasPermission(Permission.CreateDiet)]
         public async Task<ActionResult<DietDto>> CreateDiet([FromBody] CreateDietDto createDietDto)
         {
-
-                if (createDietDto == null)
-                {
-                    return BadRequest("Diet data is required.");
-                }
-
             var diet = new Diet
             {
                 UserId = createDietDto.UserId,
@@ -148,9 +139,6 @@ namespace backend.Controllers.DietController
 
                     meal.MealFoods.Add(mealFood);
                     context.MealFoods.Add(mealFood);
-
-                    // Log dos dados de MealFood
-                    Console.WriteLine($"MealFood: MealId={mealFood.MealId}, FoodId={mealFood.FoodId}, Quantity={mealFood.Quantity}, Unit={mealFood.Unit}");
                 }
 
                 diet.Meals.Add(meal);
@@ -158,10 +146,15 @@ namespace backend.Controllers.DietController
 
             context.Diets.Add(diet);
 
-            // Logs antes de salvar
-            Console.WriteLine($"Diets Count: {context.Diets.Count()}");
-            Console.WriteLine($"Meals Count: {context.Meals.Count()}");
-            Console.WriteLine($"MealFoods Count: {context.MealFoods.Count()}");
+            foreach (var meal in diet.Meals)
+            {
+                var dietMeal = new DietMeal
+                {
+                    DietId = diet.Id,
+                    MealId = meal.Id
+                };
+                context.DietMeals.Add(dietMeal);
+            }
 
             try
             {
@@ -169,15 +162,13 @@ namespace backend.Controllers.DietController
             }
             catch (Exception ex)
             {
-                // Log da exceção completa
-                Console.WriteLine($"Erro ao salvar: {ex}");
+                Console.WriteLine($"Error saving diet: {ex}");
                 if (ex.InnerException != null)
                 {
                     Console.WriteLine($"Inner Exception: {ex.InnerException}");
                 }
-                return StatusCode(500, "Erro ao salvar dieta."); // Ou outra resposta de erro adequada
+                return StatusCode(500, "Error saving diet.");
             }
-
 
             diet = await context.Diets
                 .Include(d => d.Meals)
@@ -199,7 +190,7 @@ namespace backend.Controllers.DietController
                     DietId = m.DietId,
                     MealFoods = m.MealFoods.Select(mf => new MealFoodDto
                     {
-                        FoodId = mf.Food.Id, // Use mf.Food.Id aqui
+                        FoodId = mf.Food.Id,
                         Quantity = mf.Quantity,
                         Unit = mf.Unit,
                         Food = new FoodDto
@@ -222,14 +213,132 @@ namespace backend.Controllers.DietController
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
         [HasPermission(Permission.EditDiet)]
-        public async Task<ActionResult<Diet>> UpdateDiet(Guid id, Diet Diet)
+        public async Task<ActionResult<DietDto>> UpdateDiet(Guid id, [FromBody] CreateDietDto updateDietDto)
         {
-            if (id != Diet.Id)
-                return BadRequest();
-            context.Entry(Diet).State = EntityState.Modified;
+            if (id != updateDietDto.Id)
+            {
+                return BadRequest("Diet ID mismatch.");
+            }
+
+            var diet = await context.Diets
+                .Include(d => d.Meals)
+                .ThenInclude(m => m.MealFoods)
+                .ThenInclude(mf => mf.Food)
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (diet == null)
+            {
+                return NotFound();
+            }
+
+            diet.UserId = updateDietDto.UserId;
+            diet.Name = updateDietDto.Name;
+            diet.Description = updateDietDto.Description;
+
+            foreach (var meal in diet.Meals.ToList())
+            {
+                foreach (var mealFood in meal.MealFoods.ToList())
+                {
+                    context.MealFoods.Remove(mealFood);
+                }
+                context.Meals.Remove(meal);
+            }
+            
             await context.SaveChangesAsync();
-            return Ok(Diet);
+
+                diet.Meals = new List<Meal>();
+
+                foreach (var mealDto in updateDietDto.Meals)
+                {
+                    var meal = new Meal
+                    {
+                        Name = mealDto.Name,
+                        Description = mealDto.Description,
+                        MealFoods = new List<MealFood>()
+                    };
+
+                    foreach (var mealFoodDto in mealDto.MealFoods)
+                    {
+                        var food = await context.Foods.FindAsync(mealFoodDto.FoodId);
+                        if (food == null)
+                        {
+                            return NotFound($"Food with ID {mealFoodDto.FoodId} not found.");
+                        }
+
+                        var mealFood = new MealFood
+                        {
+                            Meal = meal,
+                            Food = food,
+                            Quantity = mealFoodDto.Quantity,
+                            Unit = mealFoodDto.Unit
+                        };
+
+                        meal.MealFoods.Add(mealFood);
+                        context.MealFoods.Add(mealFood);
+                    }
+
+                    diet.Meals.Add(meal);
+                }
+
+                foreach (var meal in diet.Meals)
+                {
+                    var dietMeal = new DietMeal
+                    {
+                        DietId = diet.Id,
+                        MealId = meal.Id
+                    };
+                    context.DietMeals.Add(dietMeal);
+                }
+
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "Error updating diet.");
+                }
+
+                diet = await context.Diets // Reload the diet with all the includes
+                   .Include(d => d.Meals)
+                   .ThenInclude(m => m.MealFoods)
+                   .ThenInclude(mf => mf.Food)
+                   .FirstOrDefaultAsync(d => d.Id == diet.Id);
+
+                var dietDto = new DietDto
+                {
+                    Id = diet!.Id,
+                    UserId = diet.UserId,
+                    Name = diet.Name,
+                    Description = diet.Description,
+                    Meals = diet.Meals.Select(m => new MealDto
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Description = m.Description,
+                        DietId = m.DietId,
+                        MealFoods = m.MealFoods.Select(mf => new MealFoodDto
+                        {
+                            FoodId = mf.Food.Id,
+                            Quantity = mf.Quantity,
+                            Unit = mf.Unit,
+                            Food = new FoodDto
+                            {
+                                Id = mf.Food.Id,
+                                Name = mf.Food.Name,
+                                Description = mf.Food.Description,
+                                Calories = mf.Food.Calories,
+                                Protein = mf.Food.Protein,
+                                Carbs = mf.Food.Carbs,
+                                Fat = mf.Food.Fat
+                            }
+                        }).ToList()
+                    }).ToList()
+                };
+
+                return Ok(dietDto);
         }
+
 
         [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]

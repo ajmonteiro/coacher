@@ -3,7 +3,6 @@ import { array, object, string } from '@resourge/schema';
 
 import { type SelectItem } from 'src/shared/models/SelectItem';
 import { TranslationInstance } from 'src/shared/translations/Translations';
-import { WEEKDAY_OPTIONS } from 'src/shared/utils/FormConstantsUtils';
 import { selectItemSchema } from 'src/shared/utils/ValidationUtils';
 
 export type WorkoutType = {
@@ -69,11 +68,11 @@ export class WorkoutModel {
 export const workoutSchema = object<WorkoutModel>({
 	description: string().required(TranslationInstance.K.validations.required),
 	exercises: array(object<ExerciseType>({
-		exercise: object<SelectItem>().required(TranslationInstance.K.validations.required),
+		exercise: selectItemSchema().required(TranslationInstance.K.validations.required),
 		reps: string().required(TranslationInstance.K.validations.required),
 		sets: string().required(TranslationInstance.K.validations.required)
 	})).min(1),
-	weekDay: selectItemSchema(WEEKDAY_OPTIONS, 'weekDay'),
+	weekDay: selectItemSchema().required(TranslationInstance.K.validations.required),
 	name: string().required(TranslationInstance.K.validations.required)
 }).compile();
 

@@ -1,7 +1,7 @@
 import { useForm } from '@resourge/react-form';
-import { object, string } from '@resourge/schema';
+import { array, object, string } from '@resourge/schema';
 
-import { MealModel } from 'src/pages/meal/interfaces/MealModel';
+import { MealModel, mealSchema } from 'src/pages/meal/interfaces/MealModel';
 import { type SelectItem } from 'src/shared/models/SelectItem';
 
 export type DietType = {
@@ -11,24 +11,6 @@ export type DietType = {
 	userId: string
 };
 
-// {
-// 	"userId": "97ED8C57-904C-4BE0-85C3-086F30A33984",
-// 	"name": "teste",
-// 	"description": "teste",
-// 	"meals": [
-// 	  {
-// 		"name": "teste",
-// 		"description": "teste",
-// 		"mealFoods": [
-// 		  {
-// 			"foodId": "A17E0C0E-E270-46A3-82B7-A696C8F2863B",
-// 			"quantity": 100,
-// 			"unit": "g"
-// 		  }
-// 		]
-// 	  }
-// 	]
-//   }
 export class DietModel {
 	public userId: string | SelectItem = '';
 	public name: string = '';
@@ -55,7 +37,8 @@ export class DietModel {
 
 export const dietSchema = object({
 	name: string().required(),
-	description: string().required()
+	description: string().required(),
+	meals: array(mealSchema)
 });
 
 export const useDietModel = () => useForm(DietModel, {

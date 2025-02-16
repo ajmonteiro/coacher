@@ -5,15 +5,15 @@ namespace backend.Entities
 {
     public class Diet
     {
-        public Guid Id { get; init; }
-        public Guid UserId { get; init; }
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
         [JsonIgnore]
-        public User? User { get; init; }
+        public User? User { get; set; }
         [MaxLength(64)]
-        public string Name { get; init; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         [MaxLength(128)]
-        public string? Description { get; init; }
-        public virtual ICollection<Meal> Meals { get; init; } = new List<Meal>();
-        public virtual ICollection<DietMeal> DietMeals { get; init; } = new List<DietMeal>();
+        public string? Description { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; } = new List<Meal>();
+        public virtual ICollection<DietMeal> DietMeals { get; set; } = new List<DietMeal>();
     }
 }

@@ -1,5 +1,31 @@
+export type MealFoodType = {
+	calories: number
+	carbs: number
+	fat: number
+	foodId: string
+	foodName: string
+	protein: number
+	quantity: number
+	unit: string
+};
+
+export type MealType = {
+	description: string
+	id: string
+	mealFoods: MealFoodType[]
+	name: string
+};
+
+export type DietType = {
+	description: string
+	id: string
+	meals: MealType[]
+	name: string
+	userId: string
+};
+
 export type UserProfileType = {
-	diets: any[]
+	diets: DietType[]
 	fullName: string
 	height: string
 	roleName: string
@@ -9,7 +35,7 @@ export type UserProfileType = {
 };
 
 export class UserProfileDto {
-	public diets: any[] = [];
+	public diets: DietType[] = [];
 	public fullName: string = '';
 	public height: string = '';
 	public role: string = '';
@@ -18,7 +44,6 @@ export class UserProfileDto {
 	public workouts: any[] = [];
 
 	constructor(data: UserProfileType) {
-		console.log(data);
 		this.diets = data.diets;
 		this.fullName = data.fullName;
 		this.height = data.height;

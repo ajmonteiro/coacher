@@ -81,21 +81,23 @@ namespace backend.Data
                 .HasOne(w => w.User)
                 .WithMany(u => u.Workouts)
                 .HasForeignKey(w => w.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete para Workout
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Diet>()
                 .HasOne(d => d.User)
                 .WithMany(u => u.Diets)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete para Diet
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<DietMeal>()
+                .HasKey(dm => new { dm.DietId, dm.MealId });
 
             modelBuilder.Entity<Meal>()
                 .HasOne(m => m.Diet)
                 .WithMany(d => d.Meals)
                 .HasForeignKey(m => m.DietId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete para Meal
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Meal - Food (Many-to-many using MealFood)
             modelBuilder.Entity<MealFood>()
                 .HasKey(mf => new { mf.MealId, mf.FoodId });
 
@@ -103,7 +105,7 @@ namespace backend.Data
                 .HasOne(mf => mf.Meal)
                 .WithMany(m => m.MealFoods)
                 .HasForeignKey(mf => mf.MealId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete para MealFood
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<MealFood>()
                 .HasOne(mf => mf.Food)

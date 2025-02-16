@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { useEffect } from 'react';
 
+import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
 import { OrderByEnum, useFetch } from '@resourge/react-fetch';
 import { useSearchParams } from '@resourge/react-router';
 
@@ -9,6 +10,7 @@ import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import Input from 'src/components/input/Input';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import SearchableInput from 'src/components/searchableInput/SearchableInput';
 import Textarea from 'src/components/textarea/Textarea';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
@@ -96,7 +98,7 @@ export default function WorkoutsPage() {
 								<>
 									{
 										!userId ? (
-											<FormWrapper className="w-full">
+											<FormWrapper cols={1}>
 												<FormControl 
 													errors={getErrors('userId')}
 													label={T.pages.workouts.table.user}
@@ -134,7 +136,7 @@ export default function WorkoutsPage() {
 											/>
 										</FormControl>
 									</FormWrapper>
-									<FormWrapper className="w-full">
+									<FormWrapper cols={1}>
 										<FormControl 
 											errors={getErrors('description')}
 											label={T.pages.workouts.table.description}
@@ -151,7 +153,7 @@ export default function WorkoutsPage() {
 											form.exercises.map((exercise, index) => (
 												<details
 													key={index}
-													className={`collapse rounded-box border w-full border-base-200
+													className={`collapse rounded-box border w-full border-base-200 shadow-lg
 														${context.errors[`exercises[${index}]`] ? 'border-error' : ''}
 														`}
 												> 
@@ -160,8 +162,8 @@ export default function WorkoutsPage() {
 															<span>{ T.pages.workouts.table.exercise + ' ' + (index + 1) }</span>
 														</div>
 													</summary>
-													<div className="collapse-content p-0">
-														<div className="p-3"> 
+													<div className="collapse-content p-3">
+														<FormWrapper> 
 															<FormControl
 																errors={getErrors(`exercises[${index}].exercise`)}
 																label={T.pages.workouts.table.exercise}
@@ -173,38 +175,39 @@ export default function WorkoutsPage() {
 																	options={exercises}
 																/>
 															</FormControl>
-															<div className="grid grid-cols-2 gap-4">
-																<FormControl
-																	errors={getErrors(`exercises[${index}].reps`)}
-																	label={T.pages.workouts.table.reps}
-																	required
-																>
-																	<Input
-																		{...field(`exercises[${index}].reps`)}
-																		error={hasError(`exercises[${index}].reps`)}
-																		type="number"
-																	/>
-																</FormControl>
-																<FormControl
-																	errors={getErrors(`exercises[${index}].sets`)}
-																	label={T.pages.workouts.table.sets}
-																	required
-																>
-																	<Input
-																		{...field(`exercises[${index}].sets`)}
-																		error={hasError(`exercises[${index}].sets`)}
-																		type="number"
-																	/>
-																</FormControl>
-															</div>
-															<div className="flex justify-end mt-6">
-																<Button
-																	className="btn-sm"
-																	onClick={() => form.removeExercise(index)}
-																>
-																	{ T.pages.workouts.table.removeExercise }
-																</Button>
-															</div>
+															<FormControl
+																errors={getErrors(`exercises[${index}].reps`)}
+																label={T.pages.workouts.table.reps}
+																required
+															>
+																<Input
+																	{...field(`exercises[${index}].reps`)}
+																	error={hasError(`exercises[${index}].reps`)}
+																	type="number"
+																/>
+															</FormControl>
+															<FormControl
+																errors={getErrors(`exercises[${index}].sets`)}
+																label={T.pages.workouts.table.sets}
+																required
+															>
+																<Input
+																	{...field(`exercises[${index}].sets`)}
+																	error={hasError(`exercises[${index}].sets`)}
+																	type="number"
+																/>
+															</FormControl>
+														</FormWrapper>
+														<div className="flex justify-end">
+															<Button
+																className="btn-square mt-4"
+																onClick={() => form.removeExercise(index)}
+															>
+																<PhosphorIcon
+																	color="white"
+																	icon={<MinusCircle />}
+																/>
+															</Button>
 														</div>
 													</div>
 												</details>
@@ -215,8 +218,10 @@ export default function WorkoutsPage() {
 										<Button 
 											onClick={() => form.addNewExercise()}
 										>
-											+ 
-											{ ' ' }
+											<PhosphorIcon
+												color="white"
+												icon={<PlusCircle />}
+											/>
 											{ T.pages.workouts.table.addExercise }	
 										</Button>
 									</div>
