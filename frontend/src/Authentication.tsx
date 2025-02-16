@@ -16,29 +16,8 @@ type Props = {
 	children: ReactNode
 };
 
-const accessTokenSearchParams = (
-	function () {
-		const url = new URL(window.location.href);
-
-		const token = url.searchParams.get('accessToken');
-		const refreshToken = url.searchParams.get('refreshToken');
-
-		if (token && refreshToken) {
-			url.searchParams.delete('accessToken');
-			url.searchParams.delete('refreshToken');
-			
-			window.history.replaceState(null, '', url);
-		}
-
-		return {
-			token,
-			refreshToken
-		};
-	}
-)();
-
 const authentication = setupAuthentication({
-	getProfile: (token) => AuthenticationService.getAuthentication(token, accessTokenSearchParams),
+	getProfile: (token) => AuthenticationService.getAuthentication(token),
 	refreshToken: (token, refreshToken) => AuthenticationService.refreshToken(token, refreshToken),
 	storage: window.localStorage
 });
@@ -70,7 +49,6 @@ const Authentication: React.FC<Props> = ({ children }: Props) => {
 					return config;
 				});
 			}}
-			
 			loadingComponent={<LoadingSuspense />}
 			onLogin={async (username, password) => {
 				const result = await AuthenticationService.login(username, password);

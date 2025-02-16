@@ -14,11 +14,15 @@ class ClientsPageApi {
 	}
 
 	public async create(data: ClientModel): Promise<any> {
-		return await HttpBaseService.post('/User', data.toModel());
+		return await HttpBaseService.post('/Auth/register', data.toModel());
 	}
 
 	public async delete(id: string): Promise<any> {
 		return await HttpBaseService.delete(`/User/${id}`);
+	}
+
+	public async roles(): Promise<any> {
+		return await HttpBaseService.get('/Role');
 	}
 }
 

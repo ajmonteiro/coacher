@@ -1,9 +1,11 @@
 using backend.Models;
 using backend.Entities;
 using backend.Data;
+using backend.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Permission = backend.Services.AuthService.Permission;
 
 namespace backend.Controllers.WorkoutController
 {
@@ -15,6 +17,7 @@ namespace backend.Controllers.WorkoutController
 
         [Authorize(Roles = "Coach")]
         [HttpGet]
+        [HasPermission(Permission.ReadWorkout)]
         public async Task<ActionResult<object>> GetWorkouts(int page = 1, int perPage = 10)
         {
             if (page < 1 || perPage < 1)
@@ -58,6 +61,7 @@ namespace backend.Controllers.WorkoutController
 
         [Authorize]
         [HttpGet("{id}")]
+        [HasPermission(Permission.ReadWorkout)]
         public ActionResult<Workout> GetWorkout(int id)
         {
             var Workout = context.Workouts.Find(id);
@@ -68,6 +72,7 @@ namespace backend.Controllers.WorkoutController
 
         [Authorize(Roles = "Coach")]
         [HttpPost]
+        [HasPermission(Permission.CreateWorkout)]
         public async Task<ActionResult<WorkoutResponseDto>> CreateWorkout(WorkoutCreateDto workoutDto)
         {
             var workout = new Workout
@@ -132,6 +137,7 @@ namespace backend.Controllers.WorkoutController
 
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
+        [HasPermission(Permission.EditWorkout)]
         public async Task<ActionResult<Workout>> UpdateWorkout(Guid id, Workout Workout)
         {
             if (id != Workout.Id)
@@ -143,6 +149,7 @@ namespace backend.Controllers.WorkoutController
 
         [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
+        [HasPermission(Permission.DeleteWorkout)]
         public async Task<ActionResult<Workout>> DeleteWorkout(Guid id)
         {
             var Workout = context.Workouts.Find(id);

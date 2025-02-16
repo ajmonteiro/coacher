@@ -8,6 +8,7 @@ import {
 	Users
 } from '@phosphor-icons/react';
 
+import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
@@ -22,6 +23,8 @@ type SidebarProps = {
 
 export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 	const { T } = useTranslation();
+	const { user } = useAuthentication();
+
 	return (
 		<div
 			className={`sidebar bg-base-100 lg:z-10 lg:mt-5 transition-all
@@ -40,12 +43,12 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 				${isSidebarOpen ? 'items-center' : ''}
 				`}
 			> 
-				<SidebarSection>
+				<SidebarSection hasPermissions={user.permissions?.includes('ReadDashboard')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.dashboard}
 					/>
-				
+					
 					<SidebarSectionItem
 						active
 						collapsed={isSidebarOpen}
@@ -58,7 +61,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 						text={T.components.sidebar.dashboard}
 					/>
 				</SidebarSection>
-				<SidebarSection>
+				<SidebarSection hasPermissions={user.permissions.includes('ReadDiet')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.diet_related}
@@ -96,7 +99,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 						/>
 					</div>
 				</SidebarSection>
-				<SidebarSection>
+				<SidebarSection hasPermissions={user.permissions.includes('ReadWorkout')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.fitness_related}
@@ -107,7 +110,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 							href={Routes.DASHBOARD.EXERCISES.get()}
 							icon={(
 								<PhosphorIcon
-									icon={<Barbell />}
+									icon={<Bicycle />}
 								/>
 							)}
 							text={T.components.sidebar.exercises}
@@ -117,14 +120,14 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 							href={Routes.DASHBOARD.WORKOUTS.get()}
 							icon={(
 								<PhosphorIcon
-									icon={<Bicycle />}
+									icon={<Barbell />}
 								/>
 							)}
 							text={T.components.sidebar.workouts}
 						/>
 					</div>
 				</SidebarSection>
-				<SidebarSection>
+				<SidebarSection hasPermissions={user.permissions.includes('CreateUser')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.clients}

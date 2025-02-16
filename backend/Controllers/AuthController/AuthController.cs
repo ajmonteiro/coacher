@@ -1,6 +1,7 @@
 using backend.Models;
 using backend.Services;
 using backend.Entities;
+using backend.Services.AuthService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

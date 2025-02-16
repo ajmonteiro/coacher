@@ -17,6 +17,21 @@ namespace backend.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
+            modelBuilder.Entity("PermissionRole", b =>
+                {
+                    b.Property<Guid>("PermissionsId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PermissionsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("PermissionRole");
+                });
+
             modelBuilder.Entity("backend.Entities.Diet", b =>
                 {
                     b.Property<Guid>("Id")
@@ -102,9 +117,6 @@ namespace backend.Migrations
                     b.Property<double?>("Fat")
                         .HasColumnType("REAL");
 
-                    b.Property<Guid?>("MealId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -112,8 +124,6 @@ namespace backend.Migrations
                         .HasColumnType("REAL");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MealId");
 
                     b.ToTable("Foods");
                 });
@@ -164,6 +174,27 @@ namespace backend.Migrations
                     b.ToTable("MealFoods");
                 });
 
+            modelBuilder.Entity("backend.Entities.Permission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Permissions");
+                });
+
             modelBuilder.Entity("backend.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -172,12 +203,27 @@ namespace backend.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(24)
+                        .HasMaxLength(64)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("backend.Entities.RolePermission", b =>
+                {
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PermissionId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("backend.Entities.User", b =>
@@ -232,19 +278,25 @@ namespace backend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("backend.Entities.UserRole", b =>
+            modelBuilder.Entity("backend.Entities.UserPermission", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("PermissionId")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("TEXT");
+                    b.HasKey("Id");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.HasIndex("PermissionId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserPermission");
                 });
 
             modelBuilder.Entity("backend.Entities.Workout", b =>
@@ -296,6 +348,21 @@ namespace backend.Migrations
                     b.ToTable("WorkoutExercises");
                 });
 
+            modelBuilder.Entity("PermissionRole", b =>
+                {
+                    b.HasOne("backend.Entities.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("backend.Entities.Diet", b =>
                 {
                     b.HasOne("backend.Entities.User", "User")
@@ -333,13 +400,6 @@ namespace backend.Migrations
                         .HasForeignKey("WorkoutId");
                 });
 
-            modelBuilder.Entity("backend.Entities.Food", b =>
-                {
-                    b.HasOne("backend.Entities.Meal", null)
-                        .WithMany("FoodIds")
-                        .HasForeignKey("MealId");
-                });
-
             modelBuilder.Entity("backend.Entities.Meal", b =>
                 {
                     b.HasOne("backend.Entities.Diet", "Diet")
@@ -354,7 +414,7 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Entities.MealFood", b =>
                 {
                     b.HasOne("backend.Entities.Food", "Food")
-                        .WithMany()
+                        .WithMany("MealFoods")
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -370,10 +430,36 @@ namespace backend.Migrations
                     b.Navigation("Meal");
                 });
 
+            modelBuilder.Entity("backend.Entities.Permission", b =>
+                {
+                    b.HasOne("backend.Entities.User", null)
+                        .WithMany("Permissions")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("backend.Entities.RolePermission", b =>
+                {
+                    b.HasOne("backend.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("backend.Entities.User", b =>
                 {
                     b.HasOne("backend.Entities.Role", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -381,21 +467,21 @@ namespace backend.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("backend.Entities.UserRole", b =>
+            modelBuilder.Entity("backend.Entities.UserPermission", b =>
                 {
-                    b.HasOne("backend.Entities.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
+                    b.HasOne("backend.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("backend.Entities.User", "User")
-                        .WithMany("UserRoles")
+                        .WithMany("UserPermissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.Navigation("Permission");
 
                     b.Navigation("User");
                 });
@@ -414,7 +500,7 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Entities.WorkoutExercise", b =>
                 {
                     b.HasOne("backend.Entities.Exercise", "Exercise")
-                        .WithMany()
+                        .WithMany("WorkoutExercises")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -437,25 +523,28 @@ namespace backend.Migrations
                     b.Navigation("Meals");
                 });
 
-            modelBuilder.Entity("backend.Entities.Meal", b =>
+            modelBuilder.Entity("backend.Entities.Exercise", b =>
                 {
-                    b.Navigation("FoodIds");
+                    b.Navigation("WorkoutExercises");
+                });
 
+            modelBuilder.Entity("backend.Entities.Food", b =>
+                {
                     b.Navigation("MealFoods");
                 });
 
-            modelBuilder.Entity("backend.Entities.Role", b =>
+            modelBuilder.Entity("backend.Entities.Meal", b =>
                 {
-                    b.Navigation("UserRoles");
-
-                    b.Navigation("Users");
+                    b.Navigation("MealFoods");
                 });
 
             modelBuilder.Entity("backend.Entities.User", b =>
                 {
                     b.Navigation("Diets");
 
-                    b.Navigation("UserRoles");
+                    b.Navigation("Permissions");
+
+                    b.Navigation("UserPermissions");
 
                     b.Navigation("Workouts");
                 });

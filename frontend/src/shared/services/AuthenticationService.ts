@@ -21,25 +21,22 @@ class AuthenticationService {
 		};
 	}
 
-	public async getAuthentication(token: string | null | undefined, urlSearchParams: { refreshToken?: string | null
-		token?: string | null }) {
+	public async getAuthentication(token: string | null | undefined) {
 		try {
-			const _token = urlSearchParams.token ?? token;
-			if ( _token ) {
+			if ( token ) {
 				const { data: user } = await HttpBaseService.get(
 					`${envBaseUrl}/User/me`,
 					undefined,
 					{
 						headers: {
-							Authorization: `Bearer ${_token}`
+							Authorization: `Bearer ${token}`
 						}
 					}
 				);
 
 				return {
 					user: new User(user),
-					token: _token,
-					refreshToken: urlSearchParams.refreshToken
+					token
 				};
 			}
 
@@ -47,15 +44,8 @@ class AuthenticationService {
 				token: null
 			};
 		}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		catch (error) {
-			if (
-				(typeof error === 'string' && error !== 'No current user')
-				|| typeof error === 'object'
-			) {
-				// TODO
-				// ToastService.error(error, TranslationInstance.T.errorMessages.somethingWentWrong);
-			}
-
 			return {
 				user: new User(),
 				token: null
@@ -105,9 +95,11 @@ class AuthenticationService {
 
 	public async logout(token?: string | null) {
 		if ( token ) {
-			const { data } = await HttpBaseService.get(
-				`${envBaseUrl}/logout`,
-				undefined
+			const { data } = await HttpBaseService.post(
+				`${envBaseUrl}/Auth/logout`,
+				{
+					refreshToken: token
+				}
 			);
 			if ( data && data.response.success ) {
 				return;

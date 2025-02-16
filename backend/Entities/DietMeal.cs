@@ -12,10 +12,7 @@ namespace backend.Entities
         public Guid MealId { get; set; }
         [JsonIgnore]
         public Meal Meal { get; set; } = null!;
-        
-        public DietMeal()
-        {
-    
-        }
+
+        public DietMeal() { } // Parameterless constructor is important for EF Core
     }
 }

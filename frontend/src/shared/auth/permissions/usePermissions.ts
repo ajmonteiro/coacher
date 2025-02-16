@@ -1,6 +1,14 @@
 import { usePermissionsContext } from '@resourge/react-authentication';
 
-import { type Permissions } from './Permissions';
+export type Permissions = {
+	canViewClients: boolean
+	canViewDashboard: boolean
+	canViewDiets: boolean
+	canViewExercises: boolean
+	canViewFood: boolean
+	canViewMeals: boolean
+	canViewWorkouts: boolean
+};
 
 export const usePermissions = () => {
 	return usePermissionsContext<Permissions>();

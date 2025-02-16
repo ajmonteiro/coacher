@@ -8,7 +8,8 @@ namespace backend.Entities
         public string WeekDay { get; set; } = string.Empty;
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
+        public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
+
         public virtual ICollection<Exercise> Exercises { get; set; } = new List<Exercise>();
-        public virtual List<WorkoutExercise> WorkoutExercises { get; set; } = new();
     }
 }

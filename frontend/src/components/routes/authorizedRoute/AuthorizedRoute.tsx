@@ -22,7 +22,7 @@ const AuthorizedRoute: React.FC<Props> = ({
 	const permissions: any = usePermissions();
 	const { user } = useAuthentication();
 
-	const _redirect = redirect ?? Routes.AUTH.LOGIN.get();
+	const _redirect = redirect ?? Routes.NOT_FOUND.get();
 
 	if (
 		Boolean(user.isAuthenticated && !can) 

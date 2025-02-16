@@ -97,7 +97,7 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 								<span className="font-semibold text-md">{ user.username }</span>
 							</div>
 							<Button
-								className="flex items-center"
+								className="flex items-center w-max"
 								onClick={() => {
 									logout();
 									navigate(Routes.AUTH.LOGIN.get());

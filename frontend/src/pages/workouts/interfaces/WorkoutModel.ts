@@ -9,7 +9,7 @@ import { selectItemSchema } from 'src/shared/utils/ValidationUtils';
 export type WorkoutType = {
 	description: string
 	name: string
-	userId: number
+	userId: string
 	exercises?: ExerciseType[]
 	weekDay?: string
 };
@@ -23,7 +23,7 @@ type ExerciseType = {
 export class WorkoutModel {
 	public description: string = '';
 	public name: string = '';
-	public userId: number | SelectItem = 0;
+	public userId: string | SelectItem = '';
 	public weekDay: SelectItem = {
 		label: '',
 		value: ''
@@ -56,11 +56,11 @@ export class WorkoutModel {
 			description: this.description,
 			name: this.name,
 			exercises: this.exercises.map((exercise) => ({
-				exerciseId: parseInt(exercise.exercise.value),
+				exerciseId: exercise.exercise.value,
 				sets: exercise.sets,
 				reps: exercise.reps
 			})),
-			userId: typeof this.userId === 'number' ? this.userId.toString() : parseInt(this.userId.value)
+			userId: typeof this.userId === 'string' ? this.userId : this.userId.value
 		};
 	}
 }

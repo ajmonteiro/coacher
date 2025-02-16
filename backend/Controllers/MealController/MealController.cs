@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using backend.Models;
+using backend.Services.AuthService;
+using Permission = backend.Services.AuthService.Permission;
 
 namespace backend.Controllers.MealController
 {
@@ -14,6 +16,7 @@ namespace backend.Controllers.MealController
     {
         [Authorize]
         [HttpGet]
+        [HasPermission(permission: Permission.ReadMeal)]
         public async Task<ActionResult<object>> GetMeals(int page = 1, int perPage = 10)
         {
             if (page < 1 || perPage < 1)
@@ -63,6 +66,7 @@ namespace backend.Controllers.MealController
 
         [Authorize]
         [HttpGet("{id}")]
+        [HasPermission(permission: Permission.ReadMeal)]
         public async Task<ActionResult<MealDto>> GetMeal(Guid id)
         {
             var meal = await context.Meals
@@ -104,6 +108,7 @@ namespace backend.Controllers.MealController
 
         [Authorize]
         [HttpPost]
+        [HasPermission(permission: Permission.CreateMeal)]
         public async Task<ActionResult<Meal>> CreateMeal([FromBody] CreateMealDto createMealDto)
         {
             if (createMealDto == null)
@@ -141,6 +146,7 @@ namespace backend.Controllers.MealController
 
         [Authorize]
         [HttpPut("{id}")]
+        [HasPermission(permission: Permission.EditMeal)]
         public async Task<ActionResult<Meal>> UpdateMeal(Guid id, Meal meal)
         {
             if (id != meal.Id)
@@ -188,6 +194,7 @@ namespace backend.Controllers.MealController
 
         [Authorize]
         [HttpDelete("{id}")]
+        [HasPermission(Permission.DeleteMeal)]
         public async Task<ActionResult<Meal>> DeleteMeal(Guid id)
         {
             var meal = await context.Meals.FindAsync(id);

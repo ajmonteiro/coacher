@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { Navigate, Route, Switch } from '@resourge/react-router';
 
 import AuthorizedRoute from './components/routes/authorizedRoute/AuthorizedRoute';
+import ClientRoute from './components/routes/clientRoute/ClientRoute';
 import ExercisesPage from './pages/exercises/ExercisesPage';
 import Routes from './shared/routes/Routes';
 
@@ -55,6 +56,9 @@ const DashboardRouter = () => (
 		<AuthorizedRoute path={Routes.DASHBOARD.USER_PROFILE.path}>
 			<UserProfilePage />
 		</AuthorizedRoute>
+		<ClientRoute path={Routes.DASHBOARD.CLIENT_PROFILE.path}>
+			<UserProfilePage />
+		</ClientRoute>
 		<Navigate to={Routes.DASHBOARD.MAIN.get()} />
 	</Switch>
 );

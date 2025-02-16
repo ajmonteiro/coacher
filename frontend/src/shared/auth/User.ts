@@ -1,11 +1,19 @@
 import { type BaseUserType } from '@resourge/react-authentication';
 
+type PermissionType = {
+	name: string
+};
+
 type UserType = BaseUserType & {
 	fullName: string
 	height: string
 	id: string
+	permissions: PermissionType[]
 	phone: string
-	role: string
+	role: {
+		id: string
+		name: string
+	}
 	username: string
 	weight: string
 	workouts: any[]
@@ -16,15 +24,23 @@ export class User implements BaseUserType {
 	public username: string = '';
 	public fullName: string = '';
 	public phone: string = '';
-	public role: string = '';
+	public role: {
+		id: string
+		name: string
+	} = {
+			id: '',
+			name: ''
+		};
+
 	public weight: string = '';
 	public height: string = '';
 	public workouts: any[] = [];
 	public isAuthenticated?: boolean | undefined;
+	public permissions: string[] = [];
 
 	constructor(data?: UserType) {
-		this.isAuthenticated = true;
 		if (data) {
+			this.isAuthenticated = true;
 			this.fullName = data.fullName;
 			this.height = data.height;
 			this.phone = data.phone;
@@ -33,6 +49,7 @@ export class User implements BaseUserType {
 			this.weight = data.weight;
 			this.id = data.id;
 			this.workouts = data.workouts;
+			this.permissions = data.permissions.map((permission) => (permission.name));
 		}
 	}
 }

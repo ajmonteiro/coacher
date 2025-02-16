@@ -1,9 +1,11 @@
 using backend.Entities;
 using backend.Data;
 using backend.Models;
+using backend.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Permission = backend.Services.AuthService.Permission;
 
 namespace backend.Controllers.FoodController
 {
@@ -15,6 +17,7 @@ namespace backend.Controllers.FoodController
 
         [Authorize(Roles = "Coach")]
         [HttpGet]
+        [HasPermission(Permission.ReadFood)]
         public async Task<ActionResult<object>> GetFoods(int page = 1, int perPage = 10)
         {
              if (page < 1 || perPage < 1)
@@ -37,6 +40,7 @@ namespace backend.Controllers.FoodController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
+        [HasPermission(Permission.ReadFood)]
         public ActionResult<Food> GetFood(int id)
         {
             var food = context.Foods.Find(id);
@@ -47,6 +51,7 @@ namespace backend.Controllers.FoodController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("options")]
+        [HasPermission(Permission.ReadFood)]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetFoodOptions()
         {
             var foods = await context.Foods
@@ -59,6 +64,7 @@ namespace backend.Controllers.FoodController
 
         [Authorize(Roles = "Coach")]
         [HttpPost]
+        [HasPermission(Permission.CreateFood)]
         public async Task<ActionResult<Food>> CreateFood(Food food)
         {
             context.Foods.Add(food);
@@ -68,6 +74,7 @@ namespace backend.Controllers.FoodController
 
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
+        [HasPermission(Permission.EditFood)]
         public async Task<ActionResult<Food>> UpdateFood(Guid id, Food food)
         {
             if (id != food.Id)
@@ -79,6 +86,7 @@ namespace backend.Controllers.FoodController
 
         [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
+        [HasPermission(Permission.DeleteFood)]
         public async Task<ActionResult<Food>> DeleteFood(Guid id)
         {
             var food = context.Foods.Find(id);

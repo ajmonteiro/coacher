@@ -12,7 +12,7 @@ export type DietType = {
 };
 
 export class DietModel {
-	public userId: number | SelectItem = 0;
+	public userId: string | SelectItem = '';
 	public name: string = '';
 	public description: string = '';
 	public meals: MealModel[] = [];
@@ -27,7 +27,7 @@ export class DietModel {
 
 	public toModel() {
 		return {
-			userId: typeof this.userId === 'number' ? this.userId.toString() : parseInt(this.userId.value),
+			userId: typeof this.userId === 'string' ? this.userId : this.userId.value,
 			name: this.name,
 			description: this.description,
 			meals: this.meals.map((meal) => meal.toModel())

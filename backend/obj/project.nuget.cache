@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bk7i4d0WdsM=",
+  "dgSpecHash": "xv14e0FRmZ4=",
   "success": true,
   "projectFilePath": "/Users/americomonteiro/Desktop/americo/projects/coacher/backend/backend.csproj",
   "expectedPackageFiles": [
@@ -88,7 +88,7 @@
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.logging.abstractions/9.0.1/microsoft.extensions.logging.abstractions.9.0.1.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.objectpool/8.0.11/microsoft.extensions.objectpool.8.0.11.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.options/9.0.1/microsoft.extensions.options.9.0.1.nupkg.sha512",
-    "/Users/americomonteiro/.nuget/packages/microsoft.extensions.primitives/9.0.1/microsoft.extensions.primitives.9.0.1.nupkg.sha512",
+    "/Users/americomonteiro/.nuget/packages/microsoft.extensions.primitives/9.0.2/microsoft.extensions.primitives.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.webencoders/8.0.11/microsoft.extensions.webencoders.8.0.11.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.identitymodel.abstractions/8.0.1/microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.0.1/microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",

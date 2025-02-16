@@ -18,6 +18,8 @@ namespace backend.Services.AuthService
         {
             var user = await context.Users
                 .Include(u => u.Role)
+                .Include(u => u.UserPermissions) // Inclua as permissões
+                .ThenInclude(up => up.Permission) // Inclua os detalhes da permissão
                 .FirstOrDefaultAsync(u => u.Username == request.Username);
             
             if (user is null)
@@ -32,18 +34,7 @@ namespace backend.Services.AuthService
             
             var isCoach = user.Role.Name == "Coach";
             
-            var permissions = new UserPermissionDto
-            {
-                CanViewDashboard = isCoach,
-                CanViewClients = isCoach,
-                CanViewDiets = isCoach,
-                CanViewExercises = isCoach,
-                CanViewFood = isCoach,
-                CanViewMeals = isCoach,
-                CanViewWorkouts = isCoach
-            };
-
-            return await CreateTokenResponse(user, permissions);
+            return await CreateTokenResponse(user);
         }
 
         public async Task LogoutAsync(LogoutRequestDto request)
@@ -58,13 +49,12 @@ namespace backend.Services.AuthService
             }
         }
 
-        private async Task<TokenResponseDto> CreateTokenResponse(User user, UserPermissionDto permissions)
+        private async Task<TokenResponseDto> CreateTokenResponse(User user)
         {
             return new TokenResponseDto
             {
                 AccessToken = CreateToken(user),
                 RefreshToken = await GenerateAndSaveRefreshTokenAsync(user),
-                Permissions = permissions
             };
         }
 
@@ -94,6 +84,7 @@ namespace backend.Services.AuthService
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
+            await AssignPermissionsToUser(user);
 
             return user;
         }
@@ -105,18 +96,8 @@ namespace backend.Services.AuthService
                 return null;
             
             var isCoach = user.Role.Name == "Coach";
-            var permissions = new UserPermissionDto
-            {
-                CanViewDashboard = isCoach,
-                CanViewClients = isCoach,
-                CanViewDiets = isCoach,
-                CanViewExercises = isCoach,
-                CanViewFood = isCoach,
-                CanViewMeals = isCoach,
-                CanViewWorkouts = isCoach
-            };
 
-            return await CreateTokenResponse(user, permissions);
+            return await CreateTokenResponse(user);
         }
 
         private async Task<User?> ValidateRefreshTokenAsync(Guid userId, string refreshToken)
@@ -148,6 +129,30 @@ namespace backend.Services.AuthService
             return refreshToken;
         }
 
+        private async Task AssignPermissionsToUser(User user)
+        {
+            var readDashboardPermission = await context.Permissions
+                .FirstOrDefaultAsync(p => p.Name == "ReadDashboard");
+
+            if (readDashboardPermission == null)
+            {
+                throw new InvalidOperationException("Permission 'ReadDashboard' not found.");
+            }
+
+            var userPermissions = new List<UserPermission>();
+
+            userPermissions.Add(new UserPermission
+            {
+                UserId = user.Id,
+                PermissionId = readDashboardPermission.Id
+            });
+
+
+            context.UserPermission.AddRange(userPermissions);
+            await context.SaveChangesAsync();
+        }
+
+        
         private string CreateToken(User user)
         {
             if (user.Role == null)
@@ -161,9 +166,16 @@ namespace backend.Services.AuthService
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.Name)
             };
+            
+            foreach (var permission in user.UserPermissions)
+            {
+                claims.Add(new Claim("Permission", permission.Permission.Name));
+            }
 
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(configuration.GetValue<string>("AppSettings:Token")!));
+            
+            Console.WriteLine($"Key used: {configuration.GetValue<string>("AppSettings:Token")}");
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 

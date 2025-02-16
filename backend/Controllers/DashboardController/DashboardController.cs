@@ -1,4 +1,3 @@
-using backend.Entities;
 using backend.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +7,9 @@ namespace backend.Controllers.DashboardController
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Coach")]
+    [Authorize(Roles = "Coach, User", Policy = "ReadDashboard")]
     public class DashboardController(AppDbContext context) : ControllerBase
     {
-        [Authorize]
         [HttpGet("stats")]
         public async Task<ActionResult<object>> GetStats()
         {

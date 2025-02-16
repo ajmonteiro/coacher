@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using backend.Models;
+using backend.Services.AuthService;
 
 namespace backend.Controllers.RoleController
 {
@@ -12,6 +13,7 @@ namespace backend.Controllers.RoleController
     public class RoleController(AppDbContext context) : ControllerBase
     {
         [HttpGet]
+        [HasPermission(Permission.ReadRole)]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetRoleOptions()
         {
             var roles = await context.Roles

@@ -17,6 +17,7 @@ namespace backend.Controllers.UserController
 
         [Authorize]
         [HttpGet]
+        [Authorize(Policy = nameof(Services.AuthService.Permission.ReadUsers))]
         public async Task<ActionResult<object>> GetUsers(int page = 1, int perPage = 10)
         {
             if (page < 1 || perPage < 1)
@@ -42,6 +43,7 @@ namespace backend.Controllers.UserController
 
         [Authorize]
         [HttpGet("options")]
+        [Authorize(Policy = nameof(Services.AuthService.Permission.ReadUsers))]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetUserOptions()
         {
             var users = await context.Users
@@ -53,6 +55,7 @@ namespace backend.Controllers.UserController
 
         [Authorize]
         [HttpGet("{id}")]
+        [Authorize(Policy = nameof(Services.AuthService.Permission.ReadUser))]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
         {
             var user = await context.Users
@@ -78,7 +81,7 @@ namespace backend.Controllers.UserController
                 Phone = user.Phone,
                 Weight = user.Weight,
                 Height = user.Height,
-                Role = new RoleDto { Name = user.Role.Name },
+                RoleId = user.RoleId,
                 Workouts = user.Workouts.Select(w => new WorkoutDto
                 {
                     Id = w.Id,
@@ -99,7 +102,7 @@ namespace backend.Controllers.UserController
         }
 
         [HttpGet("me")]
-        [Authorize]
+        [Authorize(Roles = ("Coach, User"))]
         public async Task<ActionResult<User>> GetMe()
         {
             try
@@ -118,6 +121,8 @@ namespace backend.Controllers.UserController
 
                 var user = await context.Users
                     .Include(u => u.Role)
+                    .Include(u => u.UserPermissions)
+                    .ThenInclude(up => up.Permission)
                     .FirstOrDefaultAsync(u => u.Id == userId);
                 
                 if (user is null)
@@ -125,23 +130,28 @@ namespace backend.Controllers.UserController
                     return NotFound("User not found.");
                 }
                 
-                var isCoach = user.Role.Name == "Coach";
-                
-                var permissions = new UserPermissionDto
+                return Ok(new
                 {
-                    CanViewDashboard = isCoach, 
-                    CanViewClients = isCoach,
-                    CanViewDiets = isCoach,
-                    CanViewExercises = isCoach,
-                    CanViewFood = isCoach,
-                    CanViewMeals = isCoach,
-                    CanViewWorkouts = isCoach
-                };
-
-           
-                    
-
-                return Ok(new { User = user, Permissions = permissions });
+                    user.Id,
+                    user.Username,
+                    user.FullName,
+                    user.Phone,
+                    user.Weight,
+                    user.Height,
+                    user.RoleId,
+                    Role = new
+                    {
+                        user.Role.Id,
+                        user.Role.Name
+                    },
+                    Permissions = user.UserPermissions.Select(up => new
+                    {
+                        up.Permission.Id,
+                        up.Permission.Name
+                    }),
+                    Workouts = user.Workouts,
+                    Diets = user.Diets
+                });
             }
             catch (Exception ex)
             {
@@ -152,6 +162,7 @@ namespace backend.Controllers.UserController
 
         [Authorize]
         [HttpPost]
+        [Authorize(Policy = nameof(Services.AuthService.Permission.CreateUser))]
         public async Task<ActionResult<UserDto>> CreateUser(UserDto userDto)
         {
             var role = await context.Roles.FirstOrDefaultAsync(r => r.Id == userDto.RoleId); 
@@ -194,6 +205,7 @@ namespace backend.Controllers.UserController
 
         [Authorize]
         [HttpPut("{id}")]
+        [Authorize(Policy = nameof(Services.AuthService.Permission.EditUser))]
         public async Task<ActionResult<User>> UpdateUser(Guid id, User user)
         {
             if (id != user.Id)
@@ -206,6 +218,7 @@ namespace backend.Controllers.UserController
 
         [Authorize]
         [HttpDelete("{id}")]
+        [Authorize(Policy = nameof(Services.AuthService.Permission.DeleteUser))]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await context.Users.FindAsync(id);

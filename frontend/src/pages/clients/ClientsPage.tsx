@@ -1,13 +1,15 @@
-import { OrderByEnum } from '@resourge/react-fetch';
+import { OrderByEnum, useFetch } from '@resourge/react-fetch';
 import { useNavigate } from '@resourge/react-router';
 
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import Input from 'src/components/input/Input';
+import SearchableInput from 'src/components/searchableInput/SearchableInput';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
+import { SelectItem } from 'src/shared/models/SelectItem';
 import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
@@ -22,7 +24,16 @@ export default function ClientsPage() {
 	const {
 		field, handleSubmit, getErrors, hasError 
 	} = useClientModel();
-	
+
+	const { data: roles } = useFetch(async () => {
+		const result = await ClientsPageApi.roles();
+
+		return result.data.map((role: SelectItem) => new SelectItem(role));
+	}, {
+		deps: [],
+		initialState: []
+	});
+
 	const {
 		rows, changePage, paginationData: pagination, deleteEntities, fetchResults
 	} = useDataTable({
@@ -60,7 +71,7 @@ export default function ClientsPage() {
 								columnLabel: T.pages.clients.table.phone
 							},
 							{
-								columnName: 'role',
+								columnName: 'role.name',
 								columnLabel: T.pages.clients.table.role
 							}
 						]}
@@ -88,6 +99,30 @@ export default function ClientsPage() {
 										error={hasError('user.fullName')}
 										{...field('user.fullName')}
 										placeholder={T.pages.clients.table.fullName}
+									/>
+								</FormControl>
+								<FormControl
+									errors={getErrors('user.password')}
+									label={T.pages.clients.table.password}
+									required
+								>
+									<Input
+										error={hasError('user.password')}
+										{...field('user.password')}
+										placeholder={T.pages.clients.table.password}
+										type="password"
+									/>
+								</FormControl>
+								<FormControl
+									errors={getErrors('user.role')}
+									label={T.pages.clients.table.role}
+									required
+								>
+									<SearchableInput
+										error={hasError('user.role')}
+										{...field('user.role')}
+										options={roles}
+										placeholder={T.pages.clients.table.role}
 									/>
 								</FormControl>
 								<FormControl

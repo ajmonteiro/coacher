@@ -6,6 +6,7 @@ import DataTable from 'src/components/dataTable/DataTable';
 import InfoCard from 'src/components/infoCard/InfoCard';
 import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
+import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
 import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
@@ -16,10 +17,13 @@ import DashboardPageApi from './DashboardPageApi';
 
 export default function DashboardPage() {
 	const { T } = useTranslation();
+	const { user } = useAuthentication();
+
 	const { data: stats } = useFetch(async () => {
 		const result = await DashboardPageApi.getDashboardData();
 		return result.data;
 	}, {
+		enable: user.permissions?.includes('ReadDashboard'),
 		initialState: undefined,
 		deps: []
 	});
@@ -29,7 +33,8 @@ export default function DashboardPage() {
 	} = useDataTable({
 		entityClass: UsersPageApi,
 		orderColumn: 'username',
-		orderBy: OrderByEnum.ASC
+		orderBy: OrderByEnum.ASC,
+		isEnabled: user.permissions?.includes('ReadUser')
 	});
 
 	return (
@@ -72,10 +77,11 @@ export default function DashboardPage() {
 								mainValue={stats.totalFoods.toString()}
 								secondaryValue={T.pages.dashboard.foods_in_system}
 							/>
-							<div className="md:col-span-3"> 
-								<InfoCard className="bg-white shadow rounded-lg p-6"> 
-									{
-										rows.data ? (
+							{
+								rows.data ? (
+									<div className="md:col-span-3"> 
+										<InfoCard className="bg-white shadow rounded-lg p-6"> 
+								
 											<DataTable
 												changePage={changePage}
 												columns={[
@@ -101,10 +107,12 @@ export default function DashboardPage() {
 												tableTitle={T.pages.clients.table.tableTitle}
 												undeletableRows={[]}
 											/>
-										) : null 
-									}
-								</InfoCard>
-							</div>
+								
+										</InfoCard>
+								
+									</div>
+								) : null 
+							} 
 						</div>
 					) : null 
 				}

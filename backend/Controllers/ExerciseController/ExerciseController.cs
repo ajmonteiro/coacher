@@ -1,9 +1,11 @@
 using backend.Entities;
 using backend.Models;
 using backend.Data;
+using backend.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Permission = backend.Services.AuthService.Permission;
 
 namespace backend.Controllers.ExerciseController
 {
@@ -15,6 +17,7 @@ namespace backend.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpGet]
+        [HasPermission(Permission.ReadExercise)]
         public async Task<ActionResult<object>> GetExercises(int page = 1, int perPage = 10)
         {
              if (page < 1 || perPage < 1)
@@ -37,6 +40,7 @@ namespace backend.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("options")]
+        [HasPermission(Permission.ReadExercise)]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetExerciseOptions()
         {
             var exercises = await context.Exercises
@@ -48,6 +52,7 @@ namespace backend.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
+        [HasPermission(Permission.ReadExercise)]
         public ActionResult<Exercise> GetExercise(Guid id)
         {
             var Exercise = context.Exercises.Find(id);
@@ -58,6 +63,7 @@ namespace backend.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpPost]
+        [HasPermission(Permission.CreateExercise)]
         public async Task<ActionResult<Exercise>> CreateExercise(Exercise Exercise)
         {
             context.Exercises.Add(Exercise);
@@ -67,6 +73,7 @@ namespace backend.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
+        [HasPermission(Permission.EditExercise)]
         public async Task<ActionResult<Exercise>> UpdateExercise(Guid id, Exercise Exercise)
         {
             if (id != Exercise.Id)
@@ -78,6 +85,7 @@ namespace backend.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
+        [HasPermission(Permission.DeleteExercise)]
         public async Task<ActionResult<Exercise>> DeleteExercise(Guid id)
         {
             var Exercise = context.Exercises.Find(id);

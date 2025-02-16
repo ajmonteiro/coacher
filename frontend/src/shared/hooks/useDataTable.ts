@@ -11,10 +11,11 @@ interface HasAllMethod {
 type DataTableProps<T extends HasAllMethod> = {
 	entityClass: T
 	orderColumn: string
+	isEnabled?: boolean
 	orderBy?: OrderByEnum
 };
 export const useDataTable = <T extends HasAllMethod>({
-	entityClass, orderColumn, orderBy
+	entityClass, orderColumn, orderBy, isEnabled = true
 }: DataTableProps<T>) => {
 	const { fetch: deleteEntities } = useFetch(async (items: string[]) => {
 		if (items) {
@@ -40,6 +41,7 @@ export const useDataTable = <T extends HasAllMethod>({
 			totalItems: result.data.totalItems
 		};
 	}, {
+		enable: isEnabled,
 		deps: [],
 		initialPage: 1,
 		initialPerPage: 5,

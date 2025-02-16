@@ -1,7 +1,7 @@
 ﻿using backend.Models;
 using backend.Entities;
 
-namespace backend.Services
+namespace backend.Services.AuthService
 {
     public interface IAuthService
     {

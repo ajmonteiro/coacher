@@ -46,8 +46,6 @@ export default function DietPage() {
 		fetchResults();
 	});
 
-	console.log(form);
-
 	useEffect(() => {
 		if (userId) {
 			reset({

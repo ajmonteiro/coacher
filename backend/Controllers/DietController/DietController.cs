@@ -1,9 +1,11 @@
 using backend.Models;
 using backend.Entities;
 using backend.Data;
+using backend.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Permission = backend.Services.AuthService.Permission;
 
 namespace backend.Controllers.DietController
 {
@@ -15,6 +17,7 @@ namespace backend.Controllers.DietController
 
         [Authorize(Roles = "Coach")]
         [HttpGet]
+        [HasPermission(Permission.ReadDiet)]
         public async Task<ActionResult<object>> GetDiets(int page = 1, int perPage = 10)
         {
             if (page < 1 || perPage < 1)
@@ -54,6 +57,7 @@ namespace backend.Controllers.DietController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
+        [HasPermission(Permission.ReadDiet)]
         public async Task<ActionResult<DietDto>> GetDiet(Guid id)
         {
             var diet = await context.Diets
@@ -100,6 +104,7 @@ namespace backend.Controllers.DietController
 
         [Authorize(Roles = "Coach")]
         [HttpPost]
+        [HasPermission(Permission.CreateDiet)]
         public async Task<ActionResult<DietDto>> CreateDiet([FromBody] CreateDietDto createDietDto)
         {
             if (createDietDto == null)
@@ -188,6 +193,7 @@ namespace backend.Controllers.DietController
 
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
+        [HasPermission(Permission.EditDiet)]
         public async Task<ActionResult<Diet>> UpdateDiet(Guid id, Diet Diet)
         {
             if (id != Diet.Id)
@@ -199,6 +205,7 @@ namespace backend.Controllers.DietController
 
         [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
+        [HasPermission(Permission.DeleteDiet)]
         public async Task<ActionResult<Diet>> DeleteDiet(Guid id)
         {
             var Diet = context.Diets.Find(id);

@@ -546,6 +546,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			},
 			clients: {
 				table: {
+					password: {
+						pt: 'Palavra-passe',
+						en: 'Password',
+						es: 'Contraseña',
+						fr: 'Mot de passe'
+					},
 					weight: {
 						pt: 'Peso',
 						en: 'Weight',

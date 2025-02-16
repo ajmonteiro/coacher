@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using backend.Services.AuthService;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -86,7 +87,41 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ReadDashboard", policy =>
+        policy.RequireAuthenticatedUser()
+            .RequireAssertion(context => 
+            {
+                return context.User.IsInRole("User") || context.User.IsInRole("Coach") || 
+                       context.User.HasClaim(c => c.Type == "Permission" && c.Value == "ReadDashboard");
+            }));
+
+    foreach (var permission in Enum.GetValues<Permission>())
+    {
+        if (permission != Permission.ReadDashboard)
+        {
+            options.AddPolicy(permission.ToString(), policy =>
+                policy.RequireAuthenticatedUser()
+                    .RequireAssertion(context =>
+                    {
+                        return context.User.IsInRole("Coach") || 
+                               context.User.HasClaim(c => c.Type == "Permission" && c.Value == permission.ToString());
+                    }));
+        }
+    }
+});
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
+
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+
 
 var app = builder.Build();
 

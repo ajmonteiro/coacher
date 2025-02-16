@@ -18,7 +18,8 @@ const Routes = SetupPaths({
 		}),
 		USER_PROFILE: path('profile').searchParams({
 			userId: searchParam<{ userId: string }>
-		})
+		}),
+		CLIENT_PROFILE: path('client-profile')
 	}),
 	NOT_FOUND: path('*')
 });

@@ -9,5 +9,7 @@ namespace backend.Entities
         public double? Protein { get; set; }
         public double? Carbs { get; set; }
         public double? Fat { get; set; }
+        public virtual ICollection<MealFood> MealFoods { get; set; } = new List<MealFood>();
+
     }
 }
