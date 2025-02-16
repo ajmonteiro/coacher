@@ -18,9 +18,12 @@ import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 import { FOOD_UNIT_OPTIONS } from 'src/shared/utils/FormConstantsUtils';
 
+import { MealModel } from '../meal/interfaces/MealModel';
+
 import DietPageApi from './DietPageApi';
 import { useDietRelations } from './hooks/useDietRelations';
 import { useDietModel } from './interfaces/DietModel';
+import { MealFoodModel } from './interfaces/MealFoodModel';
 
 export default function DietPage() {
 	const { T } = useTranslation();
@@ -29,7 +32,7 @@ export default function DietPage() {
 	
 	const [triggerModal, setTriggerModal] = useState<boolean>(false);
 	const {
-		field, handleSubmit, form, getErrors, hasError, context
+		field, handleSubmit, form, getErrors, hasError, context, reset
 	} = useDietModel();
 
 	const {
@@ -53,22 +56,28 @@ export default function DietPage() {
 
 	useEffect(() => {
 		if (dietId && diet) {
-			form.userId = users.find((user: any) => user.value === diet.userId);
-			form.name = diet.name;
-			form.description = diet.description;
-			form.meals = diet.meals
-				? diet.meals.map((meal: any) => ({
-					name: meal.name,
-					description: meal.description,
-					mealFoods: meal.mealFoods
-						? meal.mealFoods.map((mealFood: any) => ({
-							food: foods.find((food: any) => food.value === mealFood.foodId),
-							quantity: mealFood.quantity,
-							unit: FOOD_UNIT_OPTIONS.find((option) => option.value === mealFood.unit)
-						}))
-						: []
-				}))
-				: [];
+			reset({
+				userId: users.find((user: any) => user.value === diet.userId),
+				name: diet.name,
+				description: diet.description,
+				meals: diet.meals
+					? diet.meals.map((meal: any) => {
+						const newMeal = new MealModel();
+						newMeal.name = meal.name;
+						newMeal.description = meal.description;
+						newMeal.mealFoods = meal.mealFoods
+							? meal.mealFoods.map((mealFood: any) => {
+								const newMealFood = new MealFoodModel();
+								newMealFood.food = foods.find((food: any) => food.value === mealFood.foodId);
+								newMealFood.quantity = mealFood.quantity;
+								newMealFood.unit = FOOD_UNIT_OPTIONS.find((option) => option.value === mealFood.unit) ?? FOOD_UNIT_OPTIONS[0];
+								return newMealFood;
+							})
+							: [];
+						return newMeal;
+					})
+					: []
+			});
 			setTriggerModal(true);
 		}
 	}, [diet, dietId]);
