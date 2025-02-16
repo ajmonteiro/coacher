@@ -27,7 +27,7 @@ public class MealDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public Guid DietId { get; set; } // Keep DietId
+    public Guid DietId { get; set; }
     public string? Description { get; set; }
     public List<MealFoodDto> MealFoods { get; set; } = new List<MealFoodDto>();
 }

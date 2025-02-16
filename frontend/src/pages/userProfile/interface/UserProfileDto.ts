@@ -2,7 +2,7 @@ export type UserProfileType = {
 	diets: any[]
 	fullName: string
 	height: string
-	role: string
+	roleName: string
 	username: string
 	weight: string
 	workouts: any[]
@@ -18,10 +18,11 @@ export class UserProfileDto {
 	public workouts: any[] = [];
 
 	constructor(data: UserProfileType) {
+		console.log(data);
 		this.diets = data.diets;
 		this.fullName = data.fullName;
 		this.height = data.height;
-		this.role = data.role;
+		this.role = data.roleName;
 		this.username = data.username;
 		this.weight = data.weight;
 		this.workouts = data.workouts;

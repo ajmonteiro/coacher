@@ -79,7 +79,8 @@ namespace backend.Controllers.WorkoutController
             {
                 Name = workoutDto.Name,
                 Description = workoutDto.Description,
-                UserId = workoutDto.UserId
+                UserId = workoutDto.UserId,
+                WeekDay = workoutDto.WeekDay,
             };
 
             using var transaction = context.Database.BeginTransaction();
@@ -120,6 +121,7 @@ namespace backend.Controllers.WorkoutController
                 Name = workout.Name,
                 Description = workout.Description,
                 UserId = workout.UserId,
+                WeekDay = workout.WeekDay,
                 Exercises = context.WorkoutExercises
                     .Include(we => we.Exercise)
                     .Where(we => we.WorkoutId == workout.Id)

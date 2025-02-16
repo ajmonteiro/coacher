@@ -60,6 +60,7 @@ export class WorkoutModel {
 				sets: exercise.sets,
 				reps: exercise.reps
 			})),
+			weekDay: this.weekDay.value,
 			userId: typeof this.userId === 'string' ? this.userId : this.userId.value
 		};
 	}

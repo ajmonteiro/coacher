@@ -147,9 +147,9 @@ namespace backend.Controllers.MealController
         [Authorize]
         [HttpPut("{id}")]
         [HasPermission(permission: Permission.EditMeal)]
-        public async Task<ActionResult<Meal>> UpdateMeal(Guid id, Meal meal)
+        public async Task<ActionResult<Meal>> UpdateMeal(Guid id, MealDto mealDto)
         {
-            if (id != meal.Id)
+            if (id != mealDto.Id)
                 return BadRequest();
 
             var existingMeal = await context.Meals
@@ -161,14 +161,14 @@ namespace backend.Controllers.MealController
                 return NotFound();
             }
 
-            existingMeal.Name = meal.Name;
-            existingMeal.Description = meal.Description;
-            existingMeal.DietId = meal.DietId;
+            existingMeal.Name = mealDto.Name;
+            existingMeal.Description = mealDto.Description;
+            existingMeal.DietId = mealDto.DietId;
 
             context.MealFoods.RemoveRange(existingMeal.MealFoods);
             existingMeal.MealFoods.Clear();
 
-            foreach (var mealFoodDto in meal.MealFoods)
+            foreach (var mealFoodDto in mealDto.MealFoods)
             {
                 var food = await context.Foods.FindAsync(mealFoodDto.FoodId);
                 if (food == null)

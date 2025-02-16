@@ -45,7 +45,7 @@ export class MealModel {
 		return {
 			name: this.name,
 			description: this.description,
-			foods: this.mealFoods.map((mealFood: MealFoodType) => ({
+			mealFoods: this.mealFoods.map((mealFood: MealFoodType) => ({
 				foodId: mealFood.food.value,
 				quantity: Number(mealFood.quantity),
 				unit: mealFood.unit.value

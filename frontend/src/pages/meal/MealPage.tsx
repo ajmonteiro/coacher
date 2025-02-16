@@ -33,18 +33,18 @@ export default function MealPage() {
 						columns={[
 							{
 								columnName: 'name',
-								columnLabel: T.pages.diet.table.name
+								columnLabel: T.pages.meal.table.name
 							},
 							{
 								columnName: 'description',
-								columnLabel: T.pages.diet.table.description
+								columnLabel: T.pages.meal.table.description
 							}
 						]}
 						data={rows.data}
 						deleteEntities={deleteEntities}
 						paginationData={pagination}
 						primaryKey="id"
-						tableTitle={T.pages.diet.table.tableTitle}
+						tableTitle={T.pages.meal.table.tableTitle}
 						undeletableRows={hasUndeletableRows(rows.data) ? [user.id] : []}
 					/>
 				) : null 

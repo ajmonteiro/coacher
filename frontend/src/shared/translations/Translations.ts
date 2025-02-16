@@ -143,6 +143,24 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 						en: 'Meals',
 						es: 'Comidas',
 						fr: 'Repas'
+					},
+					name: {
+						pt: 'Nome',
+						en: 'Name',
+						es: 'Nombre',
+						fr: 'Nom'
+					},
+					description: {
+						pt: 'Descrição',
+						en: 'Description',
+						es: 'Descripción',
+						fr: 'Description'
+					},
+					meal: {
+						pt: 'Refeição',
+						en: 'Meal',
+						es: 'Comida',
+						fr: 'Repas'
 					}
 				},
 				name: {

@@ -185,27 +185,35 @@ export default function DietPage() {
 													</InfoCard>
 												)) 
 											}
-											
-											<Button
-												className="mt-2"
-												onClick={() => form.removeMeal(index)}
-											>
-												<PhosphorIcon
-													color="gold"
-													icon={<MinusCircle />}
-												/>
-												{ T.pages.diet.table.removeMeal }
-											</Button>
+											<div className="flex justify-end mt-2">
+												<Button
+													className="mt-2 btn-square"
+													onClick={() => form.removeMeal(index)}
+												>
+													<PhosphorIcon
+														color="white"
+														icon={(
+															<PhosphorIcon
+																icon={<MinusCircle />}
+															/>
+														)}
+													/>
+												</Button>
+											</div>
 										</InfoCard>
 									)) 
 								}
 								<Button
-									className="mt-2"
+									className="mt-2 w-fit"
 									onClick={() => form.addMeal()}
 								>
 									<PhosphorIcon
-										color="gold"
-										icon={<PlusCircle />}
+										color="white"
+										icon={(
+											<PhosphorIcon
+												icon={<PlusCircle />}
+											/>
+										)}
 									/>
 									{ T.pages.diet.table.addMeal }
 								</Button>

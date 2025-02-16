@@ -107,16 +107,18 @@ namespace backend.Controllers.DietController
         [HasPermission(Permission.CreateDiet)]
         public async Task<ActionResult<DietDto>> CreateDiet([FromBody] CreateDietDto createDietDto)
         {
-            if (createDietDto == null)
-            {
-                return BadRequest("Diet data is required.");
-            }
+
+                if (createDietDto == null)
+                {
+                    return BadRequest("Diet data is required.");
+                }
 
             var diet = new Diet
             {
                 UserId = createDietDto.UserId,
                 Name = createDietDto.Name,
-                Description = createDietDto.Description
+                Description = createDietDto.Description,
+                Meals = new List<Meal>()
             };
 
             foreach (var mealDto in createDietDto.Meals)
@@ -124,7 +126,8 @@ namespace backend.Controllers.DietController
                 var meal = new Meal
                 {
                     Name = mealDto.Name,
-                    Description = mealDto.Description
+                    Description = mealDto.Description,
+                    MealFoods = new List<MealFood>()
                 };
 
                 foreach (var mealFoodDto in mealDto.MealFoods)
@@ -137,19 +140,44 @@ namespace backend.Controllers.DietController
 
                     var mealFood = new MealFood
                     {
+                        Meal = meal,
                         Food = food,
                         Quantity = mealFoodDto.Quantity,
                         Unit = mealFoodDto.Unit
                     };
 
                     meal.MealFoods.Add(mealFood);
+                    context.MealFoods.Add(mealFood);
+
+                    // Log dos dados de MealFood
+                    Console.WriteLine($"MealFood: MealId={mealFood.MealId}, FoodId={mealFood.FoodId}, Quantity={mealFood.Quantity}, Unit={mealFood.Unit}");
                 }
 
                 diet.Meals.Add(meal);
             }
 
             context.Diets.Add(diet);
-            await context.SaveChangesAsync();
+
+            // Logs antes de salvar
+            Console.WriteLine($"Diets Count: {context.Diets.Count()}");
+            Console.WriteLine($"Meals Count: {context.Meals.Count()}");
+            Console.WriteLine($"MealFoods Count: {context.MealFoods.Count()}");
+
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log da exceção completa
+                Console.WriteLine($"Erro ao salvar: {ex}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner Exception: {ex.InnerException}");
+                }
+                return StatusCode(500, "Erro ao salvar dieta."); // Ou outra resposta de erro adequada
+            }
+
 
             diet = await context.Diets
                 .Include(d => d.Meals)
@@ -171,7 +199,7 @@ namespace backend.Controllers.DietController
                     DietId = m.DietId,
                     MealFoods = m.MealFoods.Select(mf => new MealFoodDto
                     {
-                        FoodId = mf.FoodId,
+                        FoodId = mf.Food.Id, // Use mf.Food.Id aqui
                         Quantity = mf.Quantity,
                         Unit = mf.Unit,
                         Food = new FoodDto

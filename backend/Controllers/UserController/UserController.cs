@@ -82,6 +82,7 @@ namespace backend.Controllers.UserController
                 Weight = user.Weight,
                 Height = user.Height,
                 RoleId = user.RoleId,
+                RoleName = user.Role.Name,
                 Workouts = user.Workouts.Select(w => new WorkoutDto
                 {
                     Id = w.Id,
