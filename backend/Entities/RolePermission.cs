@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace backend.Entities;
 
 [PrimaryKey(nameof(RoleId), nameof(PermissionId))]
-public class RolePermission
+public class RolePermission : BaseEntity
 {
     public Guid RoleId { get; set; }
     [JsonIgnore]

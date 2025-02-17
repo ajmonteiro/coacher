@@ -1,4 +1,4 @@
-import { type ExerciseDto, type ExerciseType } from './ExerciseDto';
+import { ExerciseDto, type ExerciseType } from './ExerciseDto';
 
 export type WorkoutType = {
 	description: string
@@ -17,6 +17,6 @@ export class WorkoutDto {
 		this.description = base.description;
 		this.name = base.name;
 		this.userId = base.userId ?? 0;
-		// this.exercises = base.exercises.map((exercise) => new ExerciseDto(exercise));
+		this.exercises = base.exercises.map((exercise) => new ExerciseDto(exercise));
 	}
 }

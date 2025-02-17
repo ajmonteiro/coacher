@@ -14,7 +14,7 @@ export default function Input<T extends React.InputHTMLAttributes<HTMLInputEleme
 	return (
 		<div className="relative flex items-center">
 			<input
-				className={`input input-bordered input-md text-md text-gray-500 w-full max-w-xs min-w-full ${error ? 'border-error' : ''} 
+				className={`input input-bordered input-md text-md w-full max-w-xs min-w-full ${error ? 'border-error' : ''} 
 					${icon ? 'pr-10' : 'pr-0'}
 					${loading ? 'skeleton' : ''}
 					` + className}

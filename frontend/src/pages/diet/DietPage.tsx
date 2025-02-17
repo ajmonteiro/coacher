@@ -22,14 +22,13 @@ import { MealModel } from '../meal/interfaces/MealModel';
 
 import DietPageApi from './DietPageApi';
 import { useDietRelations } from './hooks/useDietRelations';
-import { useDietModel } from './interfaces/DietModel';
+import { DietModel, useDietModel } from './interfaces/DietModel';
 import { MealFoodModel } from './interfaces/MealFoodModel';
 
 export default function DietPage() {
 	const { T } = useTranslation();
 	const navigate = useNavigate();
 	const { userId, dietId } = useSearchParams();
-	
 	const [triggerModal, setTriggerModal] = useState<boolean>(false);
 	const {
 		field, handleSubmit, form, getErrors, hasError, context, reset
@@ -50,12 +49,24 @@ export default function DietPage() {
 	});
 
 	const submit = handleSubmit(async (data) => {
+		if (dietId) {
+			await DietPageApi.update(dietId, data);
+			return;
+		}
 		await DietPageApi.create(data);
 		fetchResults();
 	});
 
 	useEffect(() => {
-		if (dietId && diet) {
+		if (userId) {
+			form.userId = users.find((user: any) => user.value === userId);
+			setTriggerModal(true);
+		}
+	}, [userId, users]);
+	
+	useEffect(() => {
+		if (dietId && dietId !== 'create' && diet) {
+			setTriggerModal(true);
 			reset({
 				userId: users.find((user: any) => user.value === diet.userId),
 				name: diet.name,
@@ -78,16 +89,8 @@ export default function DietPage() {
 					})
 					: []
 			});
-			setTriggerModal(true);
 		}
 	}, [diet, dietId]);
-
-	useEffect(() => {
-		if (userId) {
-			form.userId = users.find((user: any) => user.value === userId);
-			setTriggerModal(true);
-		}
-	}, [userId, users]);
 
 	return (
 		<DashboardLayout>
@@ -109,6 +112,14 @@ export default function DietPage() {
 								columnLabel: T.pages.diet.table.userFullName
 							}
 						]}
+						createEntity={() => {
+							reset(new DietModel());
+							navigate(Routes.DASHBOARD.DIET.get({
+								searchParams: {
+									userId: 'create'
+								}
+							}));
+						}}
 						data={rows.data}
 						deleteEntities={deleteEntities}
 						form={(
@@ -154,7 +165,6 @@ export default function DietPage() {
 									form.meals.map((meal, index) => (
 										<details
 											key={index}
-
 											className={`collapse rounded-box border w-full border-base-200 shadow-lg
 												${context.errors[`meals[${index}]`] ? 'border-error' : ''}
 												`}
@@ -210,7 +220,7 @@ export default function DietPage() {
 													{
 														form.meals[index].mealFoods.map((mealFood, foodIndex) => (
 															<details
-																key={index}
+																key={foodIndex}
 																className={`collapse rounded-box border w-full shadow-lg
 																	${context.errors[`meals[${index}].mealFoods[${foodIndex}]`] ? 'border-error' : ''}
 																	`}
@@ -315,7 +325,8 @@ export default function DietPage() {
 						formSubmission={submit}
 						goToEntity={(id) => navigate(Routes.DASHBOARD.DIET.get({
 							searchParams: {
-								dietId: id
+								dietId: id,
+								refresh: new Date().getTime()
 							}
 						}))}
 						paginationData={pagination}

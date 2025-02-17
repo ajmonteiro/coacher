@@ -35,6 +35,7 @@ type DataTableProps = {
 		totalPages: number
 	}
 	tableTitle: string
+	createEntity?: () => void
 	deleteAllowed?: boolean
 	entityCreationTitle?: string
 	form?: ReactNode
@@ -63,7 +64,8 @@ export default function DataTable({
 	deleteAllowed = true,
 	fullWidthTable = false,
 	goToEntity,
-	triggerModal = false
+	triggerModal = false,
+	createEntity
 }: DataTableProps) {
 	const { T } = useTranslation();
 	const [globalSelected, setGlobalSelected] = useState(false);
@@ -141,6 +143,7 @@ export default function DataTable({
 									/>
 								)}
 								onClick={() => {
+									createEntity?.();
 									if (modalRef.current) {
 										modalRef.current.showModal();
 									}

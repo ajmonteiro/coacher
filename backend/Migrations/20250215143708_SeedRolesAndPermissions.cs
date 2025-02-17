@@ -24,10 +24,9 @@ namespace backend.Migrations
                 values: new object[,]
                 {
                     { coachRoleId, "Coach" },
-                    { clientRoleId, "Client" }
+                    { clientRoleId, "User" }
                 });
 
-            // Insert Permissions
             var permissionIds = new Dictionary<Permission, Guid>();
             foreach (Permission permission in Enum.GetValues(typeof(Permission)))
             {
@@ -41,7 +40,6 @@ namespace backend.Migrations
                 );
             }
 
-            // Assign all permissions to Coach
             foreach (var permissionId in permissionIds.Values)
             {
                 migrationBuilder.InsertData(
@@ -51,11 +49,16 @@ namespace backend.Migrations
                 );
             }
 
-            // Assign only ReadDashboard to Client
             migrationBuilder.InsertData(
                 table: "RolePermissions",
                 columns: new[] { "RoleId", "PermissionId" },
                 values: new object[] { clientRoleId, permissionIds[Permission.ReadDashboard] }
+            );
+            
+            migrationBuilder.InsertData(
+                table: "RolePermissions",
+                columns: new[] { "RoleId", "PermissionId" },
+                values: new object[] { clientRoleId, permissionIds[Permission.ReadClientInfo] }
             );
         }
 

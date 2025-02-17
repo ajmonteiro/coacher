@@ -1,9 +1,12 @@
+import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
+
 import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import InfoCard from 'src/components/infoCard/InfoCard';
 import Input from 'src/components/input/Input';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import Textarea from 'src/components/textarea/Textarea';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
@@ -61,69 +64,73 @@ export default function ExercisesPage() {
 								<div className="flex flex-col gap-3">
 									{
 										form.exercises.map((_, index: number) => (
-											<div
+											<details
 												key={index}
-												className="flex flex-col gap-2 
-												relative
-												ring-1 ring-base-200 rounded-box p-4"
-											>
-												<div className="flex flex-col gap-2">
-													<span className="text-sm font-semibold">
-														{ T.pages.exercises.table.exercise }
-														{ ' ' }
-														{ index + 1 }
-													</span>
-													<hr className="h-2" />
+												className="collapse rounded-box border w-full"
+											> 
+												<summary className="collapse-title font-medium"> 
+													<div className="flex items-center text-sm"> 
+														<span>{ T.pages.exercises.table.exercise + ' ' + (index + 1) }</span>
+													</div>
+												</summary>
+												<div className="p-5 pt-0">
+													<FormWrapper>
+														<FormControl
+															errors={getErrors(`exercises[${index}].name`)}
+															label={T.pages.exercises.table.name}
+															required
+														>
+															<Input
+																{...field(`exercises[${index}].name`)}
+																error={hasError(`exercises[${index}].name`)}
+															/>
+														</FormControl>
+														<FormControl
+															errors={getErrors(`exercises[${index}].video`)}
+															label={T.pages.exercises.table.video}
+															required
+														>
+															<Input
+																error={hasError(`exercises[${index}].video`)}
+																{...field(`exercises[${index}].video`)}
+															/>
+														</FormControl>
+													</FormWrapper>
+													<FormWrapper cols={1}>
+														<FormControl
+															errors={getErrors(`exercises[${index}].description`)}
+															label={T.pages.exercises.table.description}
+															required
+														>
+															<Textarea
+																{...field(`exercises[${index}].description`)}
+																error={hasError(`exercises[${index}].description`)}
+															/>
+														</FormControl>
+													</FormWrapper>
+													<div className="flex justify-end mt-5">
+														<Button
+															className="btn-square"
+															onClick={() => form.removeExercise(index)}
+														>
+															<PhosphorIcon
+																color="white"
+																icon={<MinusCircle />}
+															/>
+														</Button>
+													</div>	
 												</div>
-												<FormWrapper>
-													<FormControl
-														errors={getErrors(`exercises[${index}].name`)}
-														label={T.pages.exercises.table.name}
-														required
-													>
-														<Input
-															{...field(`exercises[${index}].name`)}
-															error={hasError(`exercises[${index}].name`)}
-														/>
-													</FormControl>
-													<FormControl
-														errors={getErrors(`exercises[${index}].description`)}
-														label={T.pages.exercises.table.description}
-														required
-													>
-														<Textarea
-															{...field(`exercises[${index}].description`)}
-															error={hasError(`exercises[${index}].description`)}
-														/>
-													</FormControl>
-													<FormControl
-														errors={getErrors(`exercises[${index}].video`)}
-														label={T.pages.exercises.table.video}
-														required
-													>
-														<Input
-															error={hasError(`exercises[${index}].video`)}
-															{...field(`exercises[${index}].video`)}
-														/>
-													</FormControl>
-												</FormWrapper>
-												<div className="flex justify-end mt-5">
-													<Button
-														className="btn-square"
-														onClick={() => form.removeExercise(index)}
-													>
-														-
-													</Button>
-												</div>	
-											</div>
+											</details>
 										)) 
 									}
 									<InfoCard className="flex justify-end">
 										<Button
 											onClick={() => form.addNewExercise()}
 										>
-											+ 
-											{ ' ' }
+											<PhosphorIcon
+												color="white"
+												icon={<PlusCircle />}
+											/>
 											{ T.pages.exercises.table.addExercise }
 										</Button>
 									</InfoCard>

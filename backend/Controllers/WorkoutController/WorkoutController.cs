@@ -42,7 +42,7 @@ namespace backend.Controllers.WorkoutController
                         we.Exercise.Name,
                         we.Exercise.Description,
                         we.Exercise.Video,
-                        we.Sets,
+                        we.Set,
                         we.Reps
                     }).ToList()
                 })
@@ -95,23 +95,18 @@ namespace backend.Controllers.WorkoutController
 
                 if (existingWorkoutExercise == null)
                 {
-                    var workoutExercise = new WorkoutExercise
-                    {
-                        WorkoutId = workout.Id,
-                        ExerciseId = exercise.ExerciseId,
-                        Sets = exercise.Sets,
-                        Reps = exercise.Reps
-                    };
-                    context.WorkoutExercises.Add(workoutExercise);
-                }
-                else
-                {
-                    existingWorkoutExercise.Sets = exercise.Sets;
-                    existingWorkoutExercise.Reps = exercise.Reps;
-                    context.WorkoutExercises.Update(existingWorkoutExercise);
+                        var workoutExercise = new WorkoutExercise
+                        {
+                            WorkoutId = workout.Id,
+                            ExerciseId = exercise.ExerciseId,
+                            Set = exercise.Sets,
+                            Reps = exercise.Reps
+                        };
+                        await context.WorkoutExercises.AddAsync(workoutExercise);
+                        await context.SaveChangesAsync();
                 }
             }
-
+            
             await context.SaveChangesAsync();
             await transaction.CommitAsync();
 
@@ -129,7 +124,7 @@ namespace backend.Controllers.WorkoutController
                     {
                         ExerciseId = we.ExerciseId,
                         Name = we.Exercise.Name,
-                        Sets = we.Sets,
+                        Set = we.Set,
                         Reps = we.Reps
                     }).ToList()
             };

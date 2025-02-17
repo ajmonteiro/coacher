@@ -13,5 +13,9 @@ export const themes: SelectItem[] = [
 	{
 		label: TranslationInstance.T.themes.onyx,
 		value: 'myluxuryonyx'
+	},
+	{
+		label: TranslationInstance.T.themes.lavender,
+		value: 'myluxurylavender'
 	}
 ];

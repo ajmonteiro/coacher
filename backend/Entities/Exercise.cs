@@ -1,6 +1,6 @@
 namespace backend.Entities
 {
-    public class Exercise
+    public class Exercise : BaseEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

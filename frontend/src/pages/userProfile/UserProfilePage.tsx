@@ -24,7 +24,6 @@ export default function UserProfilePage() {
 		initialState: null
 	});
 
-	console.log('user', user);
 	return (
 		<DashboardLayout>
 			<div className="container mx-auto p-6">
@@ -124,7 +123,7 @@ export default function UserProfilePage() {
 																				{ T.pages.workouts.table.sets }
 																				:
 																			</span>
-																			<span>{ exercise.sets }</span>
+																			<span>{ exercise.set }</span>
 																		</div>
 																		<div className="flex gap-2">
 																			<span className="font-bold">

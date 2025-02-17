@@ -23,7 +23,7 @@ export default function DashboardPage() {
 		const result = await DashboardPageApi.getDashboardData();
 		return result.data;
 	}, {
-		enable: user.permissions?.includes('ReadDashboard'),
+		enable: user.hasPermission('ReadDashboard'),
 		initialState: undefined,
 		deps: []
 	});
@@ -34,7 +34,7 @@ export default function DashboardPage() {
 		entityClass: UsersPageApi,
 		orderColumn: 'username',
 		orderBy: OrderByEnum.ASC,
-		isEnabled: user.permissions?.includes('ReadUser')
+		isEnabled: user.hasPermission('ReadUser')
 	});
 
 	return (

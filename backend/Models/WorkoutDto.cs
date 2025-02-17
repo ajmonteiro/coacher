@@ -14,7 +14,7 @@ public class ExerciseInWorkoutDto
 {
     public Guid ExerciseId { get; set; }
     public string Name { get; set; } = string.Empty;
-    public int Sets { get; set; }
+    public int Set { get; set; }
     public int Reps { get; set; }
 }
 
@@ -24,7 +24,7 @@ public class WorkoutCreateDto
     public string Description { get; set; } = string.Empty;
     public string WeekDay { get; set; } = string.Empty;
     public Guid UserId { get; set; }
-    public List<WorkoutExerciseDto> Exercises { get; set; } = new();
+    public IEnumerable<WorkoutExerciseDto> Exercises { get; set; } = Array.Empty<WorkoutExerciseDto>();
 }
 
 public class WorkoutExerciseDto

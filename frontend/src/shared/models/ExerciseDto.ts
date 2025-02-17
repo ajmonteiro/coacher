@@ -1,26 +1,17 @@
 export type ExerciseType = {
-	id: number
 	name: string
 	reps: number
-	sets: number
-	video: string
-	description?: string
+	set: number
 };
 
 export class ExerciseDto {
-	public description?: string = '';
-	public id: number = 0;
 	public name: string = '';
 	public reps: number = 0;
-	public sets: number = 0;
-	public video: string = '';
+	public set: number = 0;
 
 	constructor(base: ExerciseType) {
-		this.description = base.description;
-		this.id = base.id;
 		this.name = base.name;
 		this.reps = base.reps;
-		this.sets = base.sets;
-		this.video = base.video;
+		this.set = base.set;
 	}
 }

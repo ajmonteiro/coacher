@@ -12,26 +12,22 @@ import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import Routes from 'src/shared/routes/Routes';
 
 type Props = RouteProps & {
-	can?: keyof Permissions | Array<keyof Permissions>
+	can?: string[]
 	redirect?: string
 };
 
 const AuthorizedRoute: React.FC<Props> = ({
 	can, path, redirect, ...props
 }: Props) => {
-	const permissions: any = usePermissions();
+	const permissions = usePermissions();
 	const { user } = useAuthentication();
 
 	const _redirect = redirect ?? Routes.NOT_FOUND.get();
 
 	if (
-		Boolean(user.isAuthenticated && !can) 
-		|| Boolean(
-			user.isAuthenticated && can && (
-				(Array.isArray(can) && can.some((c: any) => permissions[c] )) 
-				|| (typeof can === 'string' && permissions[can])
-			)
-		)
+		user.isAuthenticated
+		&& (!can || (Array.isArray(can) && can.some((c) => permissions.includes(c))) 
+			|| (typeof can === 'string' && permissions.includes(can)))
 	) {
 		return (
 			<Route

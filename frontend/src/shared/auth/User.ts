@@ -5,6 +5,7 @@ type PermissionType = {
 };
 
 type UserType = BaseUserType & {
+	diets: any[]
 	fullName: string
 	height: string
 	id: string
@@ -34,6 +35,7 @@ export class User implements BaseUserType {
 
 	public weight: string = '';
 	public height: string = '';
+	public diets: any[] = [];
 	public workouts: any[] = [];
 	public isAuthenticated?: boolean | undefined;
 	public permissions: string[] = [];
@@ -49,7 +51,12 @@ export class User implements BaseUserType {
 			this.weight = data.weight;
 			this.id = data.id;
 			this.workouts = data.workouts;
+			this.diets = data.diets;
 			this.permissions = data.permissions.map((permission) => (permission.name));
 		}
+	}
+
+	public hasPermission(permission: string) {
+		return this.permissions.includes(permission);
 	}
 }

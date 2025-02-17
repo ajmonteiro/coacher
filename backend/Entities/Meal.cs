@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace backend.Entities
 {
-    public class Meal
+    public class Meal : BaseEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

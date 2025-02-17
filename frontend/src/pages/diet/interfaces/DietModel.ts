@@ -17,6 +17,16 @@ export class DietModel {
 	public description: string = '';
 	public meals: MealModel[] = [];
 
+	constructor() {
+		this.userId = {
+			label: '',
+			value: ''
+		};
+		this.name = '';
+		this.description = '';
+		this.meals = [];
+	}
+
 	public addMeal() {
 		this.meals.push(new MealModel());
 	}

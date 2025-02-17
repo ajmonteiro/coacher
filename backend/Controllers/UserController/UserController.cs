@@ -118,7 +118,7 @@ namespace backend.Controllers.UserController
                     {
                         ExerciseId = we.ExerciseId,
                         Name = we.Exercise.Name,
-                        Sets = we.Sets,
+                        Set = we.Set,
                         Reps = we.Reps
                     }).ToList()
                 }).ToList()
@@ -149,6 +149,14 @@ namespace backend.Controllers.UserController
                     .Include(u => u.Role)
                     .Include(u => u.UserPermissions)
                     .ThenInclude(up => up.Permission)
+                    .Include(u => u.Workouts)
+                    .ThenInclude(w => w.WorkoutExercises)
+                    .ThenInclude(we => we.Exercise)
+                    .Include(u => u.Diets)
+                    .ThenInclude(d => d.DietMeals)
+                    .ThenInclude(dm => dm.Meal)
+                    .ThenInclude(m => m.MealFoods)
+                    .ThenInclude(mf => mf.Food)
                     .FirstOrDefaultAsync(u => u.Id == userId);
                 
                 if (user is null)
@@ -175,8 +183,43 @@ namespace backend.Controllers.UserController
                         up.Permission.Id,
                         up.Permission.Name
                     }),
-                    Workouts = user.Workouts,
-                    Diets = user.Diets
+                    Diets = user.Diets?.Select(d => new DietDto
+                    {
+                        Id = d.Id,
+                        Name = d.Name,
+                        Description = d.Description,
+                        Meals = d.DietMeals?.Select(dm => new MealDto
+                        {
+                            Id = dm.Meal.Id,
+                            Name = dm.Meal.Name,
+                            Description = dm.Meal.Description,
+                            MealFoods = dm.Meal.MealFoods?.Select(mf => new MealFoodDto
+                            {
+                                FoodId = mf.FoodId,
+                                Quantity = mf.Quantity,
+                                Unit = mf.Unit,
+                                FoodName = mf.Food.Name ?? "Unknown",
+                                Fat = mf.Food.Fat,
+                                Calories = mf.Food.Calories,
+                                Carbs = mf.Food.Carbs,
+                                Protein = mf.Food.Protein,
+                            }).ToList() ?? new List<MealFoodDto>(),
+                        }).ToList() ?? new List<MealDto>(),
+                    }).ToList() ?? new List<DietDto>(),
+                    Workouts = user.Workouts?.Select(w => new WorkoutDto
+                    {
+                        Id = w.Id,
+                        Name = w.Name,
+                        Description = w.Description,
+                        UserId = w.UserId,
+                        Exercises = w.WorkoutExercises?.Select(we => new ExerciseInWorkoutDto
+                        {
+                            ExerciseId = we.ExerciseId,
+                            Name = we.Exercise.Name,
+                            Set = we.Set,
+                            Reps = we.Reps
+                        }).ToList() ?? new List<ExerciseInWorkoutDto>(),
+                    }).ToList() ?? new List<WorkoutDto>(),
                 });
             }
             catch (Exception ex)
@@ -195,9 +238,9 @@ namespace backend.Controllers.UserController
 
             if (role == null) 
             {
-                role = await context.Roles.FirstOrDefaultAsync(r => r.Name == "Client");
+                role = await context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
                 if (role == null)
-                    return BadRequest("Default role 'Client' not found.");
+                    return BadRequest("Default role 'User' not found.");
             }
 
             var user = new User

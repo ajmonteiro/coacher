@@ -37,5 +37,7 @@ namespace backend.Services.AuthService
         EditMeal,
         CreateMeal,
         DeleteMeal,
+        
+        ReadClientInfo
     }
 }

@@ -26,12 +26,7 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 	],
 	translations: {
 		themes: {
-			emerald: {
-				pt: 'Emeralda',
-				en: 'Emerald',
-				es: 'Esmeralda',
-				fr: 'Émeraude'
-			},
+			
 			ruby: {
 				pt: 'Rubi',
 				en: 'Ruby',
@@ -50,30 +45,13 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				es: 'Ónice',
 				fr: 'Onyx'
 			},
-			bronze: {
-				pt: 'Bronze',
-				en: 'Bronze',
-				es: 'Bronce',
-				fr: 'Bronze'
-			},
-			fitness: {
-				pt: 'Fitness',
-				en: 'Fitness',
-				es: 'Fitness',
-				fr: 'Fitness'
-			},
-			pink: {
-				pt: 'Rosa',
-				en: 'Pink',
-				es: 'Rosa',
-				fr: 'Rose'
-			},
-			rosegoldblush: {
-				pt: 'Rose Gold Blush',
-				en: 'Rose Gold Blush',
-				es: 'Oro rosa',
-				fr: 'Or rose'
+			lavender: {
+				pt: 'Lavanda',
+				en: 'Lavender',
+				es: 'Lavanda',
+				fr: 'Lavande'
 			}
+		
 		},
 		formConstants: {
 			foodUnits: {
@@ -136,6 +114,110 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		pages: {
+			clientInfo: {
+				diets: {
+					pt: 'Dietas',
+					en: 'Diets',
+					es: 'Dietas',
+					fr: 'Régimes'
+				},
+				meal: {
+					pt: 'Refeição',
+					en: 'Meal',
+					es: 'Comida',
+					fr: 'Repas'
+				},
+				food: {
+					pt: 'Alimento',
+					en: 'Food',
+					es: 'Comida',
+					fr: 'Nourriture'
+				},
+				quantity: {
+					pt: 'Quantidade',
+					en: 'Quantity',
+					es: 'Cantidad',
+					fr: 'Quantité'
+				},
+				calories: {
+					pt: 'Calorias',
+					en: 'Calories',
+					es: 'Calorías',
+					fr: 'Calories'
+				},
+				protein: {
+					pt: 'Proteínas',
+					en: 'Proteins',
+					es: 'Proteínas',
+					fr: 'Protéines'
+				},
+				fat: {
+					pt: 'Gorduras',
+					en: 'Fats',
+					es: 'Grasas',
+					fr: 'Graisses'
+				},
+				carbs: {
+					pt: 'Hidratos de carbono',
+					en: 'Carbs',
+					es: 'Carbohidratos',
+					fr: 'Glucides'
+				},
+				exercise: {
+					pt: 'Exercício',
+					en: 'Exercise',
+					es: 'Ejercicio',
+					fr: 'Exercice'
+				},
+				reps: {
+					pt: 'Repetições',
+					en: 'Reps',
+					es: 'Repeticiones',
+					fr: 'Répétitions'
+				}, 
+				sets: {
+					pt: 'Séries',
+					en: 'Sets',
+					es: 'Series',
+					fr: 'Ensembles'
+				},
+				workouts: {
+					pt: 'Treinos',
+					en: 'Workouts',
+					es: 'Entrenamientos',
+					fr: 'Entraînements'
+				},
+				pageTitle: {
+					pt: 'Informação do Cliente',
+					en: 'Client Information',
+					es: 'Información del Cliente',
+					fr: 'Informations sur le client'
+				},
+				fullName: {
+					pt: 'Nome completo',
+					en: 'Full name',
+					es: 'Nombre completo',
+					fr: 'Nom complet'
+				},
+				phone: {
+					pt: 'Telefone',
+					en: 'Phone',
+					es: 'Teléfono',
+					fr: 'Téléphone'
+				},
+				height: {
+					pt: 'Altura',
+					en: 'Height',
+					es: 'Altura',
+					fr: 'Taille'
+				},
+				weight: {
+					pt: 'Peso',
+					en: 'Weight',
+					es: 'Peso',
+					fr: 'Poids'
+				}
+			},
 			meal: {
 				table: {
 					tableTitle: {
@@ -925,6 +1007,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			sidebar: {
+				aboutMe: {
+					pt: 'Sobre mim',
+					en: 'About me',
+					es: 'Sobre mí',
+					fr: 'À propos de moi'
+				},
 				fitness_related: {
 					pt: 'Fitness',
 					en: 'Fitness',

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace backend.Entities
 {
-    public class Diet
+    public class Diet : BaseEntity
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

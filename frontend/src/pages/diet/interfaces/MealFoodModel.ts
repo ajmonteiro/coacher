@@ -2,6 +2,7 @@ import { object } from '@resourge/schema';
 
 import { type SelectItem } from 'src/shared/models/SelectItem';
 import { TranslationInstance } from 'src/shared/translations/Translations';
+import { FOOD_UNIT_OPTIONS } from 'src/shared/utils/FormConstantsUtils';
 import { selectItemSchema } from 'src/shared/utils/ValidationUtils';
 
 export class MealFoodModel {
@@ -11,10 +12,7 @@ export class MealFoodModel {
 	};
 
 	public quantity: number = 0;
-	public unit: SelectItem = {
-		value: '',
-		label: ''
-	};
+	public unit: SelectItem = FOOD_UNIT_OPTIONS[0];
 
 	constructor(data?: MealFoodModel) {
 		if (data) {

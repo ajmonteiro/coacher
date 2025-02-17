@@ -1,6 +1,6 @@
 namespace backend.Entities
 {
-    public class Food
+    public class Food : BaseEntity
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }

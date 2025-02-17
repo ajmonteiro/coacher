@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace backend.Entities;
 
-public class UserPermission
+public class UserPermission : BaseEntity
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }

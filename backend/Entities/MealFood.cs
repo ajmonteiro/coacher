@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace backend.Entities
 {
     [PrimaryKey(nameof(MealId), nameof(FoodId))]
-    public class MealFood
+    public class MealFood : BaseEntity
     {
         public Guid MealId { get; init; }
         [JsonIgnore]

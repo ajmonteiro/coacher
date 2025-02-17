@@ -5,6 +5,7 @@ import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
 import Input from 'src/components/input/Input';
+import PhoneInput from 'src/components/phoneInput/PhoneInput';
 import SearchableInput from 'src/components/searchableInput/SearchableInput';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
@@ -47,6 +48,7 @@ export default function ClientsPage() {
 	};
 
 	const submit = handleSubmit(async (data) => {
+		console.log(data.toModel());
 		await ClientsPageApi.create(data);
 		fetchResults();
 	});
@@ -81,85 +83,85 @@ export default function ClientsPage() {
 							<div className="flex flex-col">
 								<FormWrapper>
 									<FormControl
-										errors={getErrors('user.username')}
+										errors={getErrors('username')}
 										label={T.pages.clients.table.username}
 										required
 									>
 										<Input
-											error={hasError('user.username')}
-											{...field('user.username')}
+											error={hasError('username')}
+											{...field('username')}
 											placeholder={T.pages.clients.table.username}
 										/>
 									</FormControl>
 									<FormControl
-										errors={getErrors('user.fullName')}
+										errors={getErrors('fullName')}
 										label={T.pages.clients.table.fullName}
 										required
 									>
 										<Input
-											error={hasError('user.fullName')}
-											{...field('user.fullName')}
+											error={hasError('fullName')}
+											{...field('fullName')}
 											placeholder={T.pages.clients.table.fullName}
 										/>
 									</FormControl>
 								</FormWrapper>
 								<FormWrapper>
 									<FormControl
-										errors={getErrors('user.password')}
+										errors={getErrors('password')}
 										label={T.pages.clients.table.password}
 										required
 									>
 										<Input
-											error={hasError('user.password')}
-											{...field('user.password')}
+											error={hasError('password')}
+											{...field('password')}
 											placeholder={T.pages.clients.table.password}
 											type="password"
 										/>
 									</FormControl>
 									<FormControl
-										errors={getErrors('user.role')}
+										errors={getErrors('role')}
 										label={T.pages.clients.table.role}
 										required
 									>
 										<SearchableInput
-											error={hasError('user.role')}
-											{...field('user.role')}
+											error={hasError('role')}
+											{...field('role')}
 											options={roles}
 											placeholder={T.pages.clients.table.role}
 										/>
 									</FormControl>
 									<FormControl
-										errors={getErrors('user.phone')}
+										errors={getErrors('phone')}
 										label={T.pages.clients.table.phone}
 										required
 									>
-										<Input
-											error={hasError('user.phone')}
-											{...field('user.phone')}
+										<PhoneInput
+											error={hasError('phone')}
+											{...field('phone')} 
 											placeholder={T.pages.clients.table.phone}
 										/>
 									</FormControl>
 								</FormWrapper>
 								<FormWrapper>
 									<FormControl
-										errors={getErrors('user.weight')}
+										errors={getErrors('weight')}
 										label={T.pages.clients.table.weight}
 										required
 									>
 										<Input
-											error={hasError('user.weight')}
-											{...field('user.weight')}
+											error={hasError('weight')}
+											{...field('weight')}
 											placeholder={T.pages.clients.table.weight}
 										/>
 									</FormControl>
 									<FormControl
-										errors={getErrors('user.height')}
+										errors={getErrors('height')}
 										label={T.pages.clients.table.height}
 										required
 									>
 										<Input
-											error={hasError('user.height')}
-											{...field('user.height')}
+											error={hasError('height')}
+											{...field('height')}
 											placeholder={T.pages.clients.table.height}
 										/>
 									</FormControl>

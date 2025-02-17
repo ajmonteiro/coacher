@@ -131,25 +131,63 @@ namespace backend.Services.AuthService
 
         private async Task AssignPermissionsToUser(User user)
         {
-            var readDashboardPermission = await context.Permissions
-                .FirstOrDefaultAsync(p => p.Name == "ReadDashboard");
+            var allPermissions = await context.Permissions.ToListAsync();
+            
+            var coachRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == "Coach");
+            var userRole = await context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
 
-            if (readDashboardPermission == null)
+            if (coachRole == null || userRole == null)
             {
-                throw new InvalidOperationException("Permission 'ReadDashboard' not found.");
+                throw new InvalidOperationException("Roles 'Coach' or 'User' not found.");
             }
 
             var userPermissions = new List<UserPermission>();
 
-            userPermissions.Add(new UserPermission
+            if (user.RoleId == coachRole.Id)
             {
-                UserId = user.Id,
-                PermissionId = readDashboardPermission.Id
-            });
+                foreach (var permission in allPermissions)
+                {
+                    var existingUserPermission = await context.UserPermission
+                        .FirstOrDefaultAsync(up => up.UserId == user.Id && up.PermissionId == permission.Id);
 
+                    if (existingUserPermission == null)
+                    {
+                        userPermissions.Add(new UserPermission
+                        {
+                            UserId = user.Id,
+                            PermissionId = permission.Id
+                        });
+                    }
+                }
+            }
 
-            context.UserPermission.AddRange(userPermissions);
-            await context.SaveChangesAsync();
+            else if (user.RoleId == userRole.Id)
+            {
+                var userRolePermissions = allPermissions
+                    .Where(p => p.Name == "ReadDashboard" || p.Name == "ReadClientInfo")
+                    .ToList();
+
+                foreach (var permission in userRolePermissions)
+                {
+                    var existingUserPermission = await context.UserPermission
+                        .FirstOrDefaultAsync(up => up.UserId == user.Id && up.PermissionId == permission.Id);
+
+                    if (existingUserPermission == null)
+                    {
+                        userPermissions.Add(new UserPermission
+                        {
+                            UserId = user.Id,
+                            PermissionId = permission.Id
+                        });
+                    }
+                }
+            }
+
+            if (userPermissions.Any())
+            {
+                await context.UserPermission.AddRangeAsync(userPermissions);
+                await context.SaveChangesAsync();
+            }
         }
 
         

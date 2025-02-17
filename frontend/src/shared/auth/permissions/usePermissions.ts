@@ -1,15 +1,6 @@
-import { usePermissionsContext } from '@resourge/react-authentication';
-
-export type Permissions = {
-	canViewClients: boolean
-	canViewDashboard: boolean
-	canViewDiets: boolean
-	canViewExercises: boolean
-	canViewFood: boolean
-	canViewMeals: boolean
-	canViewWorkouts: boolean
-};
+import { useAuthentication } from 'src/shared/auth/useAuthentication';
 
 export const usePermissions = () => {
-	return usePermissionsContext<Permissions>();
+	const { user } = useAuthentication();
+	return user?.permissions || [];
 };

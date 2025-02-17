@@ -20,6 +20,13 @@ class DietPageApi {
 		return await HttpBaseService.post('/Diet', data.toModel());
 	}
 
+	public async update(id: string, data: DietModel) {
+		return await HttpBaseService.put(`/Diet/${id}`, {
+			id,
+			...data.toModel()
+		});
+	}
+
 	public async delete(id: string) {
 		return await HttpBaseService.delete(`/Diet/${id}`);
 	}

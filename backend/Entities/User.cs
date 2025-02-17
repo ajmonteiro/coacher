@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace backend.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
         public Guid Id { get; init; }
         [MaxLength(64)]

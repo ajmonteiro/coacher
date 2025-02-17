@@ -3,7 +3,6 @@ import { lazy } from 'react';
 import { Navigate, Route, Switch } from '@resourge/react-router';
 
 import AuthorizedRoute from './components/routes/authorizedRoute/AuthorizedRoute';
-import ClientRoute from './components/routes/clientRoute/ClientRoute';
 import ExercisesPage from './pages/exercises/ExercisesPage';
 import Routes from './shared/routes/Routes';
 
@@ -16,6 +15,7 @@ const UserProfilePage = lazy(() => import('./pages/userProfile/UserProfilePage')
 const WorkoutsPage = lazy(() => import('./pages/workouts/WorkoutsPage'));
 const DietPage = lazy(() => import('./pages/diet/DietPage'));
 const MealPage = lazy(() => import('./pages/meal/MealPage'));
+const ClientInfoPage = lazy(() => import('./pages/clientInfo/ClientInfoPage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -28,40 +28,63 @@ const AuthRouter = () => (
 	</Switch>
 );
 
-const DashboardRouter = () => (
-	<Switch>
-		<AuthorizedRoute
-			path={Routes.DASHBOARD.MAIN.path}
-		>
-			<DashboardPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.CLIENTS.path}>
-			<ClientsPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.FOOD.path}>
-			<FoodPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.DIET.path}>
-			<DietPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.MEAL.path}>
-			<MealPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.EXERCISES.path}>
-			<ExercisesPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.WORKOUTS.path}>
-			<WorkoutsPage />
-		</AuthorizedRoute>
-		<AuthorizedRoute path={Routes.DASHBOARD.USER_PROFILE.path}>
-			<UserProfilePage />
-		</AuthorizedRoute>
-		<ClientRoute path={Routes.DASHBOARD.CLIENT_PROFILE.path}>
-			<UserProfilePage />
-		</ClientRoute>
-		<Navigate to={Routes.DASHBOARD.MAIN.get()} />
-	</Switch>
-);
+const DashboardRouter = () => {
+	return (
+		<Switch>
+			<AuthorizedRoute
+				path={Routes.DASHBOARD.MAIN.path}
+			>
+				<DashboardPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute
+				can={['ReadUser']}
+				path={Routes.DASHBOARD.CLIENTS.path}
+			>
+				<ClientsPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute
+				can={['ReadFood']}
+				path={Routes.DASHBOARD.FOOD.path}
+			>
+				<FoodPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute
+				can={['ReadDiet']}
+				path={Routes.DASHBOARD.DIET.path}
+			>
+				<DietPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadMeal']}
+				path={Routes.DASHBOARD.MEAL.path}
+			>
+				<MealPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute
+				can={['ReadExercise']}
+				path={Routes.DASHBOARD.EXERCISES.path}
+			>
+				<ExercisesPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadWorkout']}
+				path={Routes.DASHBOARD.WORKOUTS.path}
+			>
+				<WorkoutsPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadUser']}
+				path={Routes.DASHBOARD.USER_PROFILE.path}
+			>
+				<UserProfilePage />
+			</AuthorizedRoute>
+			<AuthorizedRoute path={Routes.DASHBOARD.CLIENT_INFO.path}>
+				<ClientInfoPage />
+			</AuthorizedRoute>
+			<Navigate to={Routes.DASHBOARD.MAIN.get()} />
+		</Switch>
+	);
+};
 const Router: React.FC = () => {
 	return (
 		<Switch>

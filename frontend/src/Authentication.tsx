@@ -23,9 +23,9 @@ const authentication = setupAuthentication({
 });
 
 const Authentication: React.FC<Props> = ({ children }: Props) => {
-	const navigate = useNavigate();
-	const normalizeUrl = useNormalizeUrl();
-	const { T } = useTranslation();
+	// const navigate = useNavigate();
+	// const normalizeUrl = useNormalizeUrl();
+	// const { T } = useTranslation();
 
 	const { fetch: onLogout } = useFetch(async (token: string | null) => {
 		try {

@@ -27,16 +27,18 @@ namespace backend.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Define User entity with Role
             modelBuilder.Entity<User>(b =>
             {
                 b.HasKey(u => u.Id);
-
+                
                 b.HasOne(u => u.Role)
-                    .WithMany()
+                    .WithMany(r => r.Users)
                     .HasForeignKey(u => u.RoleId)
                     .IsRequired();
             });
 
+            // Define UserPermission entity
             modelBuilder.Entity<UserPermission>()
                 .HasKey(up => up.Id);
 
@@ -52,30 +54,18 @@ namespace backend.Data
                 .HasForeignKey(up => up.PermissionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<UserPermission>(b =>
-            {
-                b.HasKey(up => up.Id);
-            });
-
-
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Role)
-                .WithMany()
-                .HasForeignKey(u => u.RoleId);
-
             modelBuilder.Entity<RolePermission>()
                 .HasKey(rp => new { rp.RoleId, rp.PermissionId });
 
             modelBuilder.Entity<RolePermission>()
                 .HasOne(rp => rp.Role)
-                .WithMany()
+                .WithMany(r => r.RolePermissions)
                 .HasForeignKey(rp => rp.RoleId);
 
             modelBuilder.Entity<RolePermission>()
                 .HasOne(rp => rp.Permission)
-                .WithMany()
+                .WithMany(p => p.RolePermissions)
                 .HasForeignKey(rp => rp.PermissionId);
-
 
             modelBuilder.Entity<Workout>()
                 .HasOne(w => w.User)
@@ -83,6 +73,7 @@ namespace backend.Data
                 .HasForeignKey(w => w.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Define Diet entity
             modelBuilder.Entity<Diet>()
                 .HasOne(d => d.User)
                 .WithMany(u => u.Diets)
@@ -112,5 +103,6 @@ namespace backend.Data
                 .WithMany(f => f.MealFoods)
                 .HasForeignKey(mf => mf.FoodId);
         }
+
     }
 }

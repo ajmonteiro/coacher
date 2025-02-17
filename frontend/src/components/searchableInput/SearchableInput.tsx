@@ -15,6 +15,7 @@ type SelectProps = {
 	className?: string
 	disabled?: boolean
 	error?: boolean
+	globalClassName?: string
 	loadingOptions?: boolean
 	onChange?: (value: { label: string
 		value: string } | null) => void
@@ -31,7 +32,8 @@ export default function SearchableInput({
 	className,
 	placeholder,
 	disabled = false,
-	loadingOptions = false
+	loadingOptions = false,
+	globalClassName
 }: SelectProps) {
 	const [showOptions, setShowOptions] = useState(false);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -87,7 +89,7 @@ export default function SearchableInput({
 	}, [inputState, options, value]);
 
 	return (
-		<div className="relative">
+		<div className={`relative ${globalClassName ?? ''}`}>
 			<label
 				className="relative flex items-center"
 				htmlFor="search"

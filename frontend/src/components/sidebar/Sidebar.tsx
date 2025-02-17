@@ -2,9 +2,9 @@ import {
 	Avocado,
 	Barbell,
 	Bicycle,
-	BowlFood,
 	Cookie,
 	HouseLine,
+	User,
 	Users
 } from '@phosphor-icons/react';
 
@@ -61,7 +61,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 						text={T.components.sidebar.dashboard}
 					/>
 				</SidebarSection>
-				<SidebarSection hasPermissions={user.permissions.includes('ReadDiet')}>
+				<SidebarSection hasPermissions={user.hasPermission('ReadDiet')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.diet_related}
@@ -87,7 +87,7 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 							)}
 							text={T.components.sidebar.diets}
 						/>
-						<SidebarSectionItem
+						{ /* <SidebarSectionItem
 							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.MEAL.get()}
 							icon={(
@@ -96,25 +96,15 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 								/>
 							)}
 							text={T.components.sidebar.meals}
-						/>
+						/> */ }
 					</div>
 				</SidebarSection>
-				<SidebarSection hasPermissions={user.permissions.includes('ReadWorkout')}>
+				<SidebarSection hasPermissions={user.hasPermission('ReadWorkout')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.fitness_related}
 					/>
 					<div className="flex flex-col gap-5">
-						<SidebarSectionItem
-							collapsed={isSidebarOpen}
-							href={Routes.DASHBOARD.EXERCISES.get()}
-							icon={(
-								<PhosphorIcon
-									icon={<Bicycle />}
-								/>
-							)}
-							text={T.components.sidebar.exercises}
-						/>
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.WORKOUTS.get()}
@@ -125,9 +115,19 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 							)}
 							text={T.components.sidebar.workouts}
 						/>
+						<SidebarSectionItem
+							collapsed={isSidebarOpen}
+							href={Routes.DASHBOARD.EXERCISES.get()}
+							icon={(
+								<PhosphorIcon
+									icon={<Bicycle />}
+								/>
+							)}
+							text={T.components.sidebar.exercises}
+						/>
 					</div>
 				</SidebarSection>
-				<SidebarSection hasPermissions={user.permissions.includes('CreateUser')}>
+				<SidebarSection hasPermissions={user.hasPermission('ReadUser')}>
 					<SidebarSectionTitle
 						collapsed={isSidebarOpen}
 						title={T.components.sidebar.clients}
@@ -142,6 +142,24 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 								/>
 							)}
 							text={T.components.sidebar.clients}
+						/>
+					</div>
+				</SidebarSection>
+				<SidebarSection hasPermissions={user.hasPermission('ReadClientInfo') && user.role.name === 'User'}>
+					<SidebarSectionTitle
+						collapsed={isSidebarOpen}
+						title={T.components.sidebar.aboutMe}
+					/>
+					<div className="flex flex-col gap-5">
+						<SidebarSectionItem
+							collapsed={isSidebarOpen}
+							href={Routes.DASHBOARD.CLIENT_INFO.get()}
+							icon={(
+								<PhosphorIcon
+									icon={<User />}
+								/>
+							)}
+							text={T.components.sidebar.aboutMe}
 						/>
 					</div>
 				</SidebarSection>

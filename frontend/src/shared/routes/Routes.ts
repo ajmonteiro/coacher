@@ -11,7 +11,8 @@ const Routes = SetupPaths({
 		FOOD: path('food'),
 		DIET: path('diet').searchParams({
 			dietId: searchParam<{ dietId?: string }>,
-			userId: searchParam<{ userId?: string }>
+			userId: searchParam<{ userId?: string }>,
+			refresh: searchParam<{ refresh?: Date }>
 		}),
 		MEAL: path('meal'),
 		EXERCISES: path('exercises'),
@@ -21,7 +22,7 @@ const Routes = SetupPaths({
 		USER_PROFILE: path('profile').searchParams({
 			userId: searchParam<{ userId: string }>
 		}),
-		CLIENT_PROFILE: path('client-profile')
+		CLIENT_INFO: path('client-info')
 	}),
 	NOT_FOUND: path('*')
 });

@@ -213,9 +213,11 @@ namespace backend.Controllers.DietController
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
         [HasPermission(Permission.EditDiet)]
-        public async Task<ActionResult<DietDto>> UpdateDiet(Guid id, [FromBody] CreateDietDto updateDietDto)
+        public async Task<ActionResult<DietDto>> UpdateDiet(Guid id, [FromBody] UpdateDietDto updateDietDto)
         {
-            if (id != updateDietDto.Id)
+            Guid dietId = Guid.Parse(updateDietDto.Id);
+            
+            if (id != dietId)
             {
                 return BadRequest("Diet ID mismatch.");
             }
@@ -299,7 +301,7 @@ namespace backend.Controllers.DietController
                     return StatusCode(500, "Error updating diet.");
                 }
 
-                diet = await context.Diets // Reload the diet with all the includes
+                diet = await context.Diets
                    .Include(d => d.Meals)
                    .ThenInclude(m => m.MealFoods)
                    .ThenInclude(mf => mf.Food)
