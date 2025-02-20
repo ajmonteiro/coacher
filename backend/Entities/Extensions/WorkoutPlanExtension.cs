@@ -22,7 +22,7 @@ namespace backend.Entities.Extensions
             existingWorkout.Name = workoutDto.Name;
             existingWorkout.Description = workoutDto.Description;
             existingWorkout.WeekDay = workoutDto.WeekDay;
-            existingWorkout.WorkoutExercises = workoutDto.Exercises.Select(e => e.UpdateEntity(existingWorkout.WorkoutExercises.FirstOrDefault(w => w.Id == e.Id))).ToList();
+            existingWorkout.WorkoutExercises = workoutDto.Exercises.Select(e => e.UpdateEntity(existingWorkout.WorkoutExercises.FirstOrDefault(w => w.Id == e.Id)!)).ToList();
             return existingWorkout;
         }
 
@@ -32,7 +32,6 @@ namespace backend.Entities.Extensions
             {
                 Id = Guid.NewGuid(),
                 ExerciseId = exerciseDto.ExerciseId,
-                Sets = exerciseDto.Sets.Select(s => s.ToEntity()).ToList()
             };
         }
         
@@ -44,25 +43,8 @@ namespace backend.Entities.Extensions
             }
             
             existingExercise.ExerciseId = exerciseDto.ExerciseId;
-            existingExercise.Sets = exerciseDto.Sets.Select(s => s.UpdateEntity(
-                    existingExercise.Sets.FirstOrDefault(set => set.Id == s.Id)))
-                .ToList();
+            
             return existingExercise;
-        }
-
-        public static Set UpdateEntity(this SetUpdateDto setDto, Set existingSet)
-        {
-            existingSet.Reps = setDto.Reps;
-            return existingSet;
-        }
-
-        public static Set ToEntity(this SetCreateDto setDto)
-        {
-            return new Set
-            {
-                Id = Guid.NewGuid(),
-                Reps = setDto.Reps
-            };
         }
     }
 }

@@ -13,16 +13,13 @@ namespace backend.Services.UserService
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger<UserService> _logger;
 
         public UserService(
             AppDbContext context,
-            IHttpContextAccessor httpContextAccessor,
-            ILogger<UserService> logger)
+            IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
-            _logger = logger;
         }
 
         public async Task<PagedResult<User>> GetAllAsync(int page = 1, int pageSize = 10)
@@ -58,7 +55,7 @@ namespace backend.Services.UserService
             return await query.ToListAsync();
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
             return await _context.Users
                 .WithBasicIncludes()
@@ -68,27 +65,23 @@ namespace backend.Services.UserService
 
         public async Task<User> GetCurrentAsync()
         {
-            try
-            {
-                var userIdClaim = _httpContextAccessor.HttpContext?
-                    .User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userIdClaim = _httpContextAccessor.HttpContext?
+                .User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                if (string.IsNullOrEmpty(userIdClaim))
-                    throw new UnauthorizedAccessException("User ID not found in token");
+            if (string.IsNullOrEmpty(userIdClaim))
+                throw new UnauthorizedAccessException("User ID not found in token");
 
-                if (!Guid.TryParse(userIdClaim, out Guid userId))
-                    throw new UnauthorizedAccessException("Invalid user ID format");
+            if (!Guid.TryParse(userIdClaim, out Guid userId))
+                throw new UnauthorizedAccessException("Invalid user ID format");
 
-                return await _context.Users
-                    .WithBasicIncludes()
-                    .WithFitnessData()
-                    .FirstOrDefaultAsync(u => u.Id == userId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error getting current user: {ex.Message}");
-                throw;
-            }
+            var user = await _context.Users
+                 .WithBasicIncludes()
+                 .WithFitnessData()
+                 .FirstOrDefaultAsync(u => u.Id == userId);
+                
+            if(user == null) throw new UnauthorizedAccessException("User not found");
+
+            return user;
         }
 
         public async Task<User> CreateAsync(UserCreateDto user)

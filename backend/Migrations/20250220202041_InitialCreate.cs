@@ -284,13 +284,13 @@ namespace backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    WorkoutPlanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     WeekDay = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    WorkoutPlanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
@@ -367,15 +367,17 @@ namespace backend.Migrations
                 name: "WorkoutExercises",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     WorkoutId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ExerciseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Set = table.Column<int>(type: "int", nullable: false),
+                    Reps = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkoutExercises", x => new { x.WorkoutId, x.ExerciseId });
+                    table.PrimaryKey("PK_WorkoutExercises", x => x.Id);
                     table.ForeignKey(
                         name: "FK_WorkoutExercises_Exercises_ExerciseId",
                         column: x => x.ExerciseId,
@@ -398,8 +400,6 @@ namespace backend.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     SetId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     WorkoutExerciseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkoutExerciseWorkoutId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkoutExerciseExerciseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Reps = table.Column<int>(type: "int", nullable: false),
                     Weight = table.Column<int>(type: "int", nullable: false),
@@ -416,40 +416,11 @@ namespace backend.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SetRecords_WorkoutExercises_WorkoutExerciseWorkoutId_Workout~",
-                        columns: x => new { x.WorkoutExerciseWorkoutId, x.WorkoutExerciseExerciseId },
+                        name: "FK_SetRecords_WorkoutExercises_WorkoutExerciseId",
+                        column: x => x.WorkoutExerciseId,
                         principalTable: "WorkoutExercises",
-                        principalColumns: new[] { "WorkoutId", "ExerciseId" },
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Sets",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Reps = table.Column<int>(type: "int", nullable: false),
-                    ExerciseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    WorkoutExerciseExerciseId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    WorkoutExerciseWorkoutId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Sets_Exercises_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalTable: "Exercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Sets_WorkoutExercises_WorkoutExerciseWorkoutId_WorkoutExerci~",
-                        columns: x => new { x.WorkoutExerciseWorkoutId, x.WorkoutExerciseExerciseId },
-                        principalTable: "WorkoutExercises",
-                        principalColumns: new[] { "WorkoutId", "ExerciseId" });
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -489,19 +460,9 @@ namespace backend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SetRecords_WorkoutExerciseWorkoutId_WorkoutExerciseExerciseId",
+                name: "IX_SetRecords_WorkoutExerciseId",
                 table: "SetRecords",
-                columns: new[] { "WorkoutExerciseWorkoutId", "WorkoutExerciseExerciseId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sets_ExerciseId",
-                table: "Sets",
-                column: "ExerciseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sets_WorkoutExerciseWorkoutId_WorkoutExerciseExerciseId",
-                table: "Sets",
-                columns: new[] { "WorkoutExerciseWorkoutId", "WorkoutExerciseExerciseId" });
+                column: "WorkoutExerciseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserPermission_PermissionId",
@@ -522,6 +483,11 @@ namespace backend.Migrations
                 name: "IX_WorkoutExercises_ExerciseId",
                 table: "WorkoutExercises",
                 column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkoutExercises_WorkoutId",
+                table: "WorkoutExercises",
+                column: "WorkoutId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkoutPlans_UserId",
@@ -551,9 +517,6 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "SetRecords");
-
-            migrationBuilder.DropTable(
-                name: "Sets");
 
             migrationBuilder.DropTable(
                 name: "UserPermission");

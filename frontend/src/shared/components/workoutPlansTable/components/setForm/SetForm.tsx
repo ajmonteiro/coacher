@@ -13,10 +13,8 @@ type SetFormProps = {
 export default function SetForm({
 	setIndex, exerciseIndex, set, exercise 
 }: SetFormProps) {
-	console.log(`exercises[${exerciseIndex}].sets[${setIndex}]`);
 	const { field, form } = useFormSplitter<RegisterRecordModel, `exercises[${typeof exerciseIndex}].sets[${typeof setIndex}]`>(`exercises[${exerciseIndex}].sets[${setIndex}]`);
 
-	console.log(form);
 	const setsLength = exercise?.sets?.length ?? 0;
 
 	return (

@@ -7,10 +7,12 @@ namespace backend.Entities
         public Guid Id { get; set; }
         public Guid WorkoutId { get; set; }
         [JsonIgnore]
-        public Workout Workout { get; set; } = null!;
+        public virtual Workout Workout { get; set; } = null!;
+        
         public Guid ExerciseId { get; set; }
-        [JsonIgnore]
-        public Exercise Exercise { get; set; } = null!;
-        public virtual ICollection<Set> Sets { get; set; } = new List<Set>();
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public virtual Exercise Exercise { get; set; } = null!;
+        public int Sets { get; set; } = 0;
+        public int Reps { get; set; } = 0;
     }
 }

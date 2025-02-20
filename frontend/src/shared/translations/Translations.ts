@@ -420,6 +420,24 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			},
 			workoutPlans: {
 				table: {
+					addWorkoutPlan: {
+						pt: 'Adicionar Plano de Treino',
+						en: 'Add Workout Plan',
+						es: 'Añadir plan de entrenamiento',
+						fr: 'Ajouter un plan d\'entraînement'
+					},
+					workouts: {
+						pt: 'Treinos',
+						en: 'Workouts',
+						es: 'Entrenamientos',
+						fr: 'Entraînements'
+					},
+					id: {
+						pt: 'Id',
+						en: 'Id',
+						es: 'Id',
+						fr: 'Id'
+					},
 					dates: {
 						pt: 'Datas',
 						en: 'Dates',
@@ -906,7 +924,7 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					fr: 'Sélectionner un jour'
 				}
 			},
-			workoutsTable: {
+			workoutPlansTable: {
 				workouts: {
 					pt: 'Treinos',
 					en: 'Workouts',

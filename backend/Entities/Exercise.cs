@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace backend.Entities
 {
     public class Exercise : BaseEntity
@@ -6,8 +8,7 @@ namespace backend.Entities
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public string? Video { get; set; }
+        [JsonIgnore]
         public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
-        public virtual ICollection<Set> Sets { get; set; } = new List<Set>();
-
     }
 }

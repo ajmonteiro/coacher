@@ -51,7 +51,7 @@ export class WorkoutModel {
 				value: exercise.exercise.value
 			},
 			reps: exercise.reps,
-			sets: exercise.sets
+			set: exercise.sets
 		})) ?? [];
 	}
 
@@ -74,11 +74,8 @@ export class WorkoutModel {
 			name: this.name,
 			exercises: this.exercises.map((exercise) => ({
 				exerciseId: exercise.exercise.value,
-				sets: Array.from({
-					length: parseInt(exercise.sets!) || 0 
-				}, () => ({ 
-					reps: parseInt(exercise.reps!) || 0
-				}))
+				sets: exercise.sets,
+				reps: exercise.reps
 			})),
 			weekDay: this.weekDay.value
 		};

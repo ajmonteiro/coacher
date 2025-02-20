@@ -29,9 +29,8 @@ const Modal = forwardRef<HTMLDialogElement, ModalProps>(
 				className={`fixed left-0 modal modal-bottom md:w-fit w-screen 
 					md:min-w-[756px] min-w-screen
 					max-h-[80vh]
-					overflow-y-scroll
+					overflow-y-scroll overflow-visible
 					h-fit mb:mt-0 mt-auto md:m-auto m-0
-					overflow-visible
 					bg-primary-content rounded-box p-6 shadow-lg`}
 			>
 				<div className="flex flex-col gap-4 w-full">

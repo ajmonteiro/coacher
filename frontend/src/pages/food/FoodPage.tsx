@@ -1,11 +1,10 @@
-/* eslint-disable react/jsx-key */
-
 import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
 
 import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
 import FormControl from 'src/components/formControl/FormControl';
 import FormWrapper from 'src/components/formWrapper/FormWrapper';
+import InfoCard from 'src/components/infoCard/InfoCard';
 import Input from 'src/components/input/Input';
 import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
@@ -69,82 +68,67 @@ export default function FoodPage() {
 							data={rows.data}
 							deleteEntities={deleteEntities}
 							form={(
-								<div className="flex flex-col gap-3">
+								<InfoCard>
 									{
-										form.foods.map((food, index: number) => (
-											<div
+										form.foods.map((_, index: number) => (
+											<FormWrapper
 												key={index}
-												className="flex flex-col gap-2 
-												relative
-												ring-1 ring-base-200 rounded-box p-4"
 											>
-												<div className="flex flex-col gap-2">
-													<span className="text-sm font-semibold">
-														{ T.pages.foods.table.food }
-														{ ' ' }
-														{ index + 1 }
-													</span>
-													<hr className="h-2" />
-												</div>
-												<FormWrapper>
-													<FormControl
-														errors={getErrors(`foods[${index}].name`)}
-														label={T.pages.foods.table.name}
-														required
-													>
-														<Input
-															{...field(`foods[${index}].name`)}
-															error={hasError(`foods[${index}].name`)}
-														/>
-													</FormControl>
-													<FormControl
-														errors={getErrors(`foods[${index}].calories`)}
-														label={T.pages.foods.table.calories}
-														required
-													>
-														<Input
-															{...field(`foods[${index}].calories`)}
-															error={hasError(`foods[${index}].calories`)}
-															type="number"
-														/>
-													</FormControl>
-												</FormWrapper>
-												<FormWrapper>
-													<FormControl
-														errors={getErrors(`foods[${index}].carbs`)}
-														label={T.pages.foods.table.carbs}
-														required
-													>
-														<Input
-															error={hasError(`foods[${index}].carbs`)}
-															{...field(`foods[${index}].carbs`)} 
-															type="number"
-														/>
-													</FormControl>
-													<FormControl
-														errors={getErrors(`foods[${index}].fat`)}
-														label={T.pages.foods.table.fat}
-														required
-													>
-														<Input
-															error={hasError(`foods[${index}].fat`)}
-															{...field(`foods[${index}].fat`)}
-															type="number"
-														/>
-													</FormControl>
-													<FormControl
-														errors={getErrors(`foods[${index}].protein`)}
-														label={T.pages.foods.table.protein}
-														required
-													>
-														<Input
-															error={hasError(`foods[${index}].protein`)}
-															{...field(`foods[${index}].protein`)}
-															type="number"
-														/>
-													</FormControl>
-												</FormWrapper>
-												<div className="absolute bottom-5 right-5">
+												<FormControl
+													errors={getErrors(`foods[${index}].name`)}
+													label={T.pages.foods.table.name}
+													required
+												>
+													<Input
+														{...field(`foods[${index}].name`)}
+														error={hasError(`foods[${index}].name`)}
+													/>
+												</FormControl>
+												<FormControl
+													errors={getErrors(`foods[${index}].calories`)}
+													label={T.pages.foods.table.calories}
+													required
+												>
+													<Input
+														{...field(`foods[${index}].calories`)}
+														error={hasError(`foods[${index}].calories`)}
+														type="number"
+													/>
+												</FormControl>
+												<FormControl
+													errors={getErrors(`foods[${index}].carbs`)}
+													label={T.pages.foods.table.carbs}
+													required
+												>
+													<Input
+														error={hasError(`foods[${index}].carbs`)}
+														{...field(`foods[${index}].carbs`)} 
+														type="number"
+													/>
+												</FormControl>
+												<FormControl
+													errors={getErrors(`foods[${index}].fat`)}
+													label={T.pages.foods.table.fat}
+													required
+												>
+													<Input
+														error={hasError(`foods[${index}].fat`)}
+														{...field(`foods[${index}].fat`)}
+														type="number"
+													/>
+												</FormControl>
+												<FormControl
+													errors={getErrors(`foods[${index}].protein`)}
+													label={T.pages.foods.table.protein}
+													required
+												>
+													<Input
+														error={hasError(`foods[${index}].protein`)}
+														{...field(`foods[${index}].protein`)}
+														type="number"
+													/>
+												</FormControl>
+												<div className="flex justify-end mt-4">
 													<Button
 														className="btn-square"
 														onClick={() => form.removeFood(index)}
@@ -155,7 +139,8 @@ export default function FoodPage() {
 														/>
 													</Button>
 												</div>	
-											</div>
+											</FormWrapper>
+												
 										)) 
 									}
 									<div className="flex">
@@ -171,7 +156,7 @@ export default function FoodPage() {
 											{ T.pages.foods.table.addFood }
 										</Button>
 									</div>
-								</div>
+								</InfoCard>
 							)}
 							formSubmission={submit}
 							paginationData={pagination}

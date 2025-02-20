@@ -4,140 +4,31 @@ using Microsoft.Extensions.Configuration;
 
 namespace backend.Data
 {
-public class AppDbContext : DbContext
-{
-    public AppDbContext()
+    public class AppDbContext : DbContext
     {
-    }
-
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
-    {
-    }
-
-    public DbSet<User> Users { get; set; }
-    public DbSet<Role> Roles { get; set; }
-    public DbSet<Permission> Permissions { get; set; }
-    public DbSet<Diet> Diets { get; set; }
-    public DbSet<Meal> Meals { get; set; }
-    public DbSet<Food> Foods { get; set; }
-    public DbSet<WorkoutPlan> WorkoutPlans { get; set; }
-    public DbSet<Workout> Workouts { get; set; }
-    public DbSet<Exercise> Exercises { get; set; }
-    public DbSet<RolePermission> RolePermissions { get; set; }
-    public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
-    public DbSet<DietMeal> DietMeals { get; set; }
-    public DbSet<MealFood> MealFoods { get; set; }
-    public DbSet<UserPermission> UserPermission { get; set; }
-    public DbSet<Set> Sets { get; set; }
-    public DbSet<SetRecord> SetRecords { get; set; }
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<User>(b =>
+        public AppDbContext()
         {
-            b.HasKey(u => u.Id);
+        }
 
-            b.HasOne(u => u.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoleId)
-                .IsRequired();
-        });
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
 
-        modelBuilder.Entity<UserPermission>()
-            .HasKey(up => up.Id);
-
-        modelBuilder.Entity<UserPermission>()
-            .HasOne(up => up.User)
-            .WithMany(u => u.UserPermissions)
-            .HasForeignKey(up => up.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<UserPermission>()
-            .HasOne(up => up.Permission)
-            .WithMany()
-            .HasForeignKey(up => up.PermissionId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<RolePermission>()
-            .HasKey(rp => new { rp.RoleId, rp.PermissionId });
-
-        modelBuilder.Entity<RolePermission>()
-            .HasOne(rp => rp.Role)
-            .WithMany(r => r.RolePermissions)
-            .HasForeignKey(rp => rp.RoleId);
-
-        modelBuilder.Entity<RolePermission>()
-            .HasOne(rp => rp.Permission)
-            .WithMany(p => p.RolePermissions)
-            .HasForeignKey(rp => rp.PermissionId);
-
-        modelBuilder.Entity<WorkoutPlan>()
-            .HasKey(wp => wp.Id);
-
-        modelBuilder.Entity<WorkoutPlan>()
-            .HasMany(wp => wp.Workouts)
-            .WithOne(w => w.WorkoutPlan)
-            .HasForeignKey(w => w.WorkoutPlanId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
-        modelBuilder.Entity<Workout>()
-            .HasOne(w => w.WorkoutPlan)
-            .WithMany(wp => wp.Workouts)
-            .HasForeignKey(w => w.WorkoutPlanId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
-        modelBuilder.Entity<WorkoutExercise>()
-            .HasKey(we => new { we.WorkoutId, we.ExerciseId });
-
-        modelBuilder.Entity<WorkoutExercise>()
-            .HasOne(we => we.Workout)
-            .WithMany(w => w.WorkoutExercises)
-            .HasForeignKey(we => we.WorkoutId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<WorkoutExercise>()
-            .HasOne(we => we.Exercise)
-            .WithMany(e => e.WorkoutExercises)
-            .HasForeignKey(we => we.ExerciseId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Exercise>()
-            .HasMany(e => e.Sets)
-            .WithOne(s => s.Exercise)
-            .HasForeignKey(s => s.ExerciseId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Diet>()
-            .HasOne(d => d.User)
-            .WithMany(u => u.Diets)
-            .HasForeignKey(d => d.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<DietMeal>()
-            .HasKey(dm => new { dm.DietId, dm.MealId });
-
-        modelBuilder.Entity<Meal>()
-            .HasOne(m => m.Diet)
-            .WithMany(d => d.Meals)
-            .HasForeignKey(m => m.DietId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<MealFood>()
-            .HasKey(mf => new { mf.MealId, mf.FoodId });
-
-        modelBuilder.Entity<MealFood>()
-            .HasOne(mf => mf.Meal)
-            .WithMany(m => m.MealFoods)
-            .HasForeignKey(mf => mf.MealId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<MealFood>()
-            .HasOne(mf => mf.Food)
-            .WithMany(f => f.MealFoods)
-            .HasForeignKey(mf => mf.FoodId);
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<Diet> Diets { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<Food> Foods { get; set; }
+        public DbSet<WorkoutPlan> WorkoutPlans { get; set; }
+        public DbSet<Workout> Workouts { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
+        public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
+        public DbSet<DietMeal> DietMeals { get; set; }
+        public DbSet<MealFood> MealFoods { get; set; }
+        public DbSet<UserPermission> UserPermission { get; set; }
+        public DbSet<SetRecord> SetRecords { get; set; }
     }
-}
 }

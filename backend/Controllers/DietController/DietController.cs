@@ -25,7 +25,7 @@ namespace backend.Controllers.DietController
 
             var totalItems = await context.Diets.CountAsync();
 
-            var Diets = await context.Diets
+            var diets = await context.Diets
                 .Include(w => w.DietMeals)
                     .ThenInclude(we => we.Meal)
                 .Select(w => new
@@ -51,7 +51,7 @@ namespace backend.Controllers.DietController
                 TotalItems = totalItems,
                 PerPage = perPage,
                 Page = page,
-                Data = Diets
+                Data = diets
             });
         }
 
@@ -176,6 +176,11 @@ namespace backend.Controllers.DietController
                 .ThenInclude(mf => mf.Food)
                 .FirstOrDefaultAsync(d => d.Id == diet.Id);
 
+            if (diet == null)
+            {
+                return NotFound();
+            }
+
             var dietDto = new DietDto
             {
                 Id = diet.Id,
@@ -215,9 +220,7 @@ namespace backend.Controllers.DietController
         [HasPermission(Permission.EditDiet)]
         public async Task<ActionResult<DietDto>> UpdateDiet(Guid id, [FromBody] UpdateDietDto updateDietDto)
         {
-            Guid dietId = Guid.Parse(updateDietDto.Id);
-            
-            if (id != dietId)
+            if (id != updateDietDto.Id)
             {
                 return BadRequest("Diet ID mismatch.");
             }
@@ -298,7 +301,7 @@ namespace backend.Controllers.DietController
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, "Error updating diet.");
+                    return StatusCode(500, ex.Message);
                 }
 
                 diet = await context.Diets
@@ -347,7 +350,7 @@ namespace backend.Controllers.DietController
         [HasPermission(Permission.DeleteDiet)]
         public async Task<ActionResult<Diet>> DeleteDiet(Guid id)
         {
-            var Diet = context.Diets.Find(id);
+            var diet = context.Diets.Find(id);
             if (Diet is null)
                 return NotFound();
             context.Diets.Remove(Diet);

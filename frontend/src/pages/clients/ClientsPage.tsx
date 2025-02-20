@@ -48,7 +48,6 @@ export default function ClientsPage() {
 	};
 
 	const submit = handleSubmit(async (data) => {
-		console.log(data.toModel());
 		await ClientsPageApi.create(data);
 		fetchResults();
 	});

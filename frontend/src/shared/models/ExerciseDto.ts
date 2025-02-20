@@ -1,19 +1,33 @@
-import { type SetType, SetDto } from './SetDto';
-
 export type ExerciseType = {
-	exerciseId: string
-	name: string
-	sets: SetType[]
+	createdAt: string
+	exercise: {
+		description: string
+		id: string
+		name: string
+		video?: string
+	}
+
+	reps: number
+	sets: number
+	updatedAt: string
 };
 
 export class ExerciseDto {
-	public exerciseId: string = '';
+	public id: string = '';
 	public name: string = '';
-	public sets: SetDto[] = [];
+	public description: string = '';
+	public video: string | null = null;
+	public createdAt: string = '';
+	public updatedAt: string = '';
+	public sets: number = 0;
+	public reps: number = 0;
 
 	constructor(base: ExerciseType) {
-		this.exerciseId = base.exerciseId;
-		this.name = base.name;
-		this.sets = base.sets.map((set) => new SetDto(set)); 
+		this.id = base.exercise.id;
+		this.name = base.exercise.name;
+		this.description = base.exercise.description;
+		this.video = base.exercise.video ?? null;
+		this.sets = base.sets;
+		this.reps = base.reps;
 	}
 }

@@ -12,7 +12,7 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250220110605_SeedRolesAndPermissions")]
+    [Migration("20250220203939_SeedRolesAndPermissions")]
     partial class SeedRolesAndPermissions
     {
         /// <inheritdoc />
@@ -278,39 +278,6 @@ namespace backend.Migrations
                     b.ToTable("RolePermissions");
                 });
 
-            modelBuilder.Entity("backend.Entities.Set", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("ExerciseId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<int>("Reps")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("WorkoutExerciseExerciseId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("WorkoutExerciseWorkoutId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("WorkoutExerciseWorkoutId", "WorkoutExerciseExerciseId");
-
-                    b.ToTable("Sets");
-                });
-
             modelBuilder.Entity("backend.Entities.SetRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -335,20 +302,14 @@ namespace backend.Migrations
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("WorkoutExerciseExerciseId")
-                        .HasColumnType("char(36)");
-
                     b.Property<Guid>("WorkoutExerciseId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("WorkoutExerciseWorkoutId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("WorkoutExerciseWorkoutId", "WorkoutExerciseExerciseId");
+                    b.HasIndex("WorkoutExerciseId");
 
                     b.ToTable("SetRecords");
                 });
@@ -477,24 +438,33 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Entities.WorkoutExercise", b =>
                 {
-                    b.Property<Guid>("WorkoutId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ExerciseId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ExerciseId")
                         .HasColumnType("char(36)");
+
+                    b.Property<int>("Reps")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Set")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("WorkoutId", "ExerciseId");
+                    b.Property<Guid>("WorkoutId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ExerciseId");
+
+                    b.HasIndex("WorkoutId");
 
                     b.ToTable("WorkoutExercises");
                 });
@@ -626,21 +596,6 @@ namespace backend.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("backend.Entities.Set", b =>
-                {
-                    b.HasOne("backend.Entities.Exercise", "Exercise")
-                        .WithMany("Sets")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Entities.WorkoutExercise", null)
-                        .WithMany("Sets")
-                        .HasForeignKey("WorkoutExerciseWorkoutId", "WorkoutExerciseExerciseId");
-
-                    b.Navigation("Exercise");
-                });
-
             modelBuilder.Entity("backend.Entities.SetRecord", b =>
                 {
                     b.HasOne("backend.Entities.User", "User")
@@ -651,7 +606,7 @@ namespace backend.Migrations
 
                     b.HasOne("backend.Entities.WorkoutExercise", "WorkoutExercise")
                         .WithMany()
-                        .HasForeignKey("WorkoutExerciseWorkoutId", "WorkoutExerciseExerciseId")
+                        .HasForeignKey("WorkoutExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -740,8 +695,6 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Entities.Exercise", b =>
                 {
-                    b.Navigation("Sets");
-
                     b.Navigation("WorkoutExercises");
                 });
 
@@ -779,11 +732,6 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Entities.Workout", b =>
                 {
                     b.Navigation("WorkoutExercises");
-                });
-
-            modelBuilder.Entity("backend.Entities.WorkoutExercise", b =>
-                {
-                    b.Navigation("Sets");
                 });
 
             modelBuilder.Entity("backend.Entities.WorkoutPlan", b =>

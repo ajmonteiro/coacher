@@ -1,4 +1,5 @@
 import {
+	type ReactElement,
 	useEffect,
 	useRef,
 	useState,
@@ -23,6 +24,11 @@ type ColumnsType = {
 	columnType?: 'normal' | 'link'
 };
 
+type TableIconProps = {
+	icon: ReactElement
+	size?: number
+};
+
 type DataTableProps = {
 	changePage: any
 	columns: ColumnsType[]
@@ -44,6 +50,7 @@ type DataTableProps = {
 	goToEntity?: (id: string) => void
 	modalTitle?: string
 	primaryKey?: string
+	tableIcon?: TableIconProps
 	triggerModal?: boolean
 	undeletableRows?: string[]
 };
@@ -65,7 +72,8 @@ export default function DataTable({
 	fullWidthTable = false,
 	goToEntity,
 	triggerModal = false,
-	createEntity
+	createEntity,
+	tableIcon
 }: DataTableProps) {
 	const { T } = useTranslation();
 	const [globalSelected, setGlobalSelected] = useState(false);
@@ -109,7 +117,17 @@ export default function DataTable({
 	const showIcon = data.length === 0;
 	
 	return (
-		<div className={`flex flex-col ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7 w-full`}>
+		<div className={`flex flex-col relative ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7 w-full h-full`}>
+			{
+				tableIcon && tableIcon?.icon ? (
+					<div className="absolute inset-0 flex justify-center items-center opacity-[0.05] pointer-events-none overflow-hidden">
+						<PhosphorIcon 
+							icon={tableIcon.icon}
+							size={tableIcon.size ?? 1000}
+						/>
+					</div>
+				) : null 
+			}
 			{
 				form && formSubmission ? (
 					<Modal
@@ -128,10 +146,13 @@ export default function DataTable({
 					</Modal>
 				) : null 
 			}
-			<div className="flex justify-between">
-				<span className="text-2xl text-gold font-bold">
-					{ tableTitle }
-				</span>
+			<div className="flex justify-between relative z-1">
+			
+				<div className="flex items-center gap-2">
+					<span className="text-2xl text-gold font-black tracking-wide">
+						{ tableTitle }
+					</span>
+				</div>
 				{
 					form && formSubmission ? (
 						<div>
@@ -155,7 +176,7 @@ export default function DataTable({
 					) : null 
 				}
 			</div>
-			<div className="overflow-x-scroll">
+			<div className="overflow-x-scroll z-1">
 				<table className="table ring-1 ring-t-0 ring-base-300 bg-base-100">
 					<thead>
 						<tr>
@@ -237,7 +258,33 @@ export default function DataTable({
 									{
 										columns.map((fieldName, keyIndex) => {
 											const [first, second] = fieldName.columnName.split('.');
-
+											
+											if (Array.isArray(row[first])) {
+												return (
+													<td
+														key={keyIndex}
+														className="flex flex-wrap gap-2"
+														onClick={() => {
+															if (primaryKey && goToEntity) {
+																goToEntity(row[primaryKey]);
+															}	
+														}}
+													>
+														{
+															row[first].map((item: any, index: number) => {
+																return (
+																	<div
+																		key={index}
+																		className="badge text-xs badge-primary"
+																	>
+																		{ item.name }
+																	</div>
+																);
+															})
+														}
+													</td>
+												);
+											}
 											if (second) {
 												return (
 													<td

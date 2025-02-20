@@ -1,5 +1,7 @@
 import { type BaseUserType } from '@resourge/react-authentication';
 
+import { WorkoutPlanDto, type WorkoutPlanType } from '../models/interfaces/WorkoutPlanDto';
+
 type PermissionType = {
 	permissionName: string
 };
@@ -17,7 +19,7 @@ type UserType = BaseUserType & {
 	username: string
 	userPermissions: PermissionType[]
 	weight: string
-	workouts: any[]
+	workoutPlans?: WorkoutPlanType[]
 };
 
 export class User implements BaseUserType {
@@ -36,7 +38,7 @@ export class User implements BaseUserType {
 	public weight: string = '';
 	public height: string = '';
 	public diets: any[] = [];
-	public workouts: any[] = [];
+	public workoutPlans?: WorkoutPlanDto[] = [];
 	public isAuthenticated?: boolean | undefined;
 	public permissions: string[] = [];
 
@@ -50,7 +52,7 @@ export class User implements BaseUserType {
 			this.username = data.username;
 			this.weight = data.weight;
 			this.id = data.id;
-			this.workouts = data.workouts;
+			this.workoutPlans = data.workoutPlans?.map((workoutPlan) => new WorkoutPlanDto(workoutPlan)) ?? [];
 			this.diets = data.diets;
 			this.permissions = data.userPermissions.map((permission) => (permission.permissionName));
 		}

@@ -6,7 +6,7 @@ import A from 'src/components/A/A';
 import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import DietTable from 'src/shared/components/dietTable/DietTable';
-import WorkoutsTable from 'src/shared/components/workoutsTable/WorkoutsTable';
+import WorkoutPlansTable from 'src/shared/components/workoutPlansTable/WorkoutPlansTable';
 import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
@@ -25,8 +25,6 @@ export default function UserProfilePage() {
 		deps: [userId],
 		initialState: null
 	});
-
-	console.log(user);
 
 	return (
 		<DashboardLayout>
@@ -89,7 +87,7 @@ export default function UserProfilePage() {
 									</div>
 								</div>
 								<div className="flex flex-col gap-3">
-									<WorkoutsTable workouts={user.workouts} />
+									<WorkoutPlansTable workoutPlans={user.workoutPlans} />
 									<A
 										className="btn btn-ghost border border-primary w-fit ml-auto"
 										href={Routes.DASHBOARD.WORKOUTS_PLANS.get({

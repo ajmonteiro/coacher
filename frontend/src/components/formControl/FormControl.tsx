@@ -20,7 +20,7 @@ export default function FormControl({
 
 	return (
 		<div
-			className={className}
+			className={`${className}`}
 			id={id}
 			style={style}
 		>

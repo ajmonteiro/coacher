@@ -14,15 +14,14 @@ public static class UserIncludeExtensions
 
     public static IQueryable<User> WithFitnessData(this IQueryable<User> query)
     {
-        return query
-            .Include(u => u.WorkoutPlans)
-            .ThenInclude(w => w.Workouts)
-            .ThenInclude(w => w.WorkoutExercises)
-            .ThenInclude(we => we.Exercise)
-            .ThenInclude(e => e.Sets)
-            .Include(u => u.Diets)
-            .ThenInclude(d => d.Meals)
-            .ThenInclude(m => m.MealFoods)
-            .ThenInclude(mf => mf.Food);
+       return query
+        .Include(u => u.WorkoutPlans)
+        .ThenInclude(wp => wp.Workouts)
+        .ThenInclude(w => w.WorkoutExercises)
+        .ThenInclude(we => we.Exercise)
+        .Include(u => u.Diets)
+        .ThenInclude(d => d.Meals)
+        .ThenInclude(m => m.MealFoods)
+        .ThenInclude(mf => mf.Food);
     }
 }

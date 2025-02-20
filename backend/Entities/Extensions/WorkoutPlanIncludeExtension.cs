@@ -8,7 +8,6 @@ public static class WorkoutPlanIncludeExtension
     {
         return query
             .Include(wp => wp.Workouts)
-            .ThenInclude(w => w.WorkoutExercises)
-            .ThenInclude(we => we.Sets);
+            .ThenInclude(w => w.WorkoutExercises);
     }
 }

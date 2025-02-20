@@ -1,5 +1,5 @@
 import { DietDto, type DietType } from 'src/shared/models/DietDto';
-import { WorkoutDto, type WorkoutType } from 'src/shared/models/WorkoutDto';
+import { WorkoutPlanDto, type WorkoutPlanType } from 'src/shared/models/interfaces/WorkoutPlanDto';
 
 export type UserProfileType = {
 	diets: DietType[]
@@ -8,7 +8,7 @@ export type UserProfileType = {
 	roleName: string
 	username: string
 	weight: string
-	workoutPlans: WorkoutType[]
+	workoutPlans: WorkoutPlanType[]
 };
 
 export class UserProfileDto {
@@ -18,7 +18,7 @@ export class UserProfileDto {
 	public role: string = '';
 	public username: string = '';
 	public weight: string = '';
-	public workouts: WorkoutDto[] = [];
+	public workoutPlans: WorkoutPlanDto[] = [];
 
 	constructor(data: UserProfileType) {
 		this.diets = data.diets.map((diet) => new DietDto(diet));
@@ -27,6 +27,6 @@ export class UserProfileDto {
 		this.role = data.roleName;
 		this.username = data.username;
 		this.weight = data.weight;
-		this.workouts = data.workoutPlans.map((workout) => new WorkoutDto(workout));
+		this.workoutPlans = data.workoutPlans.map((workout) => new WorkoutPlanDto(workout));
 	}
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { MinusCircle, PlusCircle } from '@phosphor-icons/react';
+import { Avocado, MinusCircle, PlusCircle } from '@phosphor-icons/react';
 import { OrderByEnum } from '@resourge/react-fetch';
 import { useNavigate, useSearchParams } from '@resourge/react-router';
 
@@ -331,6 +331,9 @@ export default function DietPage() {
 						}))}
 						paginationData={pagination}
 						primaryKey="id"
+						tableIcon={{
+							icon: <Avocado />
+						}}
 						tableTitle={T.pages.diet.table.tableTitle}
 						triggerModal={!!userId || !!dietId || triggerModal}
 					/>

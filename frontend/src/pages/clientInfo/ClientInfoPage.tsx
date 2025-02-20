@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useMemo } from 'react';
-
 import {
 	User,
 	Phone,
@@ -13,9 +10,8 @@ import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useAuthentication } from 'src/shared/auth/useAuthentication';
 import DietTable from 'src/shared/components/dietTable/DietTable';
-import WorkoutsTable from 'src/shared/components/workoutsTable/WorkoutsTable';
+import WorkoutPlansTable from 'src/shared/components/workoutPlansTable/WorkoutPlansTable';
 import { DietDto } from 'src/shared/models/DietDto';
-import { WorkoutDto } from 'src/shared/models/WorkoutDto';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import ClientInfoCard from './components/clientInfoCard/ClientInfoCard';
@@ -51,8 +47,8 @@ export default function ClientInfoPage() {
 					/>
 				</div>
 				{
-					user.workouts ? (
-						<WorkoutsTable workouts={user.workouts} />
+					user.workoutPlans ? (
+						<WorkoutPlansTable workoutPlans={user.workoutPlans} />
 					) : null 
 				}
 				{

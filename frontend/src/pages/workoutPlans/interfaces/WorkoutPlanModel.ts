@@ -7,7 +7,6 @@ import {
 } from '@resourge/schema';
 
 import { type SelectItem } from 'src/shared/models/SelectItem';
-import { selectItemSchema } from 'src/shared/utils/ValidationUtils';
 
 import { workoutSchema, WorkoutModel } from './WorkoutModel';
 
@@ -44,7 +43,6 @@ export class WorkoutPlanModel {
 
 export const workoutPlanSchema = object<WorkoutPlanModel>({
 	name: string().required(),
-	userId: selectItemSchema(),
 	dates: object({
 		from: date().required(),
 		to: date().required()

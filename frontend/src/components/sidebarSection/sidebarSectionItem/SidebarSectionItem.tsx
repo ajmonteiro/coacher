@@ -30,7 +30,7 @@ export default function SidebarSectionItem({
 				<span className="w-6 h-6 text-semibold text-base-content">
 					{ icon }
 				</span>
-				<span className="text-xs font-semibold text-base-content">
+				<span className="text-xs font-semibold text-base-content text-left">
 					{
 						collapsed 
 							? text

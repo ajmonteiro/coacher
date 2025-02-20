@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import { Barbell } from '@phosphor-icons/react';
 import { OrderByEnum, useFetch } from '@resourge/react-fetch';
 import { FormProvider } from '@resourge/react-form';
 import { useSearchParams } from '@resourge/react-router';
@@ -69,8 +70,6 @@ export default function WorkoutsPage() {
 		}
 	}, []);
 
-	console.log(form);
-
 	return (
 		<DashboardLayout>
 			<div className="w-full h-full rounded-box">
@@ -84,12 +83,8 @@ export default function WorkoutsPage() {
 									columnLabel: T.pages.workoutPlans.table.name
 								},
 								{
-									columnName: 'description',
-									columnLabel: T.pages.workoutPlans.table.description
-								},
-								{
-									columnName: 'user.fullName',
-									columnLabel: T.pages.workoutPlans.table.user
+									columnName: 'workouts.name',
+									columnLabel: T.pages.workoutPlans.table.workouts
 								}
 							]}
 							data={rows.data}
@@ -142,7 +137,7 @@ export default function WorkoutsPage() {
 										)) 
 									}
 									<Button onClick={() => form.addNewWorkout()}>
-										Add workout
+										{ T.pages.workoutPlans.table.addWorkout }
 									</Button>
 								</FormProvider>
 							)}
@@ -150,6 +145,9 @@ export default function WorkoutsPage() {
 							modalTitle={T.pages.workoutPlans.table.addWorkout}
 							paginationData={pagination}
 							primaryKey="id"
+							tableIcon={{
+								icon: <Barbell />
+							}}
 							tableTitle={T.pages.workoutPlans.table.tableTitle}
 							triggerModal={!!userId}
 							undeletableRows={[]}
