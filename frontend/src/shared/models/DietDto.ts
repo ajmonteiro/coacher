@@ -45,6 +45,38 @@ export class MealFoodDto {
 		this.fat = base.fat;
 		this.carbs = base.carbs;
 	}
+
+	private scaleValue(value: number): number {
+		return (value * this.quantity) / 100;
+	}
+	
+	public get getTotalCalories(): number {
+		return this.scaleValue(this.calories);
+	}
+	
+	public get getTotalProtein(): number {
+		return this.scaleValue(this.protein);
+	}
+	
+	public get getTotalFat(): number {
+		return this.scaleValue(this.fat);
+	}
+	
+	public get getTotalCarbs(): number {
+		return this.scaleValue(this.carbs);
+	}
+	
+	public get calculateProteinCalories(): number {
+		return this.getTotalProtein * 4;
+	}
+	
+	public get calculateFatCalories(): number {
+		return this.getTotalFat * 9;
+	}
+	
+	public get calculateCarbsCalories(): number {
+		return this.getTotalCarbs * 4;
+	}
 }
 
 export class MealDto {

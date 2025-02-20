@@ -7,14 +7,24 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using backend.Services.AuthService;
-
+using backend.Services.UserService;
+using backend.Services.WorkoutPlanService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    ));
+    
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddCors(options =>
 {
@@ -27,8 +37,7 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("UserDatabase")));
+
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -118,10 +127,10 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
-
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWorkoutPlanService, WorkoutPlanService>();
 
 var app = builder.Build();
 

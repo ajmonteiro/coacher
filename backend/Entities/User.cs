@@ -19,11 +19,11 @@ namespace backend.Entities
         public string Weight { get; set; } = string.Empty;
         [MaxLength(3)]
         public string Height { get; set; } = string.Empty;
+        [JsonIgnore]
         public Guid RoleId { get; set; }
         public virtual Role Role { get; set; } = null!;
         public virtual ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
-        public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
-        public virtual ICollection<Workout> Workouts { get; init; } = new List<Workout>();
+        public virtual ICollection<WorkoutPlan> WorkoutPlans { get; init; } = new List<WorkoutPlan>();
         public virtual ICollection<Diet> Diets { get; init; } = new List<Diet>();
         [JsonIgnore]
         public string? RefreshToken { get; set; }

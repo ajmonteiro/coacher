@@ -9,7 +9,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-
 namespace backend.Services.AuthService
 {
     public class AuthService(AppDbContext context, IConfiguration configuration) : IAuthService
@@ -18,8 +17,8 @@ namespace backend.Services.AuthService
         {
             var user = await context.Users
                 .Include(u => u.Role)
-                .Include(u => u.UserPermissions) // Inclua as permissões
-                .ThenInclude(up => up.Permission) // Inclua os detalhes da permissão
+                .Include(u => u.UserPermissions)
+                .ThenInclude(up => up.Permission)
                 .FirstOrDefaultAsync(u => u.Username == request.Username);
             
             if (user is null)

@@ -16,15 +16,18 @@ const Routes = SetupPaths({
 		}),
 		MEAL: path('meal'),
 		EXERCISES: path('exercises'),
-		WORKOUTS: path('workouts').searchParams({
+		WORKOUTS_PLANS: path('workouts-plans').searchParams({
 			userId: searchParam<{ userId?: string }>
 		}),
 		USER_PROFILE: path('profile').searchParams({
 			userId: searchParam<{ userId: string }>
 		}),
-		CLIENT_INFO: path('client-info')
+		CLIENT_INFO: path('client-info'),
+		CLIENT_WORKOUTS: path('client-workouts'),
+		CLIENT_DIET: path('client-diet')
 	}),
-	NOT_FOUND: path('*')
+	NOT_FOUND: path('*'),
+	ERROR: path('502')
 });
 
 export default Routes;

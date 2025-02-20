@@ -6,13 +6,17 @@ import Authentication from './Authentication';
 import Router from './Router';
 import Translations from './Translations';
 import GlobalLoader from './components/globalLoader/GlobalLoader';
+import _502 from './pages/502/_502';
 import Routes from './shared/routes/Routes';
 import { TranslationInstance } from './shared/translations/Translations';
 
 function App() {
 	return (
 		<>
-			<ErrorBoundary onError={() => window.history.pushState(null, '', Routes.NOT_FOUND.get())}>
+			<ErrorBoundary 
+				errorComponent={_502}
+				onError={() => window.history.pushState(null, '', Routes.ERROR.get())}
+			>
 				<Translations>
 					<BrowserRouter defaultFallback={<LoadingSuspense />}>
 						<LanguageRoute 

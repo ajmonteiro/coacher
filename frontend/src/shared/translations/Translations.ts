@@ -26,7 +26,6 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 	],
 	translations: {
 		themes: {
-			
 			ruby: {
 				pt: 'Rubi',
 				en: 'Ruby',
@@ -45,13 +44,30 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				es: 'Ónice',
 				fr: 'Onyx'
 			},
+			diamond: {
+				pt: 'Diamante',
+				en: 'Diamond',
+				es: 'Diamante',
+				fr: 'Diamant'
+			},
 			lavender: {
 				pt: 'Lavanda',
 				en: 'Lavender',
 				es: 'Lavanda',
 				fr: 'Lavande'
+			},
+			mint: {
+				pt: 'Menta',
+				en: 'Mint',
+				es: 'Menta',
+				fr: 'Menthe'
+			},
+			opal: {
+				pt: 'Opala',
+				en: 'Opal',
+				es: 'Ópalo',
+				fr: 'Opale'
 			}
-		
 		},
 		formConstants: {
 			foodUnits: {
@@ -402,8 +418,14 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					fr: 'Exercices dans le système'
 				}
 			},
-			workouts: {
+			workoutPlans: {
 				table: {
+					dates: {
+						pt: 'Datas',
+						en: 'Dates',
+						es: 'Fechas',
+						fr: 'Dates'
+					},
 					addWorkout: {
 						pt: 'Adicionar Treino',
 						en: 'Add Workout',
@@ -429,10 +451,10 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 						fr: 'Supprimer l\'exercice'
 					},
 					tableTitle: {
-						pt: 'Treinos',
-						en: 'Workouts',
-						es: 'Entrenamientos',
-						fr: 'Entraînements'
+						pt: 'Planos de Treino',
+						en: 'Workout Plans',
+						es: 'Planes de entrenamiento',
+						fr: 'Plans d\'entraînement'
 					},
 					exercise: {
 						pt: 'Exercício',
@@ -876,6 +898,96 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		components: {
+			datepicker: {
+				selectDay: {
+					pt: 'Selecionar dia',
+					en: 'Select day',
+					es: 'Seleccionar día',
+					fr: 'Sélectionner un jour'
+				}
+			},
+			workoutsTable: {
+				workouts: {
+					pt: 'Treinos',
+					en: 'Workouts',
+					es: 'Entrenamientos',
+					fr: 'Entraînements'
+				},
+				repsMade: {
+					pt: 'Repetições feitas',
+					en: 'Reps made',
+					es: 'Repeticiones hechas',
+					fr: 'Répétitions faites'
+				},
+				exercise: {
+					pt: 'Exercício',
+					en: 'Exercise',
+					es: 'Ejercicio',
+					fr: 'Exercice'
+				},
+				reps: {
+					pt: 'Repetições',
+					en: 'Reps',
+					es: 'Repeticiones',
+					fr: 'Répétitions'
+				},
+				set: {
+					pt: 'Série',
+					en: 'Set',
+					es: 'Serie',
+					fr: 'Ensemble'
+				}
+			},
+			dietsTable: {
+				diets: {
+					pt: 'Dietas',
+					en: 'Diets',
+					es: 'Dietas',
+					fr: 'Régimes'
+				},
+				meal: {
+					pt: 'Refeição',
+					en: 'Meal',
+					es: 'Comida',
+					fr: 'Repas'
+				},
+				food: {
+					pt: 'Alimento',
+					en: 'Food',
+					es: 'Comida',
+					fr: 'Nourriture'
+				},
+				quantity: {
+					pt: 'Quantidade',
+					en: 'Quantity',
+					es: 'Cantidad',
+					fr: 'Quantité'
+				},
+				calories: {
+					pt: 'Calorias',
+					en: 'Calories',
+					es: 'Calorías',
+					fr: 'Calories'
+				},
+				protein: {
+					pt: 'Proteínas',
+					en: 'Proteins',
+					es: 'Proteínas',
+					fr: 'Protéines'
+				},
+				fat: {
+					pt: 'Gorduras',
+					en: 'Fats',
+					es: 'Grasas',
+					fr: 'Graisses'
+				},
+				carbs: {
+					pt: 'Hidratos de carbono',
+					en: 'Carbs',
+					es: 'Carbohidratos',
+					fr: 'Glucides'
+				}
+			},
 			searchableInput: {
 				noOptions: {
 					pt: 'Sem opções',
@@ -1007,6 +1119,18 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			sidebar: {
+				myDiets: {
+					pt: 'As minhas dietas',
+					en: 'My diets',
+					es: 'Mis dietas',
+					fr: 'Mes régimes'
+				},
+				myWorkouts: {
+					pt: 'Os meus treinos',
+					en: 'My workouts',
+					es: 'Mis entrenamientos',
+					fr: 'Mes entraînements'
+				},
 				aboutMe: {
 					pt: 'Sobre mim',
 					en: 'About me',
@@ -1079,11 +1203,11 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					es: 'Entidades',
 					fr: 'Entités'
 				},
-				workouts: {
-					pt: 'Treinos',
-					en: 'Workouts',
-					es: 'Entrenamientos',
-					fr: 'Entraînements'
+				workoutsPlans: {
+					pt: 'Planos de Treino',
+					en: 'Workout Plans',
+					es: 'Planes de Entrenamiento',
+					fr: 'Plans d\'entraînement'
 				},
 				nutritionPlans: {
 					pt: 'Planos de Nutrição',

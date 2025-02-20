@@ -1,302 +1,173 @@
 using backend.Entities;
-using backend.Data;
+using backend.Models;
+using backend.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using backend.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace backend.Controllers.UserController
 {
-    [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-    public class UserController(AppDbContext context) : ControllerBase
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+        private readonly ILogger<UserController> _logger;
 
-        [Authorize]
+        public UserController(
+            IUserService userService,
+            ILogger<UserController> logger)
+        {
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         [HttpGet]
-        [Authorize(Policy = nameof(Services.AuthService.Permission.ReadUsers))]
-        public async Task<ActionResult<object>> GetUsers(int page = 1, int perPage = 10)
-        {
-            if (page < 1 || perPage < 1)
-                return BadRequest("Page and perPage must be greater than 0.");
-
-            var totalItems = await context.Users
-                
-                .CountAsync();
-            var users = await context.Users
-                .Include(u => u.Role)
-                .Skip((page - 1) * perPage)
-                .Take(perPage)
-                .ToListAsync();
-
-            return Ok(new
-            {
-                TotalItems = totalItems,
-                PerPage = perPage,
-                Page = page,
-                Data = users
-            });
-        }
-
-        [Authorize]
-        [HttpGet("options")]
-        [Authorize(Policy = nameof(Services.AuthService.Permission.ReadUsers))]
-        public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetUserOptions()
-        {
-            var users = await context.Users
-                .Select(e => new SelectItemDto { label = e.FullName, value = e.Id })
-                .ToListAsync();
-
-            return Ok(users);
-        }
-
-        [Authorize]
-        [HttpGet("{id}")]
-        [Authorize(Policy = nameof(Services.AuthService.Permission.ReadUser))]
-        public async Task<ActionResult<UserDto>> GetUser(Guid id)
-        {
-            var user = await context.Users
-                .Include(u => u.Role) 
-            .Include(u => u.Workouts)
-                .ThenInclude(w => w.WorkoutExercises)
-                    .ThenInclude(we => we.Exercise)
-                .Include(u => u.Diets)
-                .ThenInclude(d => d.DietMeals)
-                .ThenInclude(dm => dm.Meal)
-                .ThenInclude(m => m.MealFoods)
-                .ThenInclude(mf => mf.Food)
-            .FirstOrDefaultAsync(u => u.Id == id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            var userDto = new UserDto
-            {
-                Id = user.Id,
-                Username = user.Username,
-                FullName = user.FullName,
-                Phone = user.Phone,
-                Weight = user.Weight,
-                Height = user.Height,
-                RoleId = user.RoleId,
-                RoleName = user.Role.Name,
-                Diets = user.Diets.Select(d => new DietDto
-                {
-                    Id = d.Id,
-                    Name = d.Name,
-                    Description = d.Description,
-                    Meals = d.DietMeals.Select(dm => new MealDto
-                    {
-                        Id = dm.Meal.Id,
-                        Name = dm.Meal.Name,
-                        Description = dm.Meal.Description,
-                        MealFoods = dm.Meal.MealFoods.Select(mf => new MealFoodDto
-                        {
-                            FoodId = mf.FoodId,
-                            Quantity = mf.Quantity,
-                            Unit = mf.Unit,
-                            FoodName = mf.Food.Name!,
-                            Fat = mf.Food.Fat,
-                            Calories = mf.Food.Calories,
-                            Carbs = mf.Food.Carbs,
-                            Protein = mf.Food.Protein,
-                        }).ToList()
-                    }).ToList(),
-                }).ToList(),
-                Workouts = user.Workouts.Select(w => new WorkoutDto
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    Description = w.Description,
-                    UserId = w.UserId,
-                    Exercises = w.WorkoutExercises.Select(we => new ExerciseInWorkoutDto
-                    {
-                        ExerciseId = we.ExerciseId,
-                        Name = we.Exercise.Name,
-                        Set = we.Set,
-                        Reps = we.Reps
-                    }).ToList()
-                }).ToList()
-            };
-
-            return Ok(userDto);
-        }
-
-        [HttpGet("me")]
-        [Authorize(Roles = ("Coach, User"))]
-        public async Task<ActionResult<User>> GetMe()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Coach")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllAsync()
         {
             try
             {
-                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-                if (string.IsNullOrEmpty(userIdClaim))
-                {
-                    return Unauthorized("User ID not found in token.");
-                }
-
-                if (!Guid.TryParse(userIdClaim, out Guid userId))
-                {
-                    return Unauthorized("Invalid user ID format.");
-                }
-
-                var user = await context.Users
-                    .Include(u => u.Role)
-                    .Include(u => u.UserPermissions)
-                    .ThenInclude(up => up.Permission)
-                    .Include(u => u.Workouts)
-                    .ThenInclude(w => w.WorkoutExercises)
-                    .ThenInclude(we => we.Exercise)
-                    .Include(u => u.Diets)
-                    .ThenInclude(d => d.DietMeals)
-                    .ThenInclude(dm => dm.Meal)
-                    .ThenInclude(m => m.MealFoods)
-                    .ThenInclude(mf => mf.Food)
-                    .FirstOrDefaultAsync(u => u.Id == userId);
-                
-                if (user is null)
-                {
-                    return NotFound("User not found.");
-                }
-                
-                return Ok(new
-                {
-                    user.Id,
-                    user.Username,
-                    user.FullName,
-                    user.Phone,
-                    user.Weight,
-                    user.Height,
-                    user.RoleId,
-                    Role = new
-                    {
-                        user.Role.Id,
-                        user.Role.Name
-                    },
-                    Permissions = user.UserPermissions.Select(up => new
-                    {
-                        up.Permission.Id,
-                        up.Permission.Name
-                    }),
-                    Diets = user.Diets?.Select(d => new DietDto
-                    {
-                        Id = d.Id,
-                        Name = d.Name,
-                        Description = d.Description,
-                        Meals = d.DietMeals?.Select(dm => new MealDto
-                        {
-                            Id = dm.Meal.Id,
-                            Name = dm.Meal.Name,
-                            Description = dm.Meal.Description,
-                            MealFoods = dm.Meal.MealFoods?.Select(mf => new MealFoodDto
-                            {
-                                FoodId = mf.FoodId,
-                                Quantity = mf.Quantity,
-                                Unit = mf.Unit,
-                                FoodName = mf.Food.Name ?? "Unknown",
-                                Fat = mf.Food.Fat,
-                                Calories = mf.Food.Calories,
-                                Carbs = mf.Food.Carbs,
-                                Protein = mf.Food.Protein,
-                            }).ToList() ?? new List<MealFoodDto>(),
-                        }).ToList() ?? new List<MealDto>(),
-                    }).ToList() ?? new List<DietDto>(),
-                    Workouts = user.Workouts?.Select(w => new WorkoutDto
-                    {
-                        Id = w.Id,
-                        Name = w.Name,
-                        Description = w.Description,
-                        UserId = w.UserId,
-                        Exercises = w.WorkoutExercises?.Select(we => new ExerciseInWorkoutDto
-                        {
-                            ExerciseId = we.ExerciseId,
-                            Name = we.Exercise.Name,
-                            Set = we.Set,
-                            Reps = we.Reps
-                        }).ToList() ?? new List<ExerciseInWorkoutDto>(),
-                    }).ToList() ?? new List<WorkoutDto>(),
-                });
+                var users = await _userService.GetAllAsync();
+                return Ok(users);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                _logger.LogError($"Error getting all users: {ex.Message}");
+                throw;
             }
         }
 
+        [HttpGet("options")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Coach")]
+        public async Task<ActionResult<User>> GetOptionsAsync(Guid id)
+        {
+            try
+            {
+                var users = await _userService.GetOptionsAsync();
+                if (users == null)
+                    return NotFound();
 
-        [Authorize]
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting user by ID: {ex.Message}");
+                throw;
+            }
+        }
+        
+        
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize(Roles = "Coach")]
+        public async Task<ActionResult<User>> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var user = await _userService.GetByIdAsync(id);
+                if (user == null)
+                    return NotFound();
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting user by ID: {ex.Message}");
+                throw;
+            }
+        }
+
+        [HttpGet("me")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<User>> GetCurrentAsync()
+        {
+            try
+            {
+                var user = await _userService.GetCurrentAsync();
+                return Ok(user);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting current user: {ex.Message}");
+                throw;
+            }
+        }
+
         [HttpPost]
-        [Authorize(Policy = nameof(Services.AuthService.Permission.CreateUser))]
-        public async Task<ActionResult<UserDto>> CreateUser(UserDto userDto)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Coach")]
+        public async Task<ActionResult<User>> CreateAsync(UserCreateDto user)
         {
-            var role = await context.Roles.FirstOrDefaultAsync(r => r.Id == userDto.RoleId); 
-
-            if (role == null) 
+            try
             {
-                role = await context.Roles.FirstOrDefaultAsync(r => r.Name == "User");
-                if (role == null)
-                    return BadRequest("Default role 'User' not found.");
+                var newUser = await _userService.CreateAsync(user);
+                return CreatedAtAction(nameof(GetByIdAsync), new { id = newUser.Id }, newUser);
             }
-
-            var user = new User
+            catch (Exception ex)
             {
-                Username = userDto.Username,
-                FullName = userDto.FullName,
-                Phone = userDto.Phone,
-                PasswordHash = new PasswordHasher<UserDto>()
-                    .HashPassword(userDto, "password"),
-                Weight = userDto.Weight,
-                Height = userDto.Height,
-                RoleId = role.Id
-            };
-
-            context.Users.Add(user);
-            await context.SaveChangesAsync();
-
-            var createdUserDto = new UserDto
-            {
-                Id = user.Id,
-                Username = user.Username,
-                FullName = user.FullName,
-                Phone = user.Phone,
-                Weight = user.Weight,
-                Height = user.Height,
-                RoleId = user.RoleId
-            };
-
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, createdUserDto);
+                _logger.LogError($"Error creating user: {ex.Message}");
+                throw;
+            }
         }
 
-        [Authorize]
-        [HttpPut("{id}")]
-        [Authorize(Policy = nameof(Services.AuthService.Permission.EditUser))]
-        public async Task<ActionResult<User>> UpdateUser(Guid id, User user)
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Coach")]
+        public async Task<ActionResult<User>> UpdateAsync(UserUpdateDto user)
         {
-            if (id != user.Id)
-                return BadRequest("ID mismatch.");
-
-            context.Entry(user).State = EntityState.Modified;
-            await context.SaveChangesAsync();
-            return Ok(user);
-        }
-
-        [Authorize]
-        [HttpDelete("{id}")]
-        [Authorize(Policy = nameof(Services.AuthService.Permission.DeleteUser))]
-        public async Task<IActionResult> DeleteUser(Guid id)
-        {
-            var user = await context.Users.FindAsync(id);
-            if (user is null)
+            try
+            {
+                var updatedUser = await _userService.UpdateAsync(user);
+                return Ok(updatedUser);
+            }
+            catch (KeyNotFoundException)
+            {
                 return NotFound();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error updating user: {ex.Message}");
+                throw;
+            }
+        }
 
-            context.Users.Remove(user);
-            await context.SaveChangesAsync();
-            return NoContent();
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = "Coach")]
+        public async Task<ActionResult> DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _userService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error deleting user: {ex.Message}");
+                throw;
+            }
         }
     }
 }

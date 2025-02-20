@@ -127,7 +127,7 @@ export default function DietPage() {
 								<FormWrapper cols={1}>
 									<FormControl 
 										errors={getErrors('userId')}
-										label={T.pages.workouts.table.user}
+										label={T.pages.workoutPlans.table.user}
 										required
 									>
 										<SearchableInput

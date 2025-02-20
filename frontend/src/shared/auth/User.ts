@@ -1,7 +1,7 @@
 import { type BaseUserType } from '@resourge/react-authentication';
 
 type PermissionType = {
-	name: string
+	permissionName: string
 };
 
 type UserType = BaseUserType & {
@@ -9,13 +9,13 @@ type UserType = BaseUserType & {
 	fullName: string
 	height: string
 	id: string
-	permissions: PermissionType[]
 	phone: string
 	role: {
 		id: string
 		name: string
 	}
 	username: string
+	userPermissions: PermissionType[]
 	weight: string
 	workouts: any[]
 };
@@ -52,7 +52,7 @@ export class User implements BaseUserType {
 			this.id = data.id;
 			this.workouts = data.workouts;
 			this.diets = data.diets;
-			this.permissions = data.permissions.map((permission) => (permission.name));
+			this.permissions = data.userPermissions.map((permission) => (permission.permissionName));
 		}
 	}
 

@@ -7,5 +7,7 @@ namespace backend.Entities
         public string Description { get; set; } = string.Empty;
         public string? Video { get; set; }
         public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
+        public virtual ICollection<Set> Sets { get; set; } = new List<Set>();
+
     }
 }

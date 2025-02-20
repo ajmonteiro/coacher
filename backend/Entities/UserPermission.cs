@@ -12,4 +12,6 @@ public class UserPermission : BaseEntity
     public Guid PermissionId { get; set; }
     [JsonIgnore]
     public Permission Permission { get; set; } = null!;
+    public string PermissionName => Permission?.Name ?? string.Empty;
 }
+

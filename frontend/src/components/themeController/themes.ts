@@ -9,13 +9,21 @@ export const themes: SelectItem[] = [
 	{
 		label: TranslationInstance.T.themes.sapphire,
 		value: 'myluxurysapphire'
-	}, 
+	},
 	{
 		label: TranslationInstance.T.themes.onyx,
 		value: 'myluxuryonyx'
 	},
 	{
+		label: TranslationInstance.T.themes.diamond,
+		value: 'myluxurydiamond'
+	},
+	{
 		label: TranslationInstance.T.themes.lavender,
 		value: 'myluxurylavender'
+	},
+	{
+		label: TranslationInstance.T.themes.opal,
+		value: 'myluxuryopal'
 	}
 ];

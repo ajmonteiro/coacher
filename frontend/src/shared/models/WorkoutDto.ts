@@ -12,11 +12,13 @@ export class WorkoutDto {
 	public exercises: ExerciseDto[] = [];
 	public name: string = '';
 	public userId: number = 0;
+	public keyIndex: number = 0;
     
 	constructor(base: WorkoutType) {
 		this.description = base.description;
 		this.name = base.name;
 		this.userId = base.userId ?? 0;
 		this.exercises = base.exercises.map((exercise) => new ExerciseDto(exercise));
+		this.keyIndex = Math.random();
 	}
 }

@@ -11,11 +11,13 @@ const NotFoundPage = lazy(() => import('./pages/notFound/NotFoundPage'));
 const LoginPage = lazy(() => import('./pages/auth/login/LoginPage'));
 const ClientsPage = lazy(() => import('./pages/clients/ClientsPage'));
 const FoodPage = lazy(() => import('./pages/food/FoodPage'));
-const UserProfilePage = lazy(() => import('./pages/userProfile/UserProfilePage'));
-const WorkoutsPage = lazy(() => import('./pages/workouts/WorkoutsPage'));
+const UserProfilePage = lazy(() => import('./pages/user/userProfile/UserProfilePage'));
+const WorkoutsPage = lazy(() => import('./pages/workoutPlans/WorkoutPlansPage'));
 const DietPage = lazy(() => import('./pages/diet/DietPage'));
 const MealPage = lazy(() => import('./pages/meal/MealPage'));
 const ClientInfoPage = lazy(() => import('./pages/clientInfo/ClientInfoPage'));
+const ClientDietsPage = lazy(() => import('./pages/clientDiets/ClientDietsPage'));
+const ClientWorkoutsPage = lazy(() => import('./pages/clientWorkouts/ClientWorkoutsPage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -68,7 +70,7 @@ const DashboardRouter = () => {
 			</AuthorizedRoute>
 			<AuthorizedRoute 
 				can={['ReadWorkout']}
-				path={Routes.DASHBOARD.WORKOUTS.path}
+				path={Routes.DASHBOARD.WORKOUTS_PLANS.path}
 			>
 				<WorkoutsPage />
 			</AuthorizedRoute>
@@ -77,6 +79,18 @@ const DashboardRouter = () => {
 				path={Routes.DASHBOARD.USER_PROFILE.path}
 			>
 				<UserProfilePage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadClientInfo']}
+				path={Routes.DASHBOARD.CLIENT_DIET.path}
+			>
+				<ClientDietsPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadClientInfo']}
+				path={Routes.DASHBOARD.CLIENT_WORKOUTS.path}
+			>
+				<ClientWorkoutsPage />
 			</AuthorizedRoute>
 			<AuthorizedRoute path={Routes.DASHBOARD.CLIENT_INFO.path}>
 				<ClientInfoPage />
@@ -91,7 +105,6 @@ const Router: React.FC = () => {
 			<Route path={Routes.AUTH.path}>
 				<AuthRouter />
 			</Route>
-
 			<AuthorizedRoute path={Routes.DASHBOARD.path}>
 				<DashboardRouter />
 			</AuthorizedRoute>

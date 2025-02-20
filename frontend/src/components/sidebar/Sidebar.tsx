@@ -107,13 +107,13 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 					<div className="flex flex-col gap-5">
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
-							href={Routes.DASHBOARD.WORKOUTS.get()}
+							href={Routes.DASHBOARD.WORKOUTS_PLANS.get()}
 							icon={(
 								<PhosphorIcon
 									icon={<Barbell />}
 								/>
 							)}
-							text={T.components.sidebar.workouts}
+							text={T.components.sidebar.workoutsPlans}
 						/>
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
@@ -151,6 +151,26 @@ export default function Sidebar({ isSidebarOpen }: SidebarProps) {
 						title={T.components.sidebar.aboutMe}
 					/>
 					<div className="flex flex-col gap-5">
+						<SidebarSectionItem
+							collapsed={isSidebarOpen}
+							href={Routes.DASHBOARD.CLIENT_WORKOUTS.get()}
+							icon={(
+								<PhosphorIcon
+									icon={<Barbell />}
+								/>
+							)}
+							text={T.components.sidebar.myWorkouts}
+						/>
+						<SidebarSectionItem
+							collapsed={isSidebarOpen}
+							href={Routes.DASHBOARD.CLIENT_DIET.get()}
+							icon={(
+								<PhosphorIcon
+									icon={<Avocado />}
+								/>
+							)}
+							text={T.components.sidebar.myDiets}
+						/>
 						<SidebarSectionItem
 							collapsed={isSidebarOpen}
 							href={Routes.DASHBOARD.CLIENT_INFO.get()}
