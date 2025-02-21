@@ -574,10 +574,10 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					fr: 'Cet utilisateur n\'a pas de régimes'
 				},
 				noWorkouts: {
-					pt: 'Este utilizador não tem treinos',
-					en: 'This user has no workouts',
-					es: 'Este usuario no tiene entrenamientos',
-					fr: 'Cet utilisateur n\'a pas d\'entraînements'
+					pt: 'Este utilizador não tem treinos.',
+					en: 'This user has no workouts.',
+					es: 'Este usuario no tiene entrenamientos.',
+					fr: 'Cet utilisateur n\'a pas d\'entraînements.'
 				},
 				title: {
 					pt: 'Perfil de Utilizador',
@@ -942,6 +942,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					en: 'Exercise',
 					es: 'Ejercicio',
 					fr: 'Exercice'
+				},
+				setsReps: {
+					pt: 'Séries x Repetições',
+					en: 'Sets x Reps',
+					es: 'Series x Repeticiones',
+					fr: 'Ensembles x Répétitions'
 				},
 				reps: {
 					pt: 'Repetições',

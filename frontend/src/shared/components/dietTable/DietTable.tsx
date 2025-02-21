@@ -1,4 +1,7 @@
+import { Avocado } from '@phosphor-icons/react';
+
 import InfoCard from 'src/components/infoCard/InfoCard';
+import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import { type DietDto } from 'src/shared/models/DietDto';
 import { useTranslation } from 'src/shared/translations/Translations';
 
@@ -65,11 +68,18 @@ export default function DietTable({ diets }: DietTableProps) {
 			</InfoCard>
 		)
 			: (
-				<div className="text-center py-6">
-					<p className="text-gray-500 mb-4">
+				<InfoCard className="flex flex-col gap-10 items-center justify-center h-full w-full relative">
+					<div className="text-2xl font-thin z-10">
+						Oops!
+						{ ' ' }
 						{ T.pages.userProfile.noDiets }
-					</p>
-				</div>
+					</div>
+					<PhosphorIcon
+						className="absolute -z-1 opacity-25"
+						icon={<Avocado />}
+						size={600}
+					/>
+				</InfoCard>
 			)
 	);
 }

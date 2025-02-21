@@ -1,5 +1,7 @@
 import { type ReactNode } from 'react';
 
+import InfoCard from '../infoCard/InfoCard';
+
 type MainContainerProps = {
 	children: ReactNode
 };
@@ -7,9 +9,9 @@ type MainContainerProps = {
 export default function MainContainer({ children }: MainContainerProps) {
 	return (
 		<div className="w-full py-10">
-			<div className="bg-base-200 text-base-content rounded-box h-full w-full p-4">
+			<InfoCard className="shadow-2xl h-full w-full border border-gold">
 				{ children }
-			</div>
+			</InfoCard>
 		</div>
 	);
 }

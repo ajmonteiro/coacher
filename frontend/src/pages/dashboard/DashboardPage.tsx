@@ -81,7 +81,6 @@ export default function DashboardPage() {
 								rows.data ? (
 									<div className="md:col-span-3"> 
 										<InfoCard className="bg-white shadow rounded-lg p-6"> 
-								
 											<DataTable
 												changePage={changePage}
 												columns={[
