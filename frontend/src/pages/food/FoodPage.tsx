@@ -143,7 +143,7 @@ export default function FoodPage() {
 												
 										)) 
 									}
-									<div className="flex">
+									<div className="flex mt-4">
 										<Button
 											icon={(
 												<PhosphorIcon 

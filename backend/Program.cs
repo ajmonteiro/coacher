@@ -24,7 +24,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient();
 
@@ -57,6 +56,15 @@ builder.Services.AddLogging(logging =>
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coacher API", Version = "v1" });
+    c.SchemaFilter(<EmptySchemaFilter>);
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coacher API", Version = "v1" });
+    c.MapType<DietDto>(() => new OpenApiSchema { Type = "object", Title = "DietDto" });
+    c.MapType<MealDto>(() => new OpenApiSchema { Type = "object", Title = "MealDto" });
+    c.MapType<FoodDto>(() => new OpenApiSchema { Type = "object", Title = "FoodDto" });
+    c.MapType<ExerciseDto>(() => new OpenApiSchema { Type = "object", Title = "ExerciseDto" });
+    c.MapType<WorkoutPlanDto>(() => new OpenApiSchema { Type = "object", Title = "WorkoutPlanDto" });
+    c.MapType<WorkoutDto>(() => new OpenApiSchema { Type = "object", Title = "WorkoutDto" });
+    c.MapType<UserDto>(() => new OpenApiSchema { Type = "object", Title = "UserDto" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

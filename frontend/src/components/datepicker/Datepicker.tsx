@@ -82,7 +82,6 @@ export default function DateRangePicker({
 		}).format(date);
 	};
 
-	// Get the formatted range for the button
 	const formattedDateRange = from && to
 		? `${formatDate(from)} - ${formatDate(to)}`
 		: from

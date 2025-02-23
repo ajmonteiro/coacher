@@ -1,0 +1,12 @@
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/bin/Debug/net9.0/Coacher.Backend.Contracts.deps.json
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/bin/Debug/net9.0/Coacher.Backend.Contracts.dll
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/bin/Debug/net9.0/Coacher.Backend.Contracts.pdb
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.AssemblyInfoInputs.cache
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.AssemblyInfo.cs
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.csproj.CoreCompileInputs.cache
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.sourcelink.json
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.dll
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/refint/Coacher.Backend.Contracts.dll
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/Coacher.Backend.Contracts.pdb
+/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.Contracts/obj/Debug/net9.0/ref/Coacher.Backend.Contracts.dll

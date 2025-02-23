@@ -22,4 +22,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Coacher.Contracts\obj\Coacher.Contracts.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Coacher.Contracts\obj\project.assets.json" />
+  </ItemGroup>
+
 </Project>

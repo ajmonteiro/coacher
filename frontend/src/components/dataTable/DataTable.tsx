@@ -147,9 +147,8 @@ export default function DataTable({
 				) : null 
 			}
 			<div className="flex justify-between relative z-1">
-			
 				<div className="flex items-center gap-2">
-					<span className="text-2xl text-gold font-black tracking-wide">
+					<span className="text-2xl text-base-content font-black tracking-wide">
 						{ tableTitle }
 					</span>
 				</div>

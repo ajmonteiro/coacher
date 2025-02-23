@@ -43,7 +43,7 @@ export default function Header({ setSidebarOpen, isSidebarOpen }: HeaderProps) {
 	return (
 		<div
 			className="flex justify-between items-center gap-4 bg-base-100 
-			py-10 relative z-[9999] h-[3rem] transition-all duration-300"
+			py-10 relative z-100 h-[3rem] transition-all duration-300"
 		>
 			<div
 				className={`flex justify-between items-center text-base-content 

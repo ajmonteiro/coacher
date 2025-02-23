@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { Barbell } from '@phosphor-icons/react';
-
 import InfoCard from 'src/components/infoCard/InfoCard';
-import PhosphorIcon from 'src/components/phosphorIcon/PhosphorIcon';
 import Table from 'src/components/table/Table';
 import { type WorkoutPlanDto } from 'src/shared/models/interfaces/WorkoutPlanDto';
 import { useTranslation } from 'src/shared/translations/Translations';
@@ -80,11 +77,6 @@ export default function WorkoutPlansTable({ workoutPlans }: WorkoutPlansProps) {
 				{ ' ' }
 				{ T.pages.userProfile.noWorkouts }
 			</div>
-			<PhosphorIcon
-				className="absolute -z-1 opacity-25"
-				icon={<Barbell />}
-				size={600}
-			/>
 		</InfoCard>
 	);
 }

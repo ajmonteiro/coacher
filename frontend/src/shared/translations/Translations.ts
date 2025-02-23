@@ -56,17 +56,11 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				es: 'Lavanda',
 				fr: 'Lavande'
 			},
-			mint: {
-				pt: 'Menta',
-				en: 'Mint',
-				es: 'Menta',
-				fr: 'Menthe'
-			},
-			opal: {
-				pt: 'Opala',
-				en: 'Opal',
-				es: 'Ópalo',
-				fr: 'Opale'
+			red: {
+				pt: 'Vermelho',
+				en: 'Red',
+				es: 'Rojo',
+				fr: 'Rouge'
 			}
 		},
 		formConstants: {
@@ -1091,6 +1085,18 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 				}
 			},
 			data_table: {
+				cancel: {
+					pt: 'Cancelar',
+					en: 'Cancel',
+					es: 'Cancelar',
+					fr: 'Annuler'
+				},
+				submit: {
+					pt: 'Submeter',
+					en: 'Submit',
+					es: 'Enviar',
+					fr: 'Soumettre'
+				},
 				new: {
 					pt: 'Novo',
 					en: 'New',

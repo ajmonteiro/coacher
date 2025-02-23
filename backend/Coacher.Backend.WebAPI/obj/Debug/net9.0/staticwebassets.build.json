@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "eLggaJORjJLsTbSTx3X9ammGmTxmkch5hCgUCAdDvfI=",
+  "Source": "Coacher.Backend.WebAPI",
+  "BasePath": "_content/Coacher.Backend.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

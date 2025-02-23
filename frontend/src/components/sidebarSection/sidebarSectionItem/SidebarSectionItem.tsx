@@ -17,7 +17,7 @@ export default function SidebarSectionItem({
 		<A
 			className={`w-full flex items-center justify-start px-4 btn text-center
 				border-0
-                ${active ? 'font-bold bg-primary-soft text-primary' : 'font-semibold text-black'}
+                ${active ? 'font-bold bg-primary-soft text-primary' : 'font-semibold text-base-content'}
 				${!collapsed ? 'justify-center mx-auto' : ''}
 				`}
 			href={href}
@@ -27,9 +27,7 @@ export default function SidebarSectionItem({
 				className={`
 					flex items-center ${collapsed ? 'gap-3' : 'gap-0'}`}
 			>
-				<span className="w-6 h-6 text-semibold text-base-content">
-					{ icon }
-				</span>
+				{ icon }
 				<span className="text-xs font-semibold text-base-content text-left">
 					{
 						collapsed 

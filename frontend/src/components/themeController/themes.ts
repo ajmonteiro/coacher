@@ -23,7 +23,7 @@ export const themes: SelectItem[] = [
 		value: 'myluxurylavender'
 	},
 	{
-		label: TranslationInstance.T.themes.opal,
-		value: 'myluxuryopal'
+		label: TranslationInstance.T.themes.red,
+		value: 'myluxuryred'
 	}
 ];
