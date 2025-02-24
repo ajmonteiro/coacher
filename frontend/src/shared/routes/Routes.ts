@@ -18,6 +18,11 @@ const Routes = SetupPaths({
 		EXERCISES: path('exercises'),
 		WORKOUTS_PLANS: path('workouts-plans').searchParams({
 			userId: searchParam<{ userId?: string }>
+		})
+		.routes({
+			PLAN_DETAIL: path('plan-detail').searchParams({
+				workoutPlanId: searchParam<{ workoutPlanId: string }>
+			})
 		}),
 		USER_PROFILE: path('profile').searchParams({
 			userId: searchParam<{ userId: string }>

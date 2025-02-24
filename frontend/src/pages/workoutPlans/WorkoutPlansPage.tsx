@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Barbell } from '@phosphor-icons/react';
 import { OrderByEnum, useFetch } from '@resourge/react-fetch';
 import { FormProvider } from '@resourge/react-form';
-import { useSearchParams } from '@resourge/react-router';
+import { useNavigate, useSearchParams } from '@resourge/react-router';
 
 import Button from 'src/components/button/Button';
 import DataTable from 'src/components/dataTable/DataTable';
@@ -15,6 +15,7 @@ import SearchableInput from 'src/components/searchableInput/SearchableInput';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
 import { useDataTable } from 'src/shared/hooks/useDataTable';
 import { SelectItem } from 'src/shared/models/SelectItem';
+import Routes from 'src/shared/routes/Routes';
 import HttpBaseService from 'src/shared/services/HttpBaseService';
 import { useTranslation } from 'src/shared/translations/Translations';
 
@@ -25,7 +26,7 @@ import { useWorkoutPlanModel } from './interfaces/WorkoutPlanModel';
 export default function WorkoutsPage() {
 	const { T } = useTranslation();
 	const { userId } = useSearchParams();
-	
+	const navigate = useNavigate();
 	const {
 		field, hasError, getErrors, handleSubmit, reset, form, context
 	} = useWorkoutPlanModel();
@@ -142,6 +143,11 @@ export default function WorkoutsPage() {
 								</FormProvider>
 							)}
 							formSubmission={submit}
+							goToEntity={(id) => navigate(Routes.DASHBOARD.WORKOUTS_PLANS.PLAN_DETAIL.get({
+								searchParams: {
+									workoutPlanId: id
+								}
+							}))}
 							modalTitle={T.pages.workoutPlans.table.addWorkout}
 							paginationData={pagination}
 							primaryKey="id"

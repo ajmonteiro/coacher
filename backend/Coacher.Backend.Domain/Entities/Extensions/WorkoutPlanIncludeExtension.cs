@@ -10,4 +10,12 @@ public static class WorkoutPlanIncludeExtension
             .Include(wp => wp.Workouts)
             .ThenInclude(w => w.WorkoutExercises);
     }
+
+      public static IQueryable<WorkoutPlan> IncludeAll(this IQueryable<WorkoutPlan> query)
+    {
+        return query
+            .Include(wp => wp.Workouts)
+            .ThenInclude(w => w.WorkoutExercises)
+            .ThenInclude(we => we.Exercise);
+    }
 }

@@ -412,6 +412,38 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					fr: 'Exercices dans le système'
 				}
 			},
+			workoutPlanDetail: {
+				startDate: {
+					pt: 'Data de início',
+					en: 'Start date',
+					es: 'Fecha de inicio',
+					fr: 'Date de début'
+				},
+				endDate: {
+					pt: 'Data de fim',
+					en: 'End date',
+					es: 'Fecha de finalización',
+					fr: 'Date de fin'
+				},
+				workouts: {
+					pt: 'Treinos',
+					en: 'Workouts',
+					es: 'Entrenamientos',
+					fr: 'Entraînements'
+				},
+				sets: {
+					pt: 'Séries',
+					en: 'Sets',
+					es: 'Series',
+					fr: 'Ensembles'
+				},
+				reps: {
+					pt: 'Repetições',
+					en: 'Reps',
+					es: 'Repeticiones',
+					fr: 'Répétitions'
+				}
+			},
 			workoutPlans: {
 				table: {
 					addWorkoutPlan: {

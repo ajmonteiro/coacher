@@ -12,12 +12,13 @@ const LoginPage = lazy(() => import('./pages/auth/login/LoginPage'));
 const ClientsPage = lazy(() => import('./pages/clients/ClientsPage'));
 const FoodPage = lazy(() => import('./pages/food/FoodPage'));
 const UserProfilePage = lazy(() => import('./pages/user/userProfile/UserProfilePage'));
-const WorkoutsPage = lazy(() => import('./pages/workoutPlans/WorkoutPlansPage'));
+const WorkoutPlansPage = lazy(() => import('./pages/workoutPlans/WorkoutPlansPage'));
 const DietPage = lazy(() => import('./pages/diet/DietPage'));
 const MealPage = lazy(() => import('./pages/meal/MealPage'));
 const ClientInfoPage = lazy(() => import('./pages/clientInfo/ClientInfoPage'));
 const ClientDietsPage = lazy(() => import('./pages/clientDiets/ClientDietsPage'));
 const ClientWorkoutsPage = lazy(() => import('./pages/clientWorkouts/ClientWorkoutsPage'));
+const WorkoutPlanDetailPage = lazy(() => import('./pages/workoutPlanDetail/WorkoutPlanDetailPage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -70,9 +71,15 @@ const DashboardRouter = () => {
 			</AuthorizedRoute>
 			<AuthorizedRoute 
 				can={['ReadWorkout']}
+				path={Routes.DASHBOARD.WORKOUTS_PLANS.PLAN_DETAIL.path}
+			>
+				<WorkoutPlanDetailPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadWorkout']}
 				path={Routes.DASHBOARD.WORKOUTS_PLANS.path}
 			>
-				<WorkoutsPage />
+				<WorkoutPlansPage />
 			</AuthorizedRoute>
 			<AuthorizedRoute 
 				can={['ReadUser']}

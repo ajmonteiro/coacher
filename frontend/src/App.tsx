@@ -12,26 +12,24 @@ import { TranslationInstance } from './shared/translations/Translations';
 
 function App() {
 	return (
-		<>
-			<ErrorBoundary 
-				errorComponent={_502}
-				onError={() => window.history.pushState(null, '', Routes.ERROR.get())}
-			>
-				<Translations>
-					<BrowserRouter defaultFallback={<LoadingSuspense />}>
-						<LanguageRoute 
-							fallbackLanguage={TranslationInstance.language} 
-							languages={TranslationInstance.languages}
-						>
-							<Authentication>
-								<Router />
-							</Authentication>
-						</LanguageRoute>
-						<GlobalLoader />
-					</BrowserRouter>
-				</Translations>
-			</ErrorBoundary>
-		</>
+		<ErrorBoundary 
+			errorComponent={_502}
+			onError={() => window.history.pushState(null, '', Routes.ERROR.get())}
+		>
+			<Translations>
+				<BrowserRouter defaultFallback={<LoadingSuspense />}>
+					<LanguageRoute 
+						fallbackLanguage={TranslationInstance.language} 
+						languages={TranslationInstance.languages}
+					>
+						<Authentication>
+							<Router />
+						</Authentication>
+					</LanguageRoute>
+					<GlobalLoader />
+				</BrowserRouter>
+			</Translations>
+		</ErrorBoundary>
 	);
 }
 

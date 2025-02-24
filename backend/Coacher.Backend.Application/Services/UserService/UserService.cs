@@ -14,8 +14,6 @@ namespace Coacher.Backend.Application.Services.UserService
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private ILogger<UserService> _logger;
-
         public UserService(
             AppDbContext context,
             IHttpContextAccessor httpContextAccessor)

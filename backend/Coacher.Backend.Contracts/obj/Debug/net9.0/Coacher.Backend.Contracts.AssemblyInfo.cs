@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Coacher.Backend.Contracts")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eba6c62de57ee5a9933a301a943d220587c3d80b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86d2ba0490be4ee94c8e7c103e9a09f0ebfac31b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Coacher.Backend.Contracts")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Coacher.Backend.Contracts")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

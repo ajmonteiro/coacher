@@ -36,7 +36,7 @@ namespace Coacher.Backend.Application.Services.WorkoutPlanService
 
         public async Task<WorkoutPlan> GetWorkoutPlanAsync(Guid id)
         {
-            var workoutPlan = await _context.WorkoutPlans.IncludeBasic().FirstOrDefaultAsync(wp => wp.Id == id);
+            var workoutPlan = await _context.WorkoutPlans.IncludeAll().FirstOrDefaultAsync(wp => wp.Id == id);
             
             if(workoutPlan == null) throw new KeyNotFoundException();
             
