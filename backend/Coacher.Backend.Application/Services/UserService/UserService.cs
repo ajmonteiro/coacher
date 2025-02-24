@@ -6,6 +6,7 @@ using Coacher.Backend.Domain.Entities.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Coacher.Backend.Application.Services.UserService
 {
@@ -13,6 +14,7 @@ namespace Coacher.Backend.Application.Services.UserService
     {
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private ILogger<UserService> _logger;
 
         public UserService(
             AppDbContext context,
@@ -22,7 +24,7 @@ namespace Coacher.Backend.Application.Services.UserService
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<PagedResult<User>> GetAllAsync(int page = 1, int pageSize = 10)
+        public async Task<PagedResult<User>> GetAllAsync(int page = 1, int perPage = 10)
         {
             var query = _context.Users
                 .WithBasicIncludes()
@@ -30,15 +32,15 @@ namespace Coacher.Backend.Application.Services.UserService
 
             var totalItems = await query.CountAsync();
             var items = await query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
                 .ToListAsync();
 
             return new PagedResult<User>
             {
                 TotalItems = totalItems,
                 Page = page,
-                PageSize = pageSize,
+                PerPage = perPage,
                 Data = items
             };
         }
@@ -65,8 +67,11 @@ namespace Coacher.Backend.Application.Services.UserService
 
         public async Task<User> GetCurrentAsync()
         {
-            var userIdClaim = _httpContextAccessor.HttpContext?
-                .User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null || httpContext.User == null)
+                throw new UnauthorizedAccessException("HttpContext or User is null");
+
+            var userIdClaim = httpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(userIdClaim))
                 throw new UnauthorizedAccessException("User ID not found in token");
@@ -75,10 +80,10 @@ namespace Coacher.Backend.Application.Services.UserService
                 throw new UnauthorizedAccessException("Invalid user ID format");
 
             var user = await _context.Users
-                 .WithBasicIncludes()
-                 .WithFitnessData()
-                 .FirstOrDefaultAsync(u => u.Id == userId);
-                
+                    .WithBasicIncludes()
+                     .WithFitnessData()
+                     .FirstOrDefaultAsync(u => u.Id == userId);
+            
             if(user == null) throw new UnauthorizedAccessException("User not found");
 
             return user;

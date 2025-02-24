@@ -1,11 +1,8 @@
-using Coacher.Backend.Application.Services.AuthService;
 using Coacher.Backend.Application.Services.DietService;
 using Coacher.Backend.Contracts.Dto;
-using Coacher.Backend.Domain.Data;
 using Coacher.Backend.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Coacher.Backend.WebAPI.Controllers.DietController
 {
@@ -24,11 +21,11 @@ namespace Coacher.Backend.WebAPI.Controllers.DietController
         
         [Authorize(Roles = "Coach")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Diet>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<Diet>>> GetAllAsync(int page = 1, int perPage = 10)
         {
             try
             {
-                var diets = await _dietService.GetAllAsync();
+                var diets = await _dietService.GetAllAsync(page, perPage);
                 return Ok(diets);
             }
             catch (Exception ex)

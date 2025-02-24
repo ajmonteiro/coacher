@@ -17,21 +17,21 @@ public class FoodService : IFoodService
         _httpContextAccessor = httpContextAccessor;
     }
     
-    public async Task<PagedResult<FoodDto>> GetAllAsync(int page = 1, int pageSize = 10)
+    public async Task<PagedResult<FoodDto>> GetAllAsync(int page = 1, int perPage = 10)
     {
         var query = _context.Foods.AsNoTracking();
 
         var totalItems = await query.CountAsync();
         var items = await query
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
+            .Skip((page - 1) * perPage)
+            .Take(perPage)
             .ToListAsync();
 
         return new PagedResult<FoodDto>
         {
             TotalItems = totalItems,
             Page = page,
-            PageSize = pageSize,
+            PerPage = perPage,
             Data = items.ConvertAll(f => new FoodDto
             {
                 Id = f.Id,

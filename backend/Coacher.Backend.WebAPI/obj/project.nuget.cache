@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tocHgHUY0Rg=",
+  "dgSpecHash": "k30V8Xprfy8=",
   "success": true,
   "projectFilePath": "/Users/americomonteiro/Desktop/americo/projects/coacher/backend/Coacher.Backend.WebAPI/Coacher.Backend.WebAPI.csproj",
   "expectedPackageFiles": [
@@ -82,7 +82,7 @@
     "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore/9.0.2/microsoft.entityframeworkcore.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.2/microsoft.entityframeworkcore.abstractions.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore.analyzers/9.0.2/microsoft.entityframeworkcore.analyzers.9.0.2.nupkg.sha512",
-    "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore.design/9.0.1/microsoft.entityframeworkcore.design.9.0.1.nupkg.sha512",
+    "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore.design/9.0.2/microsoft.entityframeworkcore.design.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.2/microsoft.entityframeworkcore.relational.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.entityframeworkcore.sqlserver/9.0.2/microsoft.entityframeworkcore.sqlserver.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
@@ -98,7 +98,7 @@
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.configuration.usersecrets/8.0.1/microsoft.extensions.configuration.usersecrets.8.0.1.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.dependencyinjection/9.0.2/microsoft.extensions.dependencyinjection.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/9.0.2/microsoft.extensions.dependencyinjection.abstractions.9.0.2.nupkg.sha512",
-    "/Users/americomonteiro/.nuget/packages/microsoft.extensions.dependencymodel/9.0.1/microsoft.extensions.dependencymodel.9.0.1.nupkg.sha512",
+    "/Users/americomonteiro/.nuget/packages/microsoft.extensions.dependencymodel/9.0.2/microsoft.extensions.dependencymodel.9.0.2.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.diagnostics.abstractions/8.0.1/microsoft.extensions.diagnostics.abstractions.8.0.1.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.fileproviders.abstractions/8.0.0/microsoft.extensions.fileproviders.abstractions.8.0.0.nupkg.sha512",
     "/Users/americomonteiro/.nuget/packages/microsoft.extensions.fileproviders.composite/8.0.0/microsoft.extensions.fileproviders.composite.8.0.0.nupkg.sha512",

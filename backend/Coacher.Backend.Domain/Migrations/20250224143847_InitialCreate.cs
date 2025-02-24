@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace backend.Migrations
+namespace Coacher.Backend.Domain.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -39,14 +39,14 @@ namespace backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Calories = table.Column<double>(type: "double", nullable: true),
-                    Protein = table.Column<double>(type: "double", nullable: true),
-                    Carbs = table.Column<double>(type: "double", nullable: true),
-                    Fat = table.Column<double>(type: "double", nullable: true),
+                    Calories = table.Column<double>(type: "double", nullable: false),
+                    Protein = table.Column<double>(type: "double", nullable: false),
+                    Carbs = table.Column<double>(type: "double", nullable: false),
+                    Fat = table.Column<double>(type: "double", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
@@ -182,9 +182,9 @@ namespace backend.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "varchar(128)", maxLength: 128, nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
@@ -234,7 +234,7 @@ namespace backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -285,11 +285,11 @@ namespace backend.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     WorkoutPlanId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false)
+                    Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    WeekDay = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                    WeekDay = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
@@ -370,7 +370,7 @@ namespace backend.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     WorkoutId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ExerciseId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Set = table.Column<int>(type: "int", nullable: false),
+                    Sets = table.Column<int>(type: "int", nullable: false),
                     Reps = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)

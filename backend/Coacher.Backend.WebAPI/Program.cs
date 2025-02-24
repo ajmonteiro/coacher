@@ -9,12 +9,10 @@ using Coacher.Backend.Application.Services.DietService;
 using Coacher.Backend.Application.Services.ExerciseService;
 using Coacher.Backend.Application.Services.FoodService;
 using Coacher.Backend.Application.Services.MealService;
+using Coacher.Backend.Application.Services.RoleService;
 using Coacher.Backend.Application.Services.UserService;
 using Coacher.Backend.Application.Services.WorkoutPlanService;
-using Coacher.Backend.Contracts.Dto;
 using Coacher.Backend.Domain.Data;
-using Coacher.Backend.WebAPI.Filters;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Permission = Coacher.Backend.Domain.Enums.Permission;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,12 +29,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddHttpClient();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy",
@@ -47,33 +41,19 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader();
         });
 });
-
-
-
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
-
 builder.Services.AddLogging(logging =>
 {
     logging.ClearProviders();
     logging.AddConsole();
 });
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coacher API", Version = "v1" });
-    c.SchemaFilter<EmptySchemaFilter>();
-    
-    c.MapType<DietDto>(() => new OpenApiSchema { Type = "object", Title = "DietDto" });
-    c.MapType<MealDto>(() => new OpenApiSchema { Type = "object", Title = "MealDto" });
-    c.MapType<FoodDto>(() => new OpenApiSchema { Type = "object", Title = "FoodDto" });
-    c.MapType<ExerciseDto>(() => new OpenApiSchema { Type = "object", Title = "ExerciseDto" });
-    c.MapType<WorkoutPlanDto>(() => new OpenApiSchema { Type = "object", Title = "WorkoutPlanDto" });
-    c.MapType<WorkoutDto>(() => new OpenApiSchema { Type = "object", Title = "WorkoutDto" });
-    c.MapType<UserDto>(() => new OpenApiSchema { Type = "object", Title = "UserDto" });
-    
+  
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer 12345abcdef\"",
@@ -118,26 +98,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("ReadDashboard", policy =>
-        policy.RequireAuthenticatedUser()
-            .RequireAssertion(context => 
-            {
-                return context.User.IsInRole("User") || context.User.IsInRole("Coach") || 
-                       context.User.HasClaim(c => c.Type == "Permission" && c.Value == "ReadDashboard");
-            }));
-
     foreach (var permission in Enum.GetValues<Permission>())
     {
-        if (permission != Permission.ReadDashboard)
+        options.AddPolicy(permission.ToString(), policy =>
         {
-            options.AddPolicy(permission.ToString(), policy =>
-                policy.RequireAuthenticatedUser()
-                    .RequireAssertion(context =>
-                    {
-                        return context.User.IsInRole("Coach") || 
-                               context.User.HasClaim(c => c.Type == "Permission" && c.Value == permission.ToString());
-                    }));
-        }
+            policy.RequireAssertion(context =>
+            {
+                return Authentication.IsAuthorized(context.User, permission);
+            });
+        });
     }
 });
 
@@ -156,6 +125,8 @@ builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IDietService, DietService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+
 
 var app = builder.Build();
 

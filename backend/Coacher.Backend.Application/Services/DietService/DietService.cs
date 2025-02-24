@@ -18,7 +18,7 @@ public class DietService : IDietService
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<PagedResult<Diet>> GetAllAsync(int page = 1, int pageSize = 10)
+        public async Task<PagedResult<Diet>> GetAllAsync(int page = 1, int perPage = 10)
         {
             var query = _context.Diets
                 .Include(w => w.Meals)
@@ -27,14 +27,14 @@ public class DietService : IDietService
         
             var totalItems = await query.CountAsync();
             var items = await query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * perPage)
+                .Take(perPage)
                 .ToListAsync();
 
             return new PagedResult<Diet>
             {
                 Page = page,
-                PageSize = pageSize,
+                PerPage = perPage,
                 TotalItems = totalItems,
                 Data = items,
             };

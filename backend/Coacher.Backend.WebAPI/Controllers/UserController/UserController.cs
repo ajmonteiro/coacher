@@ -25,11 +25,11 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Coach")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<User>>> GetAllAsync(int page = 1, int perPage = 10)
         {
             try
             {
-                var users = await _userService.GetAllAsync();
+                var users = await _userService.GetAllAsync(page, perPage);
                 return Ok(users);
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -5,7 +5,7 @@ namespace Coacher.Backend.Application.Services.UserService;
 
 public interface IUserService
 {
-    Task<PagedResult<User>> GetAllAsync(int page = 1, int pageSize = 10);
+    Task<PagedResult<User>> GetAllAsync(int page = 1, int perPage = 10);
     Task<User?> GetByIdAsync(Guid id);
     Task<IEnumerable<SelectItemDto>> GetOptionsAsync();
     Task<User> GetCurrentAsync();

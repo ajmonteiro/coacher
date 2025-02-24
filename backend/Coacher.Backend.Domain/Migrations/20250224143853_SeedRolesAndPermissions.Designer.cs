@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace backend.Migrations
+namespace Coacher.Backend.Domain.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250220203939_SeedRolesAndPermissions")]
+    [Migration("20250224143853_SeedRolesAndPermissions")]
     partial class SeedRolesAndPermissions
     {
         /// <inheritdoc />
@@ -25,22 +25,7 @@ namespace backend.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("PermissionRole", b =>
-                {
-                    b.Property<Guid>("PermissionsId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("PermissionsId", "RolesId");
-
-                    b.HasIndex("RolesId");
-
-                    b.ToTable("PermissionRole");
-                });
-
-            modelBuilder.Entity("backend.Entities.Diet", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Diet", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,13 +35,11 @@ namespace backend.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
@@ -71,7 +54,7 @@ namespace backend.Migrations
                     b.ToTable("Diets");
                 });
 
-            modelBuilder.Entity("backend.Entities.DietMeal", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.DietMeal", b =>
                 {
                     b.Property<Guid>("DietId")
                         .HasColumnType("char(36)");
@@ -92,7 +75,7 @@ namespace backend.Migrations
                     b.ToTable("DietMeals");
                 });
 
-            modelBuilder.Entity("backend.Entities.Exercise", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Exercise", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,31 +103,33 @@ namespace backend.Migrations
                     b.ToTable("Exercises");
                 });
 
-            modelBuilder.Entity("backend.Entities.Food", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Food", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<double?>("Calories")
+                    b.Property<double>("Calories")
                         .HasColumnType("double");
 
-                    b.Property<double?>("Carbs")
+                    b.Property<double>("Carbs")
                         .HasColumnType("double");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double?>("Fat")
+                    b.Property<double>("Fat")
                         .HasColumnType("double");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double?>("Protein")
+                    b.Property<double>("Protein")
                         .HasColumnType("double");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -155,7 +140,7 @@ namespace backend.Migrations
                     b.ToTable("Foods");
                 });
 
-            modelBuilder.Entity("backend.Entities.Meal", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Meal", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -184,7 +169,7 @@ namespace backend.Migrations
                     b.ToTable("Meals");
                 });
 
-            modelBuilder.Entity("backend.Entities.MealFood", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.MealFood", b =>
                 {
                     b.Property<Guid>("MealId")
                         .HasColumnType("char(36)");
@@ -213,7 +198,7 @@ namespace backend.Migrations
                     b.ToTable("MealFoods");
                 });
 
-            modelBuilder.Entity("backend.Entities.Permission", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Permission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,7 +220,7 @@ namespace backend.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("backend.Entities.Role", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +242,7 @@ namespace backend.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("backend.Entities.RolePermission", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.RolePermission", b =>
                 {
                     b.Property<Guid>("RoleId")
                         .HasColumnType("char(36)");
@@ -278,7 +263,7 @@ namespace backend.Migrations
                     b.ToTable("RolePermissions");
                 });
 
-            modelBuilder.Entity("backend.Entities.SetRecord", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.SetRecord", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +299,7 @@ namespace backend.Migrations
                     b.ToTable("SetRecords");
                 });
 
-            modelBuilder.Entity("backend.Entities.User", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -372,7 +357,7 @@ namespace backend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("backend.Entities.UserPermission", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.UserPermission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -399,7 +384,7 @@ namespace backend.Migrations
                     b.ToTable("UserPermission");
                 });
 
-            modelBuilder.Entity("backend.Entities.Workout", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Workout", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -410,21 +395,18 @@ namespace backend.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("WeekDay")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("longtext");
 
                     b.Property<Guid>("WorkoutPlanId")
                         .HasColumnType("char(36)");
@@ -436,7 +418,7 @@ namespace backend.Migrations
                     b.ToTable("Workouts");
                 });
 
-            modelBuilder.Entity("backend.Entities.WorkoutExercise", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.WorkoutExercise", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -451,7 +433,7 @@ namespace backend.Migrations
                     b.Property<int>("Reps")
                         .HasColumnType("int");
 
-                    b.Property<int>("Set")
+                    b.Property<int>("Sets")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -469,7 +451,7 @@ namespace backend.Migrations
                     b.ToTable("WorkoutExercises");
                 });
 
-            modelBuilder.Entity("backend.Entities.WorkoutPlan", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.WorkoutPlan", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -483,8 +465,7 @@ namespace backend.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
@@ -504,22 +485,22 @@ namespace backend.Migrations
 
             modelBuilder.Entity("PermissionRole", b =>
                 {
-                    b.HasOne("backend.Entities.Permission", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("PermissionsId")
+                        .HasColumnType("char(36)");
 
-                    b.HasOne("backend.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("RolesId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("PermissionsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("PermissionRole");
                 });
 
-            modelBuilder.Entity("backend.Entities.Diet", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Diet", b =>
                 {
-                    b.HasOne("backend.Entities.User", "User")
+                    b.HasOne("Coacher.Backend.Domain.Entities.User", "User")
                         .WithMany("Diets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -528,15 +509,15 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Entities.DietMeal", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.DietMeal", b =>
                 {
-                    b.HasOne("backend.Entities.Diet", "Diet")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Diet", "Diet")
                         .WithMany("DietMeals")
                         .HasForeignKey("DietId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.Meal", "Meal")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Meal", "Meal")
                         .WithMany()
                         .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -547,9 +528,9 @@ namespace backend.Migrations
                     b.Navigation("Meal");
                 });
 
-            modelBuilder.Entity("backend.Entities.Meal", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Meal", b =>
                 {
-                    b.HasOne("backend.Entities.Diet", "Diet")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Diet", "Diet")
                         .WithMany("Meals")
                         .HasForeignKey("DietId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -558,15 +539,15 @@ namespace backend.Migrations
                     b.Navigation("Diet");
                 });
 
-            modelBuilder.Entity("backend.Entities.MealFood", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.MealFood", b =>
                 {
-                    b.HasOne("backend.Entities.Food", "Food")
-                        .WithMany("MealFoods")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Food", "Food")
+                        .WithMany()
                         .HasForeignKey("FoodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.Meal", "Meal")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Meal", "Meal")
                         .WithMany("MealFoods")
                         .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -577,15 +558,15 @@ namespace backend.Migrations
                     b.Navigation("Meal");
                 });
 
-            modelBuilder.Entity("backend.Entities.RolePermission", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.RolePermission", b =>
                 {
-                    b.HasOne("backend.Entities.Permission", "Permission")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.Role", "Role")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -596,15 +577,15 @@ namespace backend.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("backend.Entities.SetRecord", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.SetRecord", b =>
                 {
-                    b.HasOne("backend.Entities.User", "User")
+                    b.HasOne("Coacher.Backend.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.WorkoutExercise", "WorkoutExercise")
+                    b.HasOne("Coacher.Backend.Domain.Entities.WorkoutExercise", "WorkoutExercise")
                         .WithMany()
                         .HasForeignKey("WorkoutExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -615,9 +596,9 @@ namespace backend.Migrations
                     b.Navigation("WorkoutExercise");
                 });
 
-            modelBuilder.Entity("backend.Entities.User", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.User", b =>
                 {
-                    b.HasOne("backend.Entities.Role", "Role")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -626,15 +607,15 @@ namespace backend.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("backend.Entities.UserPermission", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.UserPermission", b =>
                 {
-                    b.HasOne("backend.Entities.Permission", "Permission")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Permission", "Permission")
                         .WithMany()
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.User", "User")
+                    b.HasOne("Coacher.Backend.Domain.Entities.User", "User")
                         .WithMany("UserPermissions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -645,9 +626,9 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Entities.Workout", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Workout", b =>
                 {
-                    b.HasOne("backend.Entities.WorkoutPlan", "WorkoutPlan")
+                    b.HasOne("Coacher.Backend.Domain.Entities.WorkoutPlan", "WorkoutPlan")
                         .WithMany("Workouts")
                         .HasForeignKey("WorkoutPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -656,15 +637,15 @@ namespace backend.Migrations
                     b.Navigation("WorkoutPlan");
                 });
 
-            modelBuilder.Entity("backend.Entities.WorkoutExercise", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.WorkoutExercise", b =>
                 {
-                    b.HasOne("backend.Entities.Exercise", "Exercise")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Exercise", "Exercise")
                         .WithMany("WorkoutExercises")
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.Workout", "Workout")
+                    b.HasOne("Coacher.Backend.Domain.Entities.Workout", "Workout")
                         .WithMany("WorkoutExercises")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -675,9 +656,9 @@ namespace backend.Migrations
                     b.Navigation("Workout");
                 });
 
-            modelBuilder.Entity("backend.Entities.WorkoutPlan", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.WorkoutPlan", b =>
                 {
-                    b.HasOne("backend.Entities.User", "User")
+                    b.HasOne("Coacher.Backend.Domain.Entities.User", "User")
                         .WithMany("WorkoutPlans")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -686,41 +667,51 @@ namespace backend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("backend.Entities.Diet", b =>
+            modelBuilder.Entity("PermissionRole", b =>
+                {
+                    b.HasOne("Coacher.Backend.Domain.Entities.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Coacher.Backend.Domain.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Diet", b =>
                 {
                     b.Navigation("DietMeals");
 
                     b.Navigation("Meals");
                 });
 
-            modelBuilder.Entity("backend.Entities.Exercise", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Exercise", b =>
                 {
                     b.Navigation("WorkoutExercises");
                 });
 
-            modelBuilder.Entity("backend.Entities.Food", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Meal", b =>
                 {
                     b.Navigation("MealFoods");
                 });
 
-            modelBuilder.Entity("backend.Entities.Meal", b =>
-                {
-                    b.Navigation("MealFoods");
-                });
-
-            modelBuilder.Entity("backend.Entities.Permission", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Permission", b =>
                 {
                     b.Navigation("RolePermissions");
                 });
 
-            modelBuilder.Entity("backend.Entities.Role", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Role", b =>
                 {
                     b.Navigation("RolePermissions");
 
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("backend.Entities.User", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.User", b =>
                 {
                     b.Navigation("Diets");
 
@@ -729,12 +720,12 @@ namespace backend.Migrations
                     b.Navigation("WorkoutPlans");
                 });
 
-            modelBuilder.Entity("backend.Entities.Workout", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.Workout", b =>
                 {
                     b.Navigation("WorkoutExercises");
                 });
 
-            modelBuilder.Entity("backend.Entities.WorkoutPlan", b =>
+            modelBuilder.Entity("Coacher.Backend.Domain.Entities.WorkoutPlan", b =>
                 {
                     b.Navigation("Workouts");
                 });

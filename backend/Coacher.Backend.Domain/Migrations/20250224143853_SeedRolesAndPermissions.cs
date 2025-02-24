@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Coacher.Backend.Domain.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Permission = Coacher.Backend.Domain.Enums.Permission;
-
 
 #nullable disable
 
-namespace backend.Migrations
+namespace Coacher.Backend.Domain.Migrations
 {
     /// <inheritdoc />
     public partial class SeedRolesAndPermissions : Migration

@@ -72,8 +72,7 @@ export default function DataTable({
 	fullWidthTable = false,
 	goToEntity,
 	triggerModal = false,
-	createEntity,
-	tableIcon
+	createEntity
 }: DataTableProps) {
 	const { T } = useTranslation();
 	const [globalSelected, setGlobalSelected] = useState(false);
@@ -118,16 +117,6 @@ export default function DataTable({
 	
 	return (
 		<div className={`flex flex-col relative ${!fullWidthTable ? 'pt-11 pb-4 md:px-9' : ''} gap-7 w-full h-full`}>
-			{
-				tableIcon && tableIcon?.icon ? (
-					<div className="absolute inset-0 flex justify-center items-center opacity-[0.05] pointer-events-none overflow-hidden">
-						<PhosphorIcon 
-							icon={tableIcon.icon}
-							size={tableIcon.size ?? 1000}
-						/>
-					</div>
-				) : null 
-			}
 			{
 				form && formSubmission ? (
 					<Modal

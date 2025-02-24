@@ -20,6 +20,8 @@ namespace Coacher.Backend.WebAPI.Controllers.RoleController
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces<IEnumerable<SelectItemDto>>]
         public async Task<ActionResult<IEnumerable<SelectItemDto>>> GetRoleOptions()
         {
             try

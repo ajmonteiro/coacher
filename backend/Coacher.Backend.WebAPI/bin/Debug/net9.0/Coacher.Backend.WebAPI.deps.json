@@ -16,7 +16,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
           "Microsoft.AspNetCore.Mvc": "2.3.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.0",
-          "Microsoft.EntityFrameworkCore.Design": "9.0.1",
+          "Microsoft.EntityFrameworkCore.Design": "9.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.2",
           "Microsoft.Extensions.Primitives": "9.0.2",
           "Pomelo.EntityFrameworkCore.MySql": "9.0.0-preview.2.efcore.9.0.0",
@@ -385,7 +385,7 @@
           "Microsoft.AspNetCore.ResponseCaching.Abstractions": "2.3.0",
           "Microsoft.AspNetCore.Routing": "2.3.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.2",
-          "Microsoft.Extensions.DependencyModel": "9.0.1",
+          "Microsoft.Extensions.DependencyModel": "9.0.2",
           "Microsoft.Extensions.FileProviders.Abstractions": "8.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.2",
           "System.Diagnostics.DiagnosticSource": "8.0.1",
@@ -994,7 +994,7 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/9.0.2": {},
-      "Microsoft.EntityFrameworkCore.Design/9.0.1": {
+      "Microsoft.EntityFrameworkCore.Design/9.0.2": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.Build.Framework": "17.8.3",
@@ -1005,15 +1005,15 @@
           "Microsoft.EntityFrameworkCore.Relational": "9.0.2",
           "Microsoft.Extensions.Caching.Memory": "9.0.2",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.2",
-          "Microsoft.Extensions.DependencyModel": "9.0.1",
+          "Microsoft.Extensions.DependencyModel": "9.0.2",
           "Microsoft.Extensions.Logging": "9.0.2",
           "Mono.TextTemplating": "3.0.0",
           "System.Text.Json": "9.0.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "9.0.1.0",
-            "fileVersion": "9.0.124.61002"
+            "assemblyVersion": "9.0.2.0",
+            "fileVersion": "9.0.225.6701"
           }
         }
       },
@@ -1153,11 +1153,11 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyModel/9.0.1": {
+      "Microsoft.Extensions.DependencyModel/9.0.2": {
         "runtime": {
           "lib/net9.0/Microsoft.Extensions.DependencyModel.dll": {
-            "assemblyVersion": "9.0.0.1",
-            "fileVersion": "9.0.124.61010"
+            "assemblyVersion": "9.0.0.2",
+            "fileVersion": "9.0.225.6610"
           }
         }
       },
@@ -2391,12 +2391,12 @@
       "path": "microsoft.entityframeworkcore.analyzers/9.0.2",
       "hashPath": "microsoft.entityframeworkcore.analyzers.9.0.2.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/9.0.1": {
+    "Microsoft.EntityFrameworkCore.Design/9.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/pchcadGU57ChRYH0/bvLTeU/n1mpWO+0pVK7pUzzuwRu5SIQb8dVMZVPhzvEI2VO5rP1yricSQBBnOmDqQhvg==",
-      "path": "microsoft.entityframeworkcore.design/9.0.1",
-      "hashPath": "microsoft.entityframeworkcore.design.9.0.1.nupkg.sha512"
+      "sha512": "sha512-WWRmTxb/yd05cTW+k32lLvIhffxilgYvwKHDxiqe7GRLKeceyMspuf5BRpW65sFF7S2G+Be9JgjUe1ypGqt9tg==",
+      "path": "microsoft.entityframeworkcore.design/9.0.2",
+      "hashPath": "microsoft.entityframeworkcore.design.9.0.2.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.2": {
       "type": "package",
@@ -2503,12 +2503,12 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.2",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyModel/9.0.1": {
+    "Microsoft.Extensions.DependencyModel/9.0.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FHPy9cbb0y09riEpsrU5XYpOgf4nTfHj7a0m1wLC5DosGtjJn9g03gGg1GTJmEdRFBQrJwbwTnHqLCdNLsoYgA==",
-      "path": "microsoft.extensions.dependencymodel/9.0.1",
-      "hashPath": "microsoft.extensions.dependencymodel.9.0.1.nupkg.sha512"
+      "sha512": "sha512-3ImbcbS68jy9sKr9Z9ToRbEEX0bvIRdb8zyf5ebtL9Av2CUCGHvaO5wsSXfRfAjr60Vrq0tlmNji9IzAxW6EOw==",
+      "path": "microsoft.extensions.dependencymodel/9.0.2",
+      "hashPath": "microsoft.extensions.dependencymodel.9.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Diagnostics.Abstractions/8.0.1": {
       "type": "package",

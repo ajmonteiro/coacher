@@ -27,11 +27,11 @@ namespace backend.Controllers.FoodController
         
         [Authorize(Roles = "Coach")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Food>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<Food>>> GetAllAsync(int page = 1, int perPage = 10)
         {
             try
             {
-                var foods = await _foodService.GetAllAsync();
+                var foods = await _foodService.GetAllAsync(page, perPage);
                 return Ok(foods);
             }
             catch (Exception ex)

@@ -16,9 +16,9 @@ namespace Coacher.Backend.WebAPI.Controllers.WorkoutPlanController
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WorkoutPlanDto>>> GetAllWorkoutPlans()
+        public async Task<ActionResult<IEnumerable<WorkoutPlanDto>>> GetAllWorkoutPlans(int page = 1, int perPage = 10)
         {
-            return Ok(await _workoutPlanService.GetAllWorkoutPlansAsync());
+            return Ok(await _workoutPlanService.GetAllWorkoutPlansAsync(page, perPage));
         }
 
         [HttpGet("{id}")]

@@ -8,7 +8,6 @@ namespace Coacher.Backend.Domain.Entities
         public Guid WorkoutId { get; set; }
         [JsonIgnore]
         public virtual Workout Workout { get; set; } = null!;
-        
         public Guid ExerciseId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public virtual Exercise Exercise { get; set; } = null!;

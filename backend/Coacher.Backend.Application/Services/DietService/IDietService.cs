@@ -5,7 +5,7 @@ namespace Coacher.Backend.Application.Services.DietService;
 
 public interface IDietService
 {
-        Task<PagedResult<Diet>> GetAllAsync(int page = 1, int pageSize = 10);
+        Task<PagedResult<Diet>> GetAllAsync(int page = 1, int perPage = 10);
         Task<DietDto> GetDietAsync(Guid id);
         Task<DietDto> CreateDietAsync(DietDto createDietDto);
         Task<DietDto> UpdateDietAsync(DietDto updateDietDto);
