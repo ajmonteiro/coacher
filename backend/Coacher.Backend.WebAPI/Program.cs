@@ -14,6 +14,7 @@ using Coacher.Backend.Application.Services.UserService;
 using Coacher.Backend.Application.Services.WorkoutPlanService;
 using Coacher.Backend.Domain.Data;
 using Permission = Coacher.Backend.Domain.Enums.Permission;
+using Coacher.Backend.Application.Services.WorkoutService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -126,6 +127,7 @@ builder.Services.AddScoped<IDietService, DietService>();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IMealService, MealService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 
 
 var app = builder.Build();

@@ -32,6 +32,7 @@
     "@resourge/react-translations": "^1.9.1",
     "@resourge/schema": "^1.13.0",
     "@resourge/translations": "^1.10.6",
+    "@tanstack/react-router": "^1.111.7",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "clsx": "^2.1.1",
@@ -48,6 +49,8 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@tanstack/router-devtools": "^1.111.7",
+    "@tanstack/router-plugin": "^1.111.7",
     "@types/jest": "^29.5.13",
     "@types/react": "^18.2.75",
     "@types/react-dom": "^18.2.24",

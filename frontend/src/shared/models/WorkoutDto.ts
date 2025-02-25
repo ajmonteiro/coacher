@@ -7,8 +7,9 @@ export type WorkoutType = {
 	name: string
 	updatedAt: string
 	weekDay: string
-	workoutExercises: ExerciseType[]
 	workoutPlanId: string
+	exercises?: any[]
+	workoutExercises?: ExerciseType[]
 };
 
 export class WorkoutDto {
@@ -21,6 +22,7 @@ export class WorkoutDto {
 	public createdAt: string = '';
 	public updatedAt: string = '';
 	public keyIndex: number = 0;
+	public exercisesWorkout: any[] = [];
 
 	constructor(base: WorkoutType) {
 		this.id = base.id;
@@ -28,7 +30,8 @@ export class WorkoutDto {
 		this.name = base.name;
 		this.weekDay = base.weekDay;
 		this.workoutPlanId = base.workoutPlanId;
-		this.exercises = base.workoutExercises.map((exercise) => new ExerciseDto(exercise));
+		this.exercises = base.workoutExercises ? base.workoutExercises.map((exercise) => new ExerciseDto(exercise)) : [];
+		this.exercisesWorkout = base.exercises ?? [];
 		this.createdAt = base.createdAt;
 		this.updatedAt = base.updatedAt;
 		this.keyIndex = Math.random();

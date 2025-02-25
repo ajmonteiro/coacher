@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Coacher.Backend.Contracts.Dto
 {
     public class UserDto
@@ -6,6 +8,7 @@ namespace Coacher.Backend.Contracts.Dto
         public string Username { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public string Phone { get; set; } = string.Empty;
+        [JsonIgnore]
         public string Password { get; set; } = string.Empty;
         public string Weight { get; set; } = string.Empty;
         public string Height { get; set; } = string.Empty;

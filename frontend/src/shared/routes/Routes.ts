@@ -24,6 +24,9 @@ const Routes = SetupPaths({
 				workoutPlanId: searchParam<{ workoutPlanId: string }>
 			})
 		}),
+		WORKOUT_DETAIL: path('workout-detail').searchParams({
+			workoutId: searchParam<{ workoutId: string }>
+		}),
 		USER_PROFILE: path('profile').searchParams({
 			userId: searchParam<{ userId: string }>
 		}),

@@ -4,6 +4,7 @@ import { useSearchParams } from '@resourge/react-router';
 import A from 'src/components/A/A';
 import InfoCard from 'src/components/infoCard/InfoCard';
 import DashboardLayout from 'src/layouts/dashboardLayout/DashboardLayout';
+import Routes from 'src/shared/routes/Routes';
 import { useTranslation } from 'src/shared/translations/Translations';
 
 import WorkoutPlanDetailPageApi from './WorkoutPlanDetailPageApi';
@@ -55,18 +56,24 @@ export default function WorkoutPlanDetailPage() {
 							</div>
 							<div className="mt-6 flex flex-wrap gap-4">
 								{ workoutPlan?.workouts.map((workout) => (
-									<InfoCard
+									<A
 										key={workout.id}
-										className="shadow-md rounded-lg bg-base-100 
-                            text-base-content border border-gold grow
-                            cursor-pointer
-                            hover:translate-y-1 transition-transform duration-300 ease-in-out
-                            "
+										className="w-full h-fit p-0"
+										href={Routes.DASHBOARD.WORKOUT_DETAIL.get({
+											searchParams: {
+												workoutId: workout.id
+											}
+										})}
+										variant="simple"
 									>
-										<A
-											className="w-full h-fit p-0"
-											variant="simple"
+										<InfoCard
+											className="shadow-md rounded-lg bg-base-100 
+												text-base-content border border-gold grow
+												cursor-pointer
+												h-full w-full
+												hover:translate-y-1 transition-transform duration-300 ease-in-out"
 										>
+										
 											<div className="flex justify-between gap-5">
 												<div>
 													<h2 className="text-2xl font-semibold text-base-content">{ workout.name }</h2>
@@ -74,8 +81,8 @@ export default function WorkoutPlanDetailPage() {
 												</div>
 												<div className="badge badge-info font-bold text-white px-3 py-1 text-sm">{ workout.weekDay }</div>
 											</div>
-										</A>
-									</InfoCard>
+										</InfoCard>
+									</A>
 								)) }
 							</div>
 						</>

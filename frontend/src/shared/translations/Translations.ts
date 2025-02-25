@@ -124,6 +124,38 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 			}
 		},
 		pages: {
+			workout: {
+				pageTitle: {
+					pt: 'Informação do Treino',
+					en: 'Workout Information',
+					es: 'Información del Entrenamiento',
+					fr: 'Informations sur l\'entraînement'
+				},
+				set: {
+					pt: 'Série',
+					en: 'Set',
+					es: 'Serie',
+					fr: 'Ensemble'
+				},
+				sets: {
+					pt: 'Séries',
+					en: 'Sets',
+					es: 'Series',
+					fr: 'Ensembles'
+				},
+				reps: {
+					pt: 'Repetições',
+					en: 'Reps',
+					es: 'Repeticiones',
+					fr: 'Répétitions'
+				},
+				weight: {
+					pt: 'Peso',
+					en: 'Weight',
+					es: 'Peso',
+					fr: 'Poids'
+				}
+			},
 			clientInfo: {
 				diets: {
 					pt: 'Dietas',

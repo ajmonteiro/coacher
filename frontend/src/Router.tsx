@@ -19,6 +19,7 @@ const ClientInfoPage = lazy(() => import('./pages/clientInfo/ClientInfoPage'));
 const ClientDietsPage = lazy(() => import('./pages/clientDiets/ClientDietsPage'));
 const ClientWorkoutsPage = lazy(() => import('./pages/clientWorkouts/ClientWorkoutsPage'));
 const WorkoutPlanDetailPage = lazy(() => import('./pages/workoutPlanDetail/WorkoutPlanDetailPage'));
+const WorkoutDetailPage = lazy(() => import('./pages/workoutDetail/WorkoutDetailPage'));
 
 const AuthRouter = () => (
 	<Switch>
@@ -68,6 +69,12 @@ const DashboardRouter = () => {
 				path={Routes.DASHBOARD.EXERCISES.path}
 			>
 				<ExercisesPage />
+			</AuthorizedRoute>
+			<AuthorizedRoute 
+				can={['ReadWorkout']}
+				path={Routes.DASHBOARD.WORKOUT_DETAIL.path}
+			>
+				<WorkoutDetailPage />
 			</AuthorizedRoute>
 			<AuthorizedRoute 
 				can={['ReadWorkout']}
