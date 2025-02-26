@@ -1,3 +1,4 @@
+using Coacher.Backend.Contracts.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coacher.Backend.Domain.Entities.Extensions;
@@ -23,5 +24,55 @@ public static class UserIncludeExtensions
         .ThenInclude(d => d.Meals)
         .ThenInclude(m => m.MealFoods)
         .ThenInclude(mf => mf.Food);
+    }
+
+    public static UserDto UserToDto(User user)
+    {
+        return new UserDto
+        {
+            Id = user.Id,
+            Username = user.Username,
+            FullName = user.FullName,
+            Phone = user.Phone,
+            Weight = user.Weight,
+            Height = user.Height,
+            RoleId = user.RoleId,
+            RoleName = user.Role.Name,
+            UserPermissions = user.UserPermissions.Select(up => new UserPermissionDto
+            {
+                Id = up.Id,
+                UserId = up.UserId,
+                PermissionId = up.PermissionId,
+                Permission = new PermissionDto
+                {
+                    Id = up.Permission.Id,
+                    Name = up.Permission.Name,
+                },
+            }).ToList(),
+            WorkoutPlans = user.WorkoutPlans.Select(wp => new WorkoutPlanDto
+            {
+                Id = wp.Id,
+                Name = wp.Name,
+                StartDate = wp.StartDate,
+                EndDate = wp.EndDate,
+                Workouts = wp.Workouts.Select(w => new WorkoutDto
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    Description = w.Description,
+                    WorkoutPlanId = w.WorkoutPlanId,
+                    WeekDay = w.WeekDay,
+                    UserId = user.Id,
+                    Exercises = w.WorkoutExercises.Select(we => new ExerciseInWorkoutDto
+                    {
+                        Id = we.Id,
+                        ExerciseId = we.ExerciseId,
+                        Name = we.Exercise.Name,
+                        Sets = we.Sets,
+                        Reps = we.Reps,
+                    }).ToList()
+                }).ToList()
+            }).ToList(),
+        };
     }
 }

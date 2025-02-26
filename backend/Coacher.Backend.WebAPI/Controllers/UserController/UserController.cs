@@ -25,7 +25,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Coach")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllAsync(int page = 1, int perPage = 10)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAllAsync(int page = 1, int perPage = 10)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Coach")]
-        public async Task<ActionResult<User>> GetOptionsAsync()
+        public async Task<ActionResult<UserDto>> GetOptionsAsync()
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Roles = "Coach")]
-        public async Task<ActionResult<User>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<UserDto>> GetByIdAsync(Guid id)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<User>> GetCurrentAsync()
+        public async Task<ActionResult<UserDto>> GetCurrentAsync()
         {
             try
             {
@@ -113,7 +113,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Coach")]
-        public async Task<ActionResult<User>> CreateAsync(UserDto user)
+        public async Task<ActionResult<UserDto>> CreateAsync(UserDto user)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace Coacher.Backend.WebAPI.Controllers.UserController
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Authorize(Roles = "Coach")]
-        public async Task<ActionResult<User>> UpdateAsync(UserDto user)
+        public async Task<ActionResult<UserDto>> UpdateAsync(UserDto user)
         {
             try
             {

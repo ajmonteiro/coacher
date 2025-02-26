@@ -1,6 +1,5 @@
 using Coacher.Backend.Application.Services.ExerciseService;
 using Coacher.Backend.Contracts.Dto;
-using Coacher.Backend.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
@@ -21,7 +20,7 @@ namespace Coacher.Backend.WebAPI.Controllers.ExerciseController
         
         [Authorize(Roles = "Coach")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Exercise>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<ExerciseDto>>> GetAllAsync()
         {
             try
             {
@@ -37,7 +36,7 @@ namespace Coacher.Backend.WebAPI.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("options")]
-        public async Task<ActionResult<Exercise>> GetOptionsAsync(Guid id)
+        public async Task<ActionResult<ExerciseDto>> GetOptionsAsync(Guid id)
         {
             try
             {
@@ -53,7 +52,7 @@ namespace Coacher.Backend.WebAPI.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Exercise>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<ExerciseDto>> GetByIdAsync(Guid id)
         {
             try
             {
@@ -72,7 +71,7 @@ namespace Coacher.Backend.WebAPI.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpPost]
-        public async Task<ActionResult<Exercise>> CreateAsync(ExerciseDto exercise)
+        public async Task<ActionResult<ExerciseDto>> CreateAsync(ExerciseDto exercise)
         {
             try
             {
@@ -88,7 +87,7 @@ namespace Coacher.Backend.WebAPI.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Exercise>> UpdateExercise(ExerciseDto exercise)
+        public async Task<ActionResult<ExerciseDto>> UpdateExercise(ExerciseDto exercise)
         {
             try
             {
@@ -108,7 +107,7 @@ namespace Coacher.Backend.WebAPI.Controllers.ExerciseController
 
         [Authorize(Roles = "Coach")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Exercise>> DeleteExercise(Guid id)
+        public async Task<ActionResult<ExerciseDto>> DeleteExercise(Guid id)
         {
             try
             {

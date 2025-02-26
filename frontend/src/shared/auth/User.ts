@@ -12,10 +12,8 @@ type UserType = BaseUserType & {
 	height: string
 	id: string
 	phone: string
-	role: {
-		id: string
-		name: string
-	}
+	roleId: string
+	roleName: string
 	username: string
 	userPermissions: PermissionType[]
 	weight: string
@@ -48,7 +46,10 @@ export class User implements BaseUserType {
 			this.fullName = data.fullName;
 			this.height = data.height;
 			this.phone = data.phone;
-			this.role = data.role;
+			this.role = {
+				id: data.roleId,
+				name: data.roleName
+			};
 			this.username = data.username;
 			this.weight = data.weight;
 			this.id = data.id;

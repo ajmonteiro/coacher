@@ -131,13 +131,7 @@ public class DietService : IDietService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving diet: {ex}");
-                if (ex.InnerException != null)
-                {
-                    Console.WriteLine($"Inner Exception: {ex.InnerException}");
-                }
-
-                throw;
+                throw new Exception(ex.Message);
             }
 
             diet = await _context.Diets

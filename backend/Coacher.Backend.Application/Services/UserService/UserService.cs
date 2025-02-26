@@ -5,6 +5,7 @@ using Coacher.Backend.Domain.Entities;
 using Coacher.Backend.Domain.Entities.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -22,7 +23,7 @@ namespace Coacher.Backend.Application.Services.UserService
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<PagedResult<User>> GetAllAsync(int page = 1, int perPage = 10)
+        public async Task<PagedResult<UserDto>> GetAllAsync(int page = 1, int perPage = 10)
         {
             var query = _context.Users
                 .WithBasicIncludes()
@@ -34,12 +35,24 @@ namespace Coacher.Backend.Application.Services.UserService
                 .Take(perPage)
                 .ToListAsync();
 
-            return new PagedResult<User>
+            var users = items.Select(u => new UserDto
+            {
+                Id = u.Id,
+                Username = u.Username,
+                FullName = u.FullName,
+                Phone = u.Phone,
+                Weight = u.Weight,
+                Height = u.Height,
+                RoleId = u.RoleId,
+                RoleName = u.Role.Name
+            });
+
+            return new PagedResult<UserDto>
             {
                 TotalItems = totalItems,
                 Page = page,
                 PerPage = perPage,
-                Data = items
+                Data = users
             };
         }
 
@@ -55,15 +68,32 @@ namespace Coacher.Backend.Application.Services.UserService
             return await query.ToListAsync();
         }
 
-        public async Task<User?> GetByIdAsync(Guid id)
+        public async Task<UserDto?> GetByIdAsync(Guid id)
         {
-            return await _context.Users
+            var user = await _context.Users
                 .WithBasicIncludes()
                 .WithFitnessData()
                 .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                throw new KeyNotFoundException();
+            }
+
+            return new UserDto 
+            {
+                Id = user.Id,
+                Username = user.Username,
+                FullName = user.FullName,
+                Phone = user.Phone,
+                Weight = user.Weight,
+                Height = user.Height,
+                RoleId = user.RoleId,
+                RoleName = user.Role.Name
+            };
         }
 
-        public async Task<User> GetCurrentAsync()
+        public async Task<UserDto> GetCurrentAsync()
         {
             var httpContext = _httpContextAccessor.HttpContext;
             if (httpContext == null || httpContext.User == null)
@@ -84,10 +114,11 @@ namespace Coacher.Backend.Application.Services.UserService
             
             if(user == null) throw new UnauthorizedAccessException("User not found");
 
-            return user;
+
+            return UserIncludeExtensions.UserToDto(user);
         }
 
-        public async Task<User> CreateAsync(UserDto user)
+        public async Task<UserDto> CreateAsync(UserDto user)
         {
             var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == user.RoleId);
             if (role == null)
@@ -107,10 +138,20 @@ namespace Coacher.Backend.Application.Services.UserService
 
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
-            return newUser;
+            return new UserDto
+            {
+                Id = newUser.Id,
+                Username = newUser.Username,
+                FullName = newUser.FullName,
+                Phone = newUser.Phone,
+                Weight = newUser.Weight,
+                Height = newUser.Height,
+                RoleId = newUser.RoleId,
+                RoleName = role.Name
+            };
         }
 
-        public async Task<User> UpdateAsync(UserDto user)
+        public async Task<UserDto> UpdateAsync(UserDto user)
         {
             var existingUser = await _context.Users
                 .Include(u => u.Role)
@@ -127,7 +168,17 @@ namespace Coacher.Backend.Application.Services.UserService
             existingUser.RoleId = user.RoleId;
 
             await _context.SaveChangesAsync();
-            return existingUser;
+            return new UserDto
+            {
+                Id = existingUser.Id,
+                Username = existingUser.Username,
+                FullName = existingUser.FullName,
+                Phone = existingUser.Phone,
+                Weight = existingUser.Weight,
+                Height = existingUser.Height,
+                RoleId = existingUser.RoleId,
+                RoleName = existingUser.Role.Name
+            };
         }
 
         public async Task DeleteAsync(Guid id)

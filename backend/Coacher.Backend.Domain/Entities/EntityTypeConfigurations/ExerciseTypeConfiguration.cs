@@ -10,7 +10,8 @@ public class ExerciseTypeConfiguration : BaseEntityTypeConfiguration<Exercise>
 
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Name).HasMaxLength(64).IsRequired();
-        builder.Property(e => e.Description).HasMaxLength(255).IsRequired();
+        builder.Property(e => e.Description).HasMaxLength(1000).IsRequired();
         builder.Property(e => e.Video).HasMaxLength(255).IsRequired();
+        builder.Property(e => e.ExerciseType).IsRequired();
     }
 }

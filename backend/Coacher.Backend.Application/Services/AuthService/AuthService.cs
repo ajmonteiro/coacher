@@ -213,8 +213,6 @@ namespace Coacher.Backend.Application.Services.AuthService
             var key = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(configuration.GetValue<string>("AppSettings:Token")!));
             
-            Console.WriteLine($"Key used: {configuration.GetValue<string>("AppSettings:Token")}");
-
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
             var tokenDescriptor = new JwtSecurityToken(

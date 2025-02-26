@@ -14,7 +14,10 @@ namespace Coacher.Backend.Contracts.Dto
         public string Height { get; set; } = string.Empty;
         public Guid RoleId { get; set; }
         public string? RoleName { get; set; } = string.Empty;
+        public List<UserPermissionDto>? UserPermissions { get; set; } = new();
         public List<WorkoutPlanDto>? WorkoutPlans { get; set; } = new();
         public List<DietDto>? Diets { get; set; } = new();
     }
+
+  
 }

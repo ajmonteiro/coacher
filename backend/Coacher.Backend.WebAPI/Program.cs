@@ -15,6 +15,7 @@ using Coacher.Backend.Application.Services.WorkoutPlanService;
 using Coacher.Backend.Domain.Data;
 using Permission = Coacher.Backend.Domain.Enums.Permission;
 using Coacher.Backend.Application.Services.WorkoutService;
+using Coacher.Backend.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,8 +54,10 @@ builder.Services.AddLogging(logging =>
 });
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Coacher API", Version = "v1" });
-  
+    c.CustomSchemaIds(type => type.Name);
+
+    c.DocumentFilter<DtoFilter>();
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer 12345abcdef\"",

@@ -71,13 +71,13 @@ const DashboardRouter = () => {
 				<ExercisesPage />
 			</AuthorizedRoute>
 			<AuthorizedRoute 
-				can={['ReadWorkout']}
+				can={['ReadWorkout', 'ReadClientInfo']}
 				path={Routes.DASHBOARD.WORKOUT_DETAIL.path}
 			>
 				<WorkoutDetailPage />
 			</AuthorizedRoute>
 			<AuthorizedRoute 
-				can={['ReadWorkout']}
+				can={['ReadWorkout', 'ReadClientInfo']}
 				path={Routes.DASHBOARD.WORKOUTS_PLANS.PLAN_DETAIL.path}
 			>
 				<WorkoutPlanDetailPage />
