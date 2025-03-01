@@ -5,18 +5,16 @@ using Coacher.Backend.Domain.Entities;
 using Coacher.Backend.Domain.Entities.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Coacher.Backend.Application.Services.UserService
 {
     public class UserService : IUserService
     {
-        private readonly AppDbContext _context;
+        private readonly CoacherContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserService(
-            AppDbContext context,
+            CoacherContext context,
             IHttpContextAccessor httpContextAccessor)
         {
             _context = context;

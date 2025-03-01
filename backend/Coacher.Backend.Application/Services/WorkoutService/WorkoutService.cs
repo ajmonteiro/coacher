@@ -8,9 +8,9 @@ namespace Coacher.Backend.Application.Services.WorkoutService;
 
 public class WorkoutService : IWorkoutService
 {
-    private readonly AppDbContext _context;
+    private readonly CoacherContext _context;
 
-    public WorkoutService(AppDbContext context)
+    public WorkoutService(CoacherContext context)
     {
         _context = context;
     }
@@ -32,13 +32,20 @@ public class WorkoutService : IWorkoutService
                 WorkoutPlanId = workout.WorkoutPlanId,
                 WeekDay = workout.WeekDay,
                 UserId = workout.WorkoutPlan.UserId,
-                Exercises = workout.WorkoutExercises.Select(we => new ExerciseInWorkoutDto
+                Exercises = workout.WorkoutExercises.Select(we => new WorkoutExerciseDto
                 {
                     Id = we.Id,
-                    ExerciseId = we.ExerciseId,
+                    Exercise = new ExerciseDto
+                    {
+                        Id = we.Exercise.Id,
+                        Name = we.Exercise.Name,
+                        Description = we.Exercise.Description,
+                        Video = we.Exercise.Video,
+                        ExerciseType = (int)we.Exercise.ExerciseType
+                    },
                     Name = we.Exercise.Name,
-                    Sets = we.Sets,
-                    Reps = we.Reps
+                    PrescribedReps = we.PrescribedReps,
+                    PrescribedSets = we.PrescribedSets,
                 }).ToList()
             };
         }

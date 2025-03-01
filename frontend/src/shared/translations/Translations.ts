@@ -131,6 +131,12 @@ const { TranslationInstance, useTranslation } = SetupReactTranslations({
 					es: 'Información del Entrenamiento',
 					fr: 'Informations sur l\'entraînement'
 				},
+				registerSet: {
+					pt: 'Registar Série',
+					en: 'Register Set',
+					es: 'Registrar Serie',
+					fr: 'Enregistrer l\'ensemble'
+				},
 				set: {
 					pt: 'Série',
 					en: 'Set',

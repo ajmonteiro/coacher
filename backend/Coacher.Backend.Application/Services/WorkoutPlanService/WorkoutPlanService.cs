@@ -8,9 +8,9 @@ namespace Coacher.Backend.Application.Services.WorkoutPlanService
 {
     public class WorkoutPlanService : IWorkoutPlanService
     {
-        private readonly AppDbContext _context;
+        private readonly CoacherContext _context;
 
-        public WorkoutPlanService(AppDbContext context)
+        public WorkoutPlanService(CoacherContext context)
         {
             _context = context;
         }
@@ -79,10 +79,10 @@ namespace Coacher.Backend.Application.Services.WorkoutPlanService
                     {
                         foreach (var exerciseDto in workoutDto.Exercises)
                         {
-                            var exercise = await _context.Exercises.FindAsync(exerciseDto.ExerciseId);
+                            var exercise = await _context.Exercises.FindAsync(exerciseDto.Exercise.Id);
                             if (exercise == null)
                             {
-                                throw new Exception($"Exercise with ID {exerciseDto.ExerciseId} not found");
+                                throw new Exception($"Exercise with ID {exerciseDto.Exercise.Id} not found");
                             }
 
                             var workoutExercise = new WorkoutExercise
@@ -92,8 +92,13 @@ namespace Coacher.Backend.Application.Services.WorkoutPlanService
                                 Exercise = exercise,
                                 WorkoutId = workout.Id,
                                 Workout = workout,
-                                Reps = exerciseDto.Reps,
-                                Sets = exerciseDto.Sets,
+                                PrescribedReps = exerciseDto.PrescribedReps,
+                                PrescribedSets = exerciseDto.PrescribedSets,
+                                ActualWeight = exerciseDto.ActualWeight,
+                                ActualReps = exerciseDto.ActualReps,
+                                ActualSets = exerciseDto.ActualSets,
+                                CompletedAt = exerciseDto.CompletedAt,
+                                Notes = exerciseDto.Notes
                             };
 
                             _context.WorkoutExercises.Add(workoutExercise);
@@ -148,7 +153,15 @@ namespace Coacher.Backend.Application.Services.WorkoutPlanService
                         WorkoutPlanId = plan.Id,
                         WorkoutExercises = workoutDto.Exercises.Select(e => new WorkoutExercise
                         {
-                            ExerciseId = e.ExerciseId,
+                            Id = Guid.NewGuid(),
+                            ExerciseId = e.Exercise.Id,
+                            PrescribedReps = e.PrescribedReps,
+                            PrescribedSets = e.PrescribedSets,
+                            ActualWeight = e.ActualWeight,
+                            ActualReps = e.ActualReps,
+                            ActualSets = e.ActualSets,
+                            CompletedAt = e.CompletedAt,
+                            Notes = e.Notes
                         }).ToList()
                     };
 

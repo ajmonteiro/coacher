@@ -1,25 +1,22 @@
 using Coacher.Backend.Contracts.Dto;
 using Coacher.Backend.Domain.Data;
 using Coacher.Backend.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coacher.Backend.Application.Services.RoleService;
 
 public class RoleService : IRoleService
 {
-    private readonly AppDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly CoacherContext _context;
 
-    public RoleService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+    public RoleService(CoacherContext context)
     {
         _context = context;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<Role> GetByIdAsync(Guid id)
     {
-        var role = await _context.Roles.FindAsync(id);
+        var role = await _context.Roles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         
         if (role == null)
         {
@@ -31,7 +28,7 @@ public class RoleService : IRoleService
 
     public async Task<Role> GetByNameAsync(string name)
     {
-        var role = await _context.Roles.FirstOrDefaultAsync(x => x.Name == name);
+        var role = await _context.Roles.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name);
 
         if (role == null)
         {

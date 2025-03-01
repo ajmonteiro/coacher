@@ -1,4 +1,4 @@
-import { type ReactNode, useState, useEffect } from 'react';
+import { type ReactNode, useState } from 'react';
 
 import Footer from 'src/components/footer/Footer';
 import Header from 'src/components/header/Header';
@@ -12,13 +12,7 @@ type DashboardLayoutProps = {
 };
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
-		return localStorage.getItem('isSidebarOpen') !== 'false';
-	});
-
-	useEffect(() => {
-		localStorage.setItem('isSidebarOpen', JSON.stringify(isSidebarOpen));
-	}, [isSidebarOpen]);
+	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
 	return (
 		<GlobalLayout>

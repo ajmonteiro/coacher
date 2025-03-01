@@ -21,7 +21,7 @@ type SidebarProps = {
 	isSidebarOpen: boolean
 };
 
-export default function Sidebar({ isSidebarOpen }: SidebarProps) {
+export default function Sidebar({ isSidebarOpen = false }: SidebarProps) {
 	const { T } = useTranslation();
 	const { user } = useAuthentication();
 

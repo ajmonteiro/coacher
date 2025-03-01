@@ -63,13 +63,19 @@ public static class UserIncludeExtensions
                     WorkoutPlanId = w.WorkoutPlanId,
                     WeekDay = w.WeekDay,
                     UserId = user.Id,
-                    Exercises = w.WorkoutExercises.Select(we => new ExerciseInWorkoutDto
+                    Exercises = w.WorkoutExercises.Select(we => new WorkoutExerciseDto
                     {
                         Id = we.Id,
-                        ExerciseId = we.ExerciseId,
-                        Name = we.Exercise.Name,
-                        Sets = we.Sets,
-                        Reps = we.Reps,
+                        Exercise = new ExerciseDto
+                        {
+                            Id = we.Exercise.Id,
+                            Name = we.Exercise.Name,
+                            Description = we.Exercise.Description,
+                            Video = we.Exercise.Video,
+                            ExerciseType = (int)we.Exercise.ExerciseType,
+                        },
+                        PrescribedReps = we.PrescribedReps,
+                        PrescribedSets = we.PrescribedSets,
                     }).ToList()
                 }).ToList()
             }).ToList(),

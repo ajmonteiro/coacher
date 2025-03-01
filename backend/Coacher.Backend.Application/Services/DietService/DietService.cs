@@ -1,4 +1,3 @@
-using Coacher.Backend.Application.Services.AuthService;
 using Coacher.Backend.Contracts.Dto;
 using Coacher.Backend.Domain.Data;
 using Coacher.Backend.Domain.Entities;
@@ -9,10 +8,10 @@ namespace Coacher.Backend.Application.Services.DietService;
 
 public class DietService : IDietService
 {
-        private readonly AppDbContext _context;
+        private readonly CoacherContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         
-        public DietService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        public DietService(CoacherContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;

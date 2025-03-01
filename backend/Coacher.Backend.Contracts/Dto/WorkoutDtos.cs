@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Coacher.Backend.Contracts.Dto
 {
     public class WorkoutExerciseDto
@@ -7,14 +5,14 @@ namespace Coacher.Backend.Contracts.Dto
         public Guid Id { get; set; }
         public Guid WorkoutId { get; set; }
         public ExerciseDto Exercise { get; set; } = new ExerciseDto();
-    }
-    public class ExerciseInWorkoutDto
-    {
-        public Guid? Id { get; set; }
-        public Guid ExerciseId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int Sets  { get; set; }
-        public int Reps { get; set; }
+        public int PrescribedSets  { get; set; } = 0;
+        public int PrescribedReps { get; set; } = 0;
+        public int? ActualSets { get; set; }
+        public int? ActualReps { get; set; }
+        public float? ActualWeight { get; set; }
+        public DateTime? CompletedAt { get; set; }
+        public string Notes { get; set; } = string.Empty;
     }
     public class WorkoutDto
     {
@@ -25,6 +23,6 @@ namespace Coacher.Backend.Contracts.Dto
         public string WeekDay { get; set; } = string.Empty;
         public Guid UserId { get; set; }
         public UserDto? User { get; set; }
-        public virtual ICollection<ExerciseInWorkoutDto> Exercises { get; set; } = new List<ExerciseInWorkoutDto>();
+        public virtual ICollection<WorkoutExerciseDto> Exercises { get; set; } = new List<WorkoutExerciseDto>();
     }
 }

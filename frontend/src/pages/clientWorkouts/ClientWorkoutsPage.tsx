@@ -45,9 +45,9 @@ export default function ClientWorkoutsPage() {
 								<hr />
 							</div>
 							<div className="mt-6 flex flex-wrap gap-4">
-								{ workoutPlan?.workouts.map((workout) => (
+								{ workoutPlan?.workouts.map((workout, index) => (
 									<A
-										key={workout.id}
+										key={index}
 										className="w-full h-fit p-0"
 										href={Routes.DASHBOARD.WORKOUT_DETAIL.get({
 											searchParams: {

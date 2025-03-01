@@ -2,21 +2,17 @@ using Coacher.Backend.Contracts.Dto;
 using Coacher.Backend.Domain.Data;
 using Coacher.Backend.Domain.Entities;
 using Coacher.Backend.Domain.Enums;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coacher.Backend.Application.Services.ExerciseService;
 
 public class ExerciseService : IExerciseService
 {
-    private readonly AppDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly CoacherContext _context;
 
-    public ExerciseService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+    public ExerciseService(CoacherContext context)
     {
         _context = context;
-        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<PagedResult<ExerciseDto>> GetAllAsync(int page = 1, int perPage = 10)

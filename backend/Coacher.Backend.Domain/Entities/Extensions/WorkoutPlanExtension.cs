@@ -25,23 +25,23 @@ namespace Coacher.Backend.Domain.Entities.Extensions
             return existingWorkout;
         }
 
-        public static WorkoutExercise ToEntity(this ExerciseInWorkoutDto exerciseDto)
+        public static WorkoutExercise ToEntity(this WorkoutExerciseDto exerciseDto)
         {
             return new WorkoutExercise
             {
                 Id = Guid.NewGuid(),
-                ExerciseId = exerciseDto.ExerciseId,
+                ExerciseId = exerciseDto.Exercise.Id,
             };
         }
         
-        public static WorkoutExercise UpdateEntity(this ExerciseInWorkoutDto exerciseDto, WorkoutExercise existingExercise)
+        public static WorkoutExercise UpdateEntity(this WorkoutExerciseDto exerciseDto, WorkoutExercise existingExercise)
         {
             if (existingExercise == null)
             {
                 throw new ArgumentNullException(nameof(existingExercise));
             }
             
-            existingExercise.ExerciseId = exerciseDto.ExerciseId;
+            existingExercise.ExerciseId = exerciseDto.Exercise.Id;
             
             return existingExercise;
         }

@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Coacher.Backend.Application.Services.AuthService
 {
-    public class AuthService(AppDbContext context, IConfiguration configuration) : IAuthService
+    public class AuthService(CoacherContext context, IConfiguration configuration) : IAuthService
     {
         public async Task<TokenResponseDto?> LoginAsync(LoginDto request)
         {

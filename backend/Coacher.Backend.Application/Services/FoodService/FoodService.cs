@@ -1,20 +1,17 @@
 using Coacher.Backend.Contracts.Dto;
 using Coacher.Backend.Domain.Data;
 using Coacher.Backend.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coacher.Backend.Application.Services.FoodService;
 
 public class FoodService : IFoodService
 {
-    private readonly AppDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly CoacherContext _context;
 
-    public FoodService(AppDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+    public FoodService(CoacherContext dbContext)
     {
         _context = dbContext;
-        _httpContextAccessor = httpContextAccessor;
     }
     
     public async Task<PagedResult<FoodDto>> GetAllAsync(int page = 1, int perPage = 10)

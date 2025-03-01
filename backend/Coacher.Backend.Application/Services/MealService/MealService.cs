@@ -1,20 +1,17 @@
 using Coacher.Backend.Contracts.Dto;
 using Coacher.Backend.Domain.Data;
 using Coacher.Backend.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coacher.Backend.Application.Services.MealService;
 
 public class MealService : IMealService
 {
-    private readonly AppDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly CoacherContext _context;
 
-    public MealService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+    public MealService(CoacherContext context)
     {
         _context = context;
-        _httpContextAccessor = httpContextAccessor;
     }
     
     
