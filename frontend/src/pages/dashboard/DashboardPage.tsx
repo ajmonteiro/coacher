@@ -52,7 +52,7 @@ export default function DashboardPage() {
 									/>
 								)}
 								link={Routes.DASHBOARD.CLIENTS.get()}
-								mainValue={stats.totalUsers.toString()}
+								mainValue={stats.userCount.toString()}
 								secondaryValue={T.pages.dashboard.clients_in_system}
 							/>
 							<DashboardCard
@@ -63,7 +63,7 @@ export default function DashboardPage() {
 									/>
 								)}
 								link={Routes.DASHBOARD.EXERCISES.get()}
-								mainValue={stats.totalExercises.toString()}
+								mainValue={stats.exerciseCount.toString()}
 								secondaryValue={T.pages.dashboard.exercises_in_system}
 							/>
 							<DashboardCard
@@ -74,7 +74,7 @@ export default function DashboardPage() {
 									/>
 								)}
 								link={Routes.DASHBOARD.FOOD.get()}
-								mainValue={stats.totalFoods.toString()}
+								mainValue={stats.foodCount.toString()}
 								secondaryValue={T.pages.dashboard.foods_in_system}
 							/>
 							{

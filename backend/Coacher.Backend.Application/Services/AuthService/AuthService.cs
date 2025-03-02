@@ -14,6 +14,8 @@ namespace Coacher.Backend.Application.Services.AuthService
 {
     public class AuthService(CoacherContext context, IConfiguration configuration) : IAuthService
     {
+        private readonly PasswordHasher<User> _passwordHasher = new();
+
         public async Task<TokenResponseDto?> LoginAsync(LoginDto request)
         {
             var user = await context.Users
@@ -27,12 +29,15 @@ namespace Coacher.Backend.Application.Services.AuthService
                 return null;
             }
 
-            if (new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
+            var testHash = _passwordHasher.HashPassword(user, "password123!");
+            Console.WriteLine($"Test Hash: {testHash}");
+            Console.WriteLine($"Stored Hash: {user.PasswordHash}");
+
+
+           if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
             {
                 return null;
             }
-            
-            var isCoach = user.Role.Name == "Coach";
             
             return await CreateTokenResponse(user);
         }
@@ -71,7 +76,7 @@ namespace Coacher.Backend.Application.Services.AuthService
                 return null;
 
             var user = new User();
-            var hashedPassword = new PasswordHasher<User>()
+            var hashedPassword = _passwordHasher
                 .HashPassword(user, request.Password);
 
             user.Username = request.Username;

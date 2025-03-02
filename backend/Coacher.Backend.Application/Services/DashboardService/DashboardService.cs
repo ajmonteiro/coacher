@@ -18,7 +18,7 @@ public class DashboardService : IDashboardService
         var FoodCount = await _context.Foods.AsNoTracking().CountAsync();
         var ExerciseCount = await _context.Exercises.AsNoTracking().CountAsync();
         var WorkoutPlanCount = await _context.WorkoutPlans.AsNoTracking().CountAsync();
-        var users = await _context.Users.ToListAsync();
+        var users = await _context.Users.AsNoTracking().ToListAsync();
 
         return new DashboardDto
         {
@@ -35,7 +35,6 @@ public class DashboardService : IDashboardService
                 Weight = u.Weight,
                 Height = u.Height,
                 RoleId = u.RoleId,
-                RoleName = u.Role.Name
             }).ToList()
         };
     }

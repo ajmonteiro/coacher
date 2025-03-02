@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Coacher.Backend.Application.Services.DashboardService;
+using Coacher.Backend.Contracts.Dto;
 
 namespace Coacher.Backend.WebAPI.Controllers.DashboardController
 {
@@ -19,7 +20,7 @@ namespace Coacher.Backend.WebAPI.Controllers.DashboardController
         }
 
         [HttpGet("stats")]
-        public async Task<ActionResult<object>> GetDashboardAsync()
+        public async Task<ActionResult<DashboardDto>> GetDashboardAsync()
         {
             try
             {

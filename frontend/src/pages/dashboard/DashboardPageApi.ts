@@ -2,10 +2,11 @@ import HttpBaseService from 'src/shared/services/HttpBaseService';
 
 type DashboardDataResponse = {
 	data: {
-		totalExercises: number
-		totalFoods: number
-		totalUsers: number
-		Users: any
+		exerciseCount: number
+		foodCount: number
+		userCount: number
+		users: any
+		workoutPlanCount: number
 	}
 };
 
